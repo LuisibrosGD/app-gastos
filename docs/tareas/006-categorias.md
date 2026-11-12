@@ -1,6 +1,6 @@
 # 006 — Categorías: datos y pantalla P09
 
-**Estado:** PENDIENTE
+**Estado:** LISTA_PARA_AUDITORIA
 **Tipo:** código
 **Depende de:** 004, 005
 **Referencias:** SPEC P09, R2, §4 (categorías por defecto) · ARQUITECTURA §3 · `docs/diseno/P09.png`, `P09b.png`
@@ -21,6 +21,7 @@ Pendiente heredado de la 004: en `lib/core/theme/app_theme.dart`, el `FilledButt
 - `lib/core/router/app_router.dart`, `lib/core/l10n/app_es.arb`, `app_en.arb`
 - `lib/core/theme/app_theme.dart` (solo el borde del botón deshabilitado)
 - `test/features/categorias/data/categorias_repository_test.dart`, `test/features/categorias/ui/categorias_screen_test.dart`
+- `lib/features/categorias/ui/categoria_form_campos.dart` (añadido en la ronda 1 de auditoría)
 
 ## Interfaces
 **Consume:** `AppDatabase`, `Categoria`, `TipoMovimiento`, `ValidacionException`, `AppColores.categorias`.
@@ -85,17 +86,41 @@ Validación en `crear` y `actualizar`: `nombre.trim()` de 1 a 30 caracteres; si 
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/features/categorias/data/catalogo.dart`: `iconosCategoria` (16 claves), `ResultadoEliminar` y `claveIcono()`.
+- `lib/features/categorias/data/categorias_repository.dart`.
+- `lib/features/categorias/providers/categorias_providers.dart` y `.g.dart` (generado).
+- `lib/features/categorias/ui/categorias_screen.dart`.
+- `lib/features/categorias/ui/categoria_form_sheet.dart`.
+- `lib/core/router/app_router.dart`: rutas `/` y `/ajustes/categorias`, ambas a P09.
+- `lib/core/l10n/app_es.arb`, `app_en.arb` y las clases generadas de l10n.
+- `lib/core/theme/app_theme.dart`: borde `borde` de 1 dp en el `FilledButton` deshabilitado.
+- `test/features/categorias/data/categorias_repository_test.dart`.
+- `test/features/categorias/ui/categorias_screen_test.dart`.
+- `test/widget_test.dart` (fuera del Alcance, ver desvíos).
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `flutter gen-l10n` → clases de localización regeneradas.
+- `dart run build_runner build` → `categorias_providers.g.dart` generado; sin conflictos.
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (49 tests: 7 de repositorio y el widget test de P09 incluidos)
 
 **Decisiones tomadas / desvíos del brief:**
--
+- `ResultadoEliminar` vive en `catalogo.dart` (y no en el repositorio) para que la UI pueda comparar el resultado sin importar `categorias_repository.dart`, cumpliendo la regla de capas. La UI solo importa providers, `Categoria` y el catálogo.
+- `categoriasPorTipoProvider` está escrito a mano como `StreamProvider.family<List<Categoria>, TipoMovimiento>` porque `riverpod_generator` 4.0.10 falla con «Invalid provider type: the return type … could not be resolved» cuando el tipo de retorno incluye una clase generada por Drift. Comprobé que `Stream<int>`, `Stream<List<AppDatabase>>` y `Stream<List<Categoria>>` sin la anotación compilan; el problema está aislado en el generador. El repositorio sigue con `@Riverpod(keepAlive: true)` y usa el `.g.dart`.
+- `CategoriasRepository.crear` es `async` para que los errores de validación lleguen como `Future` fallido y no como excepción síncrona.
+- La pantalla solo muestra categorías activas, como pide el paso 3. La fila incluye la marca «Archivada» por si más adelante se listan archivadas, pero con el provider actual no aparece ninguna; por eso P09 (que muestra «Cine · Archivada») no se reproduce al pie de la letra en ese punto.
+- Los textos de la pantalla y del formulario están en los ARB; el tipo solo se puede cambiar al crear.
+- `test/widget_test.dart` se ajustó porque `App` ahora abre P09 y, sin override, intentaba abrir la base real con `drift_flutter` (timers pendientes en el test). Se sobrescribe `appDatabaseProvider` con una base en memoria y se desmonta el árbol antes de terminar.
 
 **Dudas o problemas pendientes:**
--
+- El generador de Riverpod no admite por ahora tipos generados por Drift en el retorno de un provider; si se actualiza `riverpod_generator` y se corrige, `categoriasPorTipoProvider` puede volver a `@riverpod`.
+
+**Reporte – ronda 1**
+
+- Creado `lib/features/categorias/ui/categoria_form_campos.dart` con `SelectorTipo`, `BotonIcono` y `BotonColor` (públicos, sin `_`).
+- `categoria_form_sheet.dart` pasa de 366 a 237 líneas; importa el nuevo archivo y no cambia de comportamiento.
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (49 tests)
 
 ---
 
@@ -104,3 +129,25 @@ Validación en `crear` y `actualizar`: `nombre.trim()` de 1 a 30 caracteres; si 
 
 **Ronda 1 — fecha — resultado:**
 -
+
+**Ronda 1 — 2026-11-12 — CAMBIOS_SOLICITADOS**
+
+Lo verifiqué yo mismo: `flutter analyze` está limpio, los 49 tests pasan y `build_runner` no cambia el contenido de ningún `.g.dart`.
+- El repositorio, la validación, el archivado (con movimientos o con reglas), `crearPorDefecto` y el borde del botón deshabilitado están bien.
+- Las claves de ícono de las 12 categorías por defecto existen en el catálogo.
+- La UI solo pasa por providers.
+
+Desvíos que acepto:
+- **Provider a mano para `categoriasPorTipo`.** Lo convertí en norma en ARQUITECTURA §3, regla 9, para las próximas tareas.
+- **`ResultadoEliminar` en `catalogo.dart`.**
+- **Ajuste de `test/widget_test.dart`.** Era necesario.
+- **Secciones Gastos/Ingresos en lugar de pestañas.** Así lo muestra `P09.png`, y el diseño manda.
+
+Hay un único cambio:
+1. **`lib/features/categorias/ui/categoria_form_sheet.dart` tiene 366 líneas.** ARQUITECTURA §3, regla 8, pide dividir los archivos de más de unas 300.
+   - Mover `_SelectorTipo`, `_BotonIcono` y `_BotonColor` a `lib/features/categorias/ui/categoria_form_campos.dart` (ya está en el Alcance). Al cambiar de archivo dejan de ser privados: quitarles el `_`.
+   - No hay que cambiar el comportamiento. Volver a correr `flutter analyze` y `flutter test`.
+
+**Ronda 2 — 2026-11-12 — APROBADA**
+
+`SelectorTipo`, `BotonIcono` y `BotonColor` están ahora en `categoria_form_campos.dart` (142 líneas). `categoria_form_sheet.dart` bajó a 236 líneas. El comportamiento no cambió. Lo verifiqué yo mismo: `flutter analyze` está limpio y los 49 tests pasan.

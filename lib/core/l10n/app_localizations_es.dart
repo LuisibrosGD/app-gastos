@@ -10,4 +10,70 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get appTitle => 'App Gastos';
+
+  @override
+  String get categoriasTitulo => 'Categorías';
+
+  @override
+  String get categoriasNueva => 'Nueva';
+
+  @override
+  String get categoriasGastos => 'Gastos';
+
+  @override
+  String get categoriasIngresos => 'Ingresos';
+
+  @override
+  String get categoriaArchivada => 'Archivada';
+
+  @override
+  String get categoriaNueva => 'Nueva categoría';
+
+  @override
+  String get categoriaEditar => 'Editar categoría';
+
+  @override
+  String get campoNombre => 'Nombre';
+
+  @override
+  String get campoTipo => 'Tipo';
+
+  @override
+  String get tipoGasto => 'Gasto';
+
+  @override
+  String get tipoIngreso => 'Ingreso';
+
+  @override
+  String get campoIcono => 'Ícono';
+
+  @override
+  String get campoColor => 'Color';
+
+  @override
+  String get accionGuardar => 'Guardar';
+
+  @override
+  String get accionEliminar => 'Eliminar';
+
+  @override
+  String get accionCancelar => 'Cancelar';
+
+  @override
+  String get errorNombreRequerido => 'El nombre es obligatorio';
+
+  @override
+  String get errorNombreMuyLargo =>
+      'El nombre no puede superar los 30 caracteres';
+
+  @override
+  String get eliminarCategoriaTitulo => '¿Eliminar categoría?';
+
+  @override
+  String get eliminarCategoriaMensaje =>
+      'Si tiene movimientos o reglas recurrentes, se archivará en lugar de borrarse.';
+
+  @override
+  String get categoriaArchivadaAviso =>
+      'La categoría se archivó porque tiene movimientos o reglas recurrentes.';
 }

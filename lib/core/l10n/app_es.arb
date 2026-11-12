@@ -2,5 +2,89 @@
   "appTitle": "App Gastos",
   "@appTitle": {
     "description": "Nombre visible de la aplicación"
+  },
+  "categoriasTitulo": "Categorías",
+  "@categoriasTitulo": {
+    "description": "Título de la pantalla P09"
+  },
+  "categoriasNueva": "Nueva",
+  "@categoriasNueva": {
+    "description": "Acción para crear una categoría"
+  },
+  "categoriasGastos": "Gastos",
+  "@categoriasGastos": {
+    "description": "Título de la sección de categorías de gasto"
+  },
+  "categoriasIngresos": "Ingresos",
+  "@categoriasIngresos": {
+    "description": "Título de la sección de categorías de ingreso"
+  },
+  "categoriaArchivada": "Archivada",
+  "@categoriaArchivada": {
+    "description": "Marca de una categoría archivada"
+  },
+  "categoriaNueva": "Nueva categoría",
+  "@categoriaNueva": {
+    "description": "Título del formulario para crear una categoría"
+  },
+  "categoriaEditar": "Editar categoría",
+  "@categoriaEditar": {
+    "description": "Título del formulario para editar una categoría"
+  },
+  "campoNombre": "Nombre",
+  "@campoNombre": {
+    "description": "Etiqueta del campo nombre"
+  },
+  "campoTipo": "Tipo",
+  "@campoTipo": {
+    "description": "Etiqueta del campo tipo"
+  },
+  "tipoGasto": "Gasto",
+  "@tipoGasto": {
+    "description": "Tipo de movimiento gasto"
+  },
+  "tipoIngreso": "Ingreso",
+  "@tipoIngreso": {
+    "description": "Tipo de movimiento ingreso"
+  },
+  "campoIcono": "Ícono",
+  "@campoIcono": {
+    "description": "Etiqueta del selector de ícono"
+  },
+  "campoColor": "Color",
+  "@campoColor": {
+    "description": "Etiqueta del selector de color"
+  },
+  "accionGuardar": "Guardar",
+  "@accionGuardar": {
+    "description": "Acción para guardar el formulario"
+  },
+  "accionEliminar": "Eliminar",
+  "@accionEliminar": {
+    "description": "Acción para eliminar una categoría"
+  },
+  "accionCancelar": "Cancelar",
+  "@accionCancelar": {
+    "description": "Acción para cancelar el diálogo"
+  },
+  "errorNombreRequerido": "El nombre es obligatorio",
+  "@errorNombreRequerido": {
+    "description": "Error cuando el nombre está vacío"
+  },
+  "errorNombreMuyLargo": "El nombre no puede superar los 30 caracteres",
+  "@errorNombreMuyLargo": {
+    "description": "Error cuando el nombre supera los 30 caracteres"
+  },
+  "eliminarCategoriaTitulo": "¿Eliminar categoría?",
+  "@eliminarCategoriaTitulo": {
+    "description": "Título del diálogo de confirmación"
+  },
+  "eliminarCategoriaMensaje": "Si tiene movimientos o reglas recurrentes, se archivará en lugar de borrarse.",
+  "@eliminarCategoriaMensaje": {
+    "description": "Mensaje del diálogo de confirmación"
+  },
+  "categoriaArchivadaAviso": "La categoría se archivó porque tiene movimientos o reglas recurrentes.",
+  "@categoriaArchivadaAviso": {
+    "description": "Mensaje tras archivar en lugar de eliminar"
   }
 }

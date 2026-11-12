@@ -91,6 +91,12 @@ ThemeData construirTemaClaro() {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppRadio.m)),
         ),
+      ).copyWith(
+        side: WidgetStateProperty.resolveWith((estados) {
+          return estados.contains(WidgetState.disabled)
+              ? const BorderSide(color: AppColores.borde)
+              : BorderSide.none;
+        }),
       ),
     ),
     cardTheme: const CardThemeData(

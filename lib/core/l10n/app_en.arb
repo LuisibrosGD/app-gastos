@@ -1,6 +1,24 @@
 {
   "appTitle": "App Gastos",
-  "@appTitle": {
-    "description": "Application display name"
-  }
+  "categoriasTitulo": "Categories",
+  "categoriasNueva": "New",
+  "categoriasGastos": "Expenses",
+  "categoriasIngresos": "Income",
+  "categoriaArchivada": "Archived",
+  "categoriaNueva": "New category",
+  "categoriaEditar": "Edit category",
+  "campoNombre": "Name",
+  "campoTipo": "Type",
+  "tipoGasto": "Expense",
+  "tipoIngreso": "Income",
+  "campoIcono": "Icon",
+  "campoColor": "Color",
+  "accionGuardar": "Save",
+  "accionEliminar": "Delete",
+  "accionCancelar": "Cancel",
+  "errorNombreRequerido": "Name is required",
+  "errorNombreMuyLargo": "Name can't exceed 30 characters",
+  "eliminarCategoriaTitulo": "Delete category?",
+  "eliminarCategoriaMensaje": "If it has movements or recurring rules, it will be archived instead of deleted.",
+  "categoriaArchivadaAviso": "The category was archived because it has movements or recurring rules."
 }

@@ -103,6 +103,132 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'App Gastos'**
   String get appTitle;
+
+  /// Título de la pantalla P09
+  ///
+  /// In es, this message translates to:
+  /// **'Categorías'**
+  String get categoriasTitulo;
+
+  /// Acción para crear una categoría
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva'**
+  String get categoriasNueva;
+
+  /// Título de la sección de categorías de gasto
+  ///
+  /// In es, this message translates to:
+  /// **'Gastos'**
+  String get categoriasGastos;
+
+  /// Título de la sección de categorías de ingreso
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresos'**
+  String get categoriasIngresos;
+
+  /// Marca de una categoría archivada
+  ///
+  /// In es, this message translates to:
+  /// **'Archivada'**
+  String get categoriaArchivada;
+
+  /// Título del formulario para crear una categoría
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva categoría'**
+  String get categoriaNueva;
+
+  /// Título del formulario para editar una categoría
+  ///
+  /// In es, this message translates to:
+  /// **'Editar categoría'**
+  String get categoriaEditar;
+
+  /// Etiqueta del campo nombre
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre'**
+  String get campoNombre;
+
+  /// Etiqueta del campo tipo
+  ///
+  /// In es, this message translates to:
+  /// **'Tipo'**
+  String get campoTipo;
+
+  /// Tipo de movimiento gasto
+  ///
+  /// In es, this message translates to:
+  /// **'Gasto'**
+  String get tipoGasto;
+
+  /// Tipo de movimiento ingreso
+  ///
+  /// In es, this message translates to:
+  /// **'Ingreso'**
+  String get tipoIngreso;
+
+  /// Etiqueta del selector de ícono
+  ///
+  /// In es, this message translates to:
+  /// **'Ícono'**
+  String get campoIcono;
+
+  /// Etiqueta del selector de color
+  ///
+  /// In es, this message translates to:
+  /// **'Color'**
+  String get campoColor;
+
+  /// Acción para guardar el formulario
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get accionGuardar;
+
+  /// Acción para eliminar una categoría
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar'**
+  String get accionEliminar;
+
+  /// Acción para cancelar el diálogo
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get accionCancelar;
+
+  /// Error cuando el nombre está vacío
+  ///
+  /// In es, this message translates to:
+  /// **'El nombre es obligatorio'**
+  String get errorNombreRequerido;
+
+  /// Error cuando el nombre supera los 30 caracteres
+  ///
+  /// In es, this message translates to:
+  /// **'El nombre no puede superar los 30 caracteres'**
+  String get errorNombreMuyLargo;
+
+  /// Título del diálogo de confirmación
+  ///
+  /// In es, this message translates to:
+  /// **'¿Eliminar categoría?'**
+  String get eliminarCategoriaTitulo;
+
+  /// Mensaje del diálogo de confirmación
+  ///
+  /// In es, this message translates to:
+  /// **'Si tiene movimientos o reglas recurrentes, se archivará en lugar de borrarse.'**
+  String get eliminarCategoriaMensaje;
+
+  /// Mensaje tras archivar en lugar de eliminar
+  ///
+  /// In es, this message translates to:
+  /// **'La categoría se archivó porque tiene movimientos o reglas recurrentes.'**
+  String get categoriaArchivadaAviso;
 }
 
 class _AppLocalizationsDelegate

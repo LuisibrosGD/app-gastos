@@ -1,14 +1,28 @@
 import 'package:app_gastos/app.dart';
+import 'package:app_gastos/core/database/app_database.dart';
+import 'package:app_gastos/core/database/database_provider.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('la App se construye sin excepciones', (tester) async {
-    await tester.pumpWidget(const ProviderScope(child: App()));
+    final db = AppDatabase(NativeDatabase.memory());
+    addTearDown(db.close);
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [appDatabaseProvider.overrideWithValue(db)],
+        child: const App(),
+      ),
+    );
     await tester.pump();
 
     expect(tester.takeException(), isNull);
     expect(find.byType(MaterialApp), findsOneWidget);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpAndSettle();
   });
 }
