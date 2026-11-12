@@ -1,0 +1,6 @@
+{
+  "appTitle": "App Gastos",
+  "@appTitle": {
+    "description": "Application display name"
+  }
+}
