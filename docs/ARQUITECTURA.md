@@ -18,7 +18,7 @@
 | Idiomas | `flutter_localizations` + `intl` (archivos ARB) |
 | Gráficos | `fl_chart` |
 | Biometría | `local_auth` |
-| Almacenamiento seguro | `flutter_secure_storage` (hash del PIN) |
+| Almacenamiento seguro | `flutter_secure_storage` (hash del PIN) + `crypto` (SHA-256) |
 | Preferencias | `shared_preferences` |
 | Notificaciones | `flutter_local_notifications` |
 | Generación de código | `build_runner` |
@@ -47,7 +47,7 @@ lib/
       providers/   → providers de Riverpod
       ui/          → pantallas (*_screen.dart) y widgets
 test/                      → reflejo de lib/ (mismas rutas, sufijo _test.dart)
-docs/                      → SPEC, ARQUITECTURA, tareas
+docs/                      → SPEC, ARQUITECTURA, tareas/, diseno/ (tokens y PNG de Figma)
 ```
 
 ## 3. Capas y reglas de dependencia
@@ -80,7 +80,9 @@ Los montos son **enteros en céntimos** (S/ 12.50 → `1250`). Las fechas de los
 
 **alertasEnviadas**: `presupuestoId` FK · `mes` text `YYYY-MM` · `umbral` int {80, 100} · PK (presupuestoId, mes, umbral)
 
-**Índices:** `movimientos(fecha)`, `movimientos(categoriaId)`.
+**Índices:** `movimientos(fecha)`, `movimientos(categoriaId)`, y un índice único parcial `presupuesto_total_unico` sobre `presupuestos((categoria_id IS NULL)) WHERE categoria_id IS NULL`. Hace falta porque en SQLite `UNIQUE` permite varios `NULL`, y solo puede haber un presupuesto total.
+
+**Claves foráneas:** se activan con `PRAGMA foreign_keys = ON` en `beforeOpen`. `movimientos.recurrenteId` usa `ON DELETE SET NULL`, para que borrar una regla no borre sus movimientos (R5).
 
 **Fuera de la base:**
 - `shared_preferences`: `idioma`, `onboardingCompleto`, `bloqueoActivo`, `usarHuella`.
@@ -93,12 +95,14 @@ Los montos son **enteros en céntimos** (S/ 12.50 → `1250`). Las fechas de los
 - **Arranque** (`main.dart`): abre la base → si el onboarding no está completo, va a P02 → genera los recurrentes pendientes → si el bloqueo está activo, va a P01 → Inicio.
 - **Ciclo de vida:** un `AppLifecycleListener` registra cuándo la app pasa a segundo plano; al volver, genera los recurrentes y, si pasaron más de 60 s y el bloqueo está activo, muestra P01.
 - **Router:** un `redirect` global aplica las reglas de onboarding y bloqueo.
-- **Servicio de alertas** (`features/presupuesto`): lo llaman el repositorio de movimientos después de crear o editar un gasto, y el generador de recurrentes.
+- **Servicio de alertas** (`features/presupuesto`): lo llaman `MovimientosController` después de crear o editar un gasto, y el generador de recurrentes. Los repositorios no lo llaman, para que sigan siendo fáciles de testear. Las notificaciones pasan por una interfaz `Notificador`, que en los tests se sustituye por una falsa.
 - **Formato:** `formatSoles(int centimos)` → `S/ 1,234.50`; `parseSoles(String)` → céntimos o error.
 
 ## 6. Diseño (Figma → código)
 
 - El diseño vive en Figma y lo genera Command Code mediante el MCP de Figma.
+- Command Code exporta los tokens a `docs/diseno/tokens.md` y cada frame como PNG a `docs/diseno/Pxx.png`. Así Claude Code puede auditar el diseño sin acceso a Figma, y esos archivos sirven de referencia en las tareas de código.
+- Tipografía: **Roboto** (la fuente del sistema en Android, sin paquetes extra).
 - Los tokens (colores, tipografía, radios, espaciados) se trasladan a `core/theme` como constantes, en una tarea propia, antes de construir pantallas.
 - Cada pantalla de código se basa en su frame de Figma, que debe tener el mismo ID que en SPEC (P01–P10).
 
