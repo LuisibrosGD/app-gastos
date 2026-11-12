@@ -3,7 +3,7 @@
 > **Cómo** está construida la app. El **qué** está en [SPEC.md](SPEC.md).
 > Cualquier cambio de stack o de estructura se anota primero aquí (lo hace Claude Code).
 
-**Última actualización:** 2026-11-12 (minSdk 24 y versión de notificaciones fijada; ver tarea 003)
+**Última actualización:** 2026-11-12 (§4: `ON DELETE CASCADE` en presupuestos y alertas; ver tarea 005)
 
 ## 1. Stack
 
@@ -82,7 +82,7 @@ Los montos son **enteros en céntimos** (S/ 12.50 → `1250`). Las fechas de los
 
 **Índices:** `movimientos(fecha)`, `movimientos(categoriaId)`, y un índice único parcial `presupuesto_total_unico` sobre `presupuestos((categoria_id IS NULL)) WHERE categoria_id IS NULL`. Hace falta porque en SQLite `UNIQUE` permite varios `NULL`, y solo puede haber un presupuesto total.
 
-**Claves foráneas:** se activan con `PRAGMA foreign_keys = ON` en `beforeOpen`. `movimientos.recurrenteId` usa `ON DELETE SET NULL`, para que borrar una regla no borre sus movimientos (R5).
+**Claves foráneas:** se activan con `PRAGMA foreign_keys = ON` en `beforeOpen`. `movimientos.recurrenteId` usa `ON DELETE SET NULL`, para que borrar una regla no borre sus movimientos (R5). `presupuestos.categoriaId` y `alertasEnviadas.presupuestoId` usan `ON DELETE CASCADE`: al borrar una categoría se borra su presupuesto, y al borrar un presupuesto se borran sus alertas enviadas.
 
 **Fuera de la base:**
 - `shared_preferences`: `idioma`, `onboardingCompleto`, `bloqueoActivo`, `usarHuella`.
