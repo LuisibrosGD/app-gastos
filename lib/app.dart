@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/l10n/app_localizations.dart';
 import 'core/router/app_router.dart';
+import 'core/theme/app_theme.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -13,7 +14,7 @@ class App extends ConsumerWidget {
 
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
-      theme: ThemeData(useMaterial3: true),
+      theme: construirTemaClaro(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: const Locale('es'),

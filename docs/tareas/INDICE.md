@@ -35,7 +35,7 @@
 | 001 | [Diseño: tokens y componentes en Figma](001-diseno-tokens-componentes.md) | diseño | — | APROBADA |
 | 002 | [Diseño: pantallas P01–P10 en Figma](002-diseno-pantallas.md) | diseño | 001 | APROBADA |
 | 003 | [Inicializar proyecto Flutter y utilidades base](003-init-proyecto.md) | configuración | — | APROBADA |
-| 004 | [Tema desde los tokens de Figma](004-tema.md) | código | 001, 003 | PENDIENTE |
+| 004 | [Tema desde los tokens de Figma](004-tema.md) | código | 001, 003 | APROBADA |
 | 005 | [Base de datos: esquema v1](005-base-de-datos.md) | código | 003 | PENDIENTE |
 | 006 | [Categorías: datos y pantalla P09](006-categorias.md) | código | 004, 005 | PENDIENTE |
 | 007 | [Preferencias, idioma y onboarding P02](007-preferencias-onboarding.md) | código | 006 | PENDIENTE |

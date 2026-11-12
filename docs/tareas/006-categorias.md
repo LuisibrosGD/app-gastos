@@ -11,12 +11,15 @@ El repositorio y los providers de categorías, con creación de las categorías 
 ## Contexto
 Todavía no existe la navegación inferior ni Ajustes (tarea 010). Registra la ruta `/ajustes/categorias` en el router; por ahora será la ruta inicial `/` para poder probarla. La 010 cambia la ruta inicial.
 
+Pendiente heredado de la 004: en `lib/core/theme/app_theme.dart`, el `FilledButton` deshabilitado debe llevar borde `borde` de 1 dp (tokens.md §5, «Derivaciones de estado»). Sin borde, el botón blanco apenas se distingue del `fondo`.
+
 ## Alcance
 **Se puede crear o modificar:**
 - `lib/features/categorias/data/catalogo.dart`, `categorias_repository.dart`
 - `lib/features/categorias/providers/categorias_providers.dart` (+ `.g.dart`)
 - `lib/features/categorias/ui/categorias_screen.dart`, `categoria_form_sheet.dart`
 - `lib/core/router/app_router.dart`, `lib/core/l10n/app_es.arb`, `app_en.arb`
+- `lib/core/theme/app_theme.dart` (solo el borde del botón deshabilitado)
 - `test/features/categorias/data/categorias_repository_test.dart`, `test/features/categorias/ui/categorias_screen_test.dart`
 
 ## Interfaces

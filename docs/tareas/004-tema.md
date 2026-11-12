@@ -1,6 +1,6 @@
 # 004 — Tema desde los tokens de Figma
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 001, 003
 **Referencias:** ARQUITECTURA §3 (regla 7), §6 · `docs/diseno/tokens.md` · `docs/diseno/componentes.png`
@@ -58,22 +58,40 @@ ThemeData construirTemaClaro();
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/core/theme/colores.dart`: los 11 colores de `tokens.md` y `AppColores.categorias` con los 12 colores en orden `categoria01`…`categoria12`.
+- `lib/core/theme/tipografia.dart`: `AppTexto` con `titulo`, `subtitulo`, `cuerpo`, `etiqueta`, `pequeno` y `montoGrande` (Roboto, pesos, tamaños e interlineados del token).
+- `lib/core/theme/dimensiones.dart`: `AppEspacio` (`xs`…`xxl`) y `AppRadio` (`s`, `m`, `l`).
+- `lib/core/theme/app_theme.dart`: `construirTemaClaro()`.
+- `lib/app.dart`: `theme: construirTemaClaro()`.
+- `test/core/theme/app_theme_test.dart`.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (32 tests)
 
 **Decisiones tomadas / desvíos del brief:**
--
+- `ColorScheme.light` construido solo con tokens: `primary`, `primaryContainer`, `secondary`, `tertiary`, `surface`, `outline`, `outlineVariant`, `surfaceTint`, `error` y sus `on*`; `onSurfaceVariant` usa `textoSecundario`.
+- `textTheme` mapea los seis estilos de `AppTexto` a `displaySmall` (montoGrande), `headlineSmall` (titulo), `titleMedium` (subtitulo), `bodyLarge` (cuerpo), `labelLarge` (etiqueta) y `bodySmall` (pequeno).
+- `InputDecorationTheme`: relleno `superficie`, borde `borde` redondeado `radioM`, foco y error con borde `primario`/`error` de 2 dp, hint y label en `textoSecundario`, error en `error`.
+- `FilledButtonTheme`: 52 dp de alto, `radioM`, fondo `primario`, texto `superficie`, y deshabilitado `superficie` + `textoSecundario`.
+- `CardTheme`: `superficie`, sin elevación, `radioL` y borde `borde`.
+- `NavigationBarTheme`: 80 dp, fondo `superficie`, indicador `primarioSuave`, activa en `primario` e inactiva en `textoSecundario`, etiqueta `pequeno`.
+- `FloatingActionButtonTheme`: 56 × 56, `radioL`, fondo `primario` y texto `superficie`.
+- `AppTexto` fija `color: textoPrincipal` en los seis estilos; los usos que necesitan otro color lo cambian con `copyWith`.
 
 **Dudas o problemas pendientes:**
--
+- Ninguna.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-12 — APROBADA**
+
+Lo verifiqué yo mismo: `flutter analyze` está limpio, los 32 tests pasan y no hay ningún `Color(0x…)` ni `Colors.` fuera de `lib/core/theme`.
+- Los 11 colores, los 12 de categoría, los 6 estilos de texto, los radios y los espaciados coinciden uno por uno con `tokens.md`.
+- Los temas de campo, botón, tarjeta, barra de navegación y FAB siguen las medidas de §5.
+- Solo se tocaron los archivos del alcance.
+
+Observación no bloqueante: el `FilledButton` deshabilitado no lleva el borde `borde` que pide tokens.md §5. Lo añadí como pendiente heredado a la tarea 006, que es la primera con un formulario.
