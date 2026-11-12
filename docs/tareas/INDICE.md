@@ -9,7 +9,7 @@
 
 ## Restricciones globales (aplican a TODAS las tareas)
 
-- Solo Android, `minSdk 23`.
+- Solo Android, `minSdk 24`.
 - Montos siempre en céntimos `int`. Formato de presentación `S/ 1,234.50`.
 - Todo texto visible va en `app_es.arb` y `app_en.arb`, con las mismas claves en los dos.
 - Colores, tamaños y espaciados solo desde `lib/core/theme`.

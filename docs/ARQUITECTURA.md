@@ -3,7 +3,7 @@
 > **Cómo** está construida la app. El **qué** está en [SPEC.md](SPEC.md).
 > Cualquier cambio de stack o de estructura se anota primero aquí (lo hace Claude Code).
 
-**Última actualización:** 2026-11-11
+**Última actualización:** 2026-11-12 (minSdk 24 y versión de notificaciones fijada; ver tarea 003)
 
 ## 1. Stack
 
@@ -11,7 +11,7 @@
 |---|---|
 | Lenguaje / framework | Dart + Flutter (canal stable) |
 | IDE | Android Studio con los plugins de Flutter y Dart |
-| Plataforma objetivo | Android (minSdk 23) |
+| Plataforma objetivo | Android (minSdk 24 = Android 7.0; compileSdk y targetSdk los de Flutter, hoy 36) |
 | Base de datos | Drift (SQLite) + `drift_flutter` |
 | Estado e inyección de dependencias | Riverpod (`flutter_riverpod`, `riverpod_annotation` + `riverpod_generator`) |
 | Navegación | `go_router` |
@@ -20,7 +20,7 @@
 | Biometría | `local_auth` |
 | Almacenamiento seguro | `flutter_secure_storage` (hash del PIN) + `crypto` (SHA-256) |
 | Preferencias | `shared_preferences` |
-| Notificaciones | `flutter_local_notifications` |
+| Notificaciones | `flutter_local_notifications` `^22.3.3` (la 23.x exige compileSdk 37; no subir sin actualizar esta fila) |
 | Generación de código | `build_runner` |
 | Tests | `flutter_test`, `drift` con base en memoria (`NativeDatabase.memory()`) |
 | Lint | `flutter_lints` |
