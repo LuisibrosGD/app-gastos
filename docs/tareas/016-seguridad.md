@@ -8,6 +8,11 @@
 ## Objetivo
 Bloqueo opcional con PIN y huella: configurarlo en el onboarding y en Ajustes, y aplicarlo al abrir la app y al volver tras más de 60 s.
 
+## Contexto
+Pendientes de la auditoría de la 007 en `onboarding_screen.dart`, para corregir al añadir el paso 3:
+- Si `crearPorDefecto` falla en `_finalizar`, el botón se queda deshabilitado sin ningún mensaje. Hay que restaurar `_creando` y mostrar un SnackBar.
+- `_OpcionIdioma` usa `AppEspacio.xl` como tamaño del ícono. Usar un tamaño de ícono del tema, o `IconTheme`.
+
 ## Alcance
 **Se puede crear o modificar:**
 - `lib/features/seguridad/data/pin_service.dart`, `biometria_service.dart`
