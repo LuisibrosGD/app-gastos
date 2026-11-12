@@ -3,7 +3,7 @@
 > **Cómo** está construida la app. El **qué** está en [SPEC.md](SPEC.md).
 > Cualquier cambio de stack o de estructura se anota primero aquí (lo hace Claude Code).
 
-**Última actualización:** 2026-11-12 (§4: `ON DELETE CASCADE` en presupuestos y alertas; ver tarea 005)
+**Última actualización:** 2026-11-12 (§3 regla 9: providers a mano con tipos de Drift; ver tarea 006)
 
 ## 1. Stack
 
@@ -65,6 +65,7 @@ ui  →  providers  →  repository  →  Drift (AppDatabase)
 6. Ningún texto visible queda escrito en el código: todo va en los ARB.
 7. Ningún color, tamaño de fuente o espaciado queda escrito suelto: todo sale de `core/theme`.
 8. Un archivo de más de unas 300 líneas se divide.
+9. Los providers se escriben con `@riverpod` / `@Riverpod`, salvo cuando el tipo de retorno incluye una clase generada por Drift (`Categoria`, `Movimiento`…). `riverpod_generator` no la resuelve, así que ese provider se escribe a mano (`Provider`, `StreamProvider`, `.family`, etc.) con un comentario breve que lo explique.
 
 ## 4. Modelo de datos
 
