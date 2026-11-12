@@ -86,5 +86,24 @@
   "categoriaArchivadaAviso": "La categoría se archivó porque tiene movimientos o reglas recurrentes.",
   "@categoriaArchivadaAviso": {
     "description": "Mensaje tras archivar en lugar de eliminar"
-  }
+  },
+  "onboardingEligeIdioma": "Elige tu idioma",
+  "onboardingAyudaIdioma": "Podrás cambiarlo cuando quieras en Ajustes.",
+  "idiomaEspanol": "Español",
+  "idiomaIngles": "English",
+  "accionContinuar": "Continuar",
+  "onboardingCategoriasTitulo": "Categorías listas",
+  "onboardingCategoriasAyuda": "Creamos estas categorías por defecto. Puedes editarlas en Ajustes.",
+  "catComida": "Comida",
+  "catTransporte": "Transporte",
+  "catVivienda": "Vivienda",
+  "catServicios": "Servicios",
+  "catSalud": "Salud",
+  "catEntretenimiento": "Entretenimiento",
+  "catCompras": "Compras",
+  "catEducacion": "Educación",
+  "catOtrosGasto": "Otros",
+  "catSueldo": "Sueldo",
+  "catExtra": "Extra",
+  "catOtrosIngreso": "Otros"
 }

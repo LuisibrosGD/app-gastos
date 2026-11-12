@@ -229,6 +229,120 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'La categoría se archivó porque tiene movimientos o reglas recurrentes.'**
   String get categoriaArchivadaAviso;
+
+  /// No description provided for @onboardingEligeIdioma.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige tu idioma'**
+  String get onboardingEligeIdioma;
+
+  /// No description provided for @onboardingAyudaIdioma.
+  ///
+  /// In es, this message translates to:
+  /// **'Podrás cambiarlo cuando quieras en Ajustes.'**
+  String get onboardingAyudaIdioma;
+
+  /// No description provided for @idiomaEspanol.
+  ///
+  /// In es, this message translates to:
+  /// **'Español'**
+  String get idiomaEspanol;
+
+  /// No description provided for @idiomaIngles.
+  ///
+  /// In es, this message translates to:
+  /// **'English'**
+  String get idiomaIngles;
+
+  /// No description provided for @accionContinuar.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar'**
+  String get accionContinuar;
+
+  /// No description provided for @onboardingCategoriasTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Categorías listas'**
+  String get onboardingCategoriasTitulo;
+
+  /// No description provided for @onboardingCategoriasAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Creamos estas categorías por defecto. Puedes editarlas en Ajustes.'**
+  String get onboardingCategoriasAyuda;
+
+  /// No description provided for @catComida.
+  ///
+  /// In es, this message translates to:
+  /// **'Comida'**
+  String get catComida;
+
+  /// No description provided for @catTransporte.
+  ///
+  /// In es, this message translates to:
+  /// **'Transporte'**
+  String get catTransporte;
+
+  /// No description provided for @catVivienda.
+  ///
+  /// In es, this message translates to:
+  /// **'Vivienda'**
+  String get catVivienda;
+
+  /// No description provided for @catServicios.
+  ///
+  /// In es, this message translates to:
+  /// **'Servicios'**
+  String get catServicios;
+
+  /// No description provided for @catSalud.
+  ///
+  /// In es, this message translates to:
+  /// **'Salud'**
+  String get catSalud;
+
+  /// No description provided for @catEntretenimiento.
+  ///
+  /// In es, this message translates to:
+  /// **'Entretenimiento'**
+  String get catEntretenimiento;
+
+  /// No description provided for @catCompras.
+  ///
+  /// In es, this message translates to:
+  /// **'Compras'**
+  String get catCompras;
+
+  /// No description provided for @catEducacion.
+  ///
+  /// In es, this message translates to:
+  /// **'Educación'**
+  String get catEducacion;
+
+  /// No description provided for @catOtrosGasto.
+  ///
+  /// In es, this message translates to:
+  /// **'Otros'**
+  String get catOtrosGasto;
+
+  /// No description provided for @catSueldo.
+  ///
+  /// In es, this message translates to:
+  /// **'Sueldo'**
+  String get catSueldo;
+
+  /// No description provided for @catExtra.
+  ///
+  /// In es, this message translates to:
+  /// **'Extra'**
+  String get catExtra;
+
+  /// No description provided for @catOtrosIngreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Otros'**
+  String get catOtrosIngreso;
 }
 
 class _AppLocalizationsDelegate

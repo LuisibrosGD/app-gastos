@@ -38,7 +38,7 @@
 | 004 | [Tema desde los tokens de Figma](004-tema.md) | código | 001, 003 | APROBADA |
 | 005 | [Base de datos: esquema v1](005-base-de-datos.md) | código | 003 | APROBADA |
 | 006 | [Categorías: datos y pantalla P09](006-categorias.md) | código | 004, 005 | APROBADA |
-| 007 | [Preferencias, idioma y onboarding P02](007-preferencias-onboarding.md) | código | 006 | PENDIENTE |
+| 007 | [Preferencias, idioma y onboarding P02](007-preferencias-onboarding.md) | código | 006 | APROBADA |
 | 008 | [Movimientos: datos y controlador](008-movimientos-datos.md) | código | 006 | PENDIENTE |
 | 009 | [Movimientos: pantallas P04 y P05](009-movimientos-ui.md) | código | 007, 008 | PENDIENTE |
 | 010 | [Navegación, Inicio P03 y Ajustes P10](010-navegacion-inicio-ajustes.md) | código | 007, 009 | PENDIENTE |

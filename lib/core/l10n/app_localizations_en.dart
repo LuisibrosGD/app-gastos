@@ -75,4 +75,62 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get categoriaArchivadaAviso =>
       'The category was archived because it has movements or recurring rules.';
+
+  @override
+  String get onboardingEligeIdioma => 'Choose your language';
+
+  @override
+  String get onboardingAyudaIdioma => 'You can change it later in Settings.';
+
+  @override
+  String get idiomaEspanol => 'Spanish';
+
+  @override
+  String get idiomaIngles => 'English';
+
+  @override
+  String get accionContinuar => 'Continue';
+
+  @override
+  String get onboardingCategoriasTitulo => 'Categories ready';
+
+  @override
+  String get onboardingCategoriasAyuda =>
+      'We created these default categories. You can edit them in Settings.';
+
+  @override
+  String get catComida => 'Food';
+
+  @override
+  String get catTransporte => 'Transport';
+
+  @override
+  String get catVivienda => 'Housing';
+
+  @override
+  String get catServicios => 'Utilities';
+
+  @override
+  String get catSalud => 'Health';
+
+  @override
+  String get catEntretenimiento => 'Entertainment';
+
+  @override
+  String get catCompras => 'Shopping';
+
+  @override
+  String get catEducacion => 'Education';
+
+  @override
+  String get catOtrosGasto => 'Other';
+
+  @override
+  String get catSueldo => 'Salary';
+
+  @override
+  String get catExtra => 'Extra';
+
+  @override
+  String get catOtrosIngreso => 'Other';
 }
