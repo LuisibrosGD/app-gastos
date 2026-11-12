@@ -32,7 +32,7 @@
 
 | Nº | Tarea | Tipo | Depende de | Estado |
 |---|---|---|---|---|
-| 001 | [Diseño: tokens y componentes en Figma](001-diseno-tokens-componentes.md) | diseño | — | PENDIENTE |
+| 001 | [Diseño: tokens y componentes en Figma](001-diseno-tokens-componentes.md) | diseño | — | APROBADA |
 | 002 | [Diseño: pantallas P01–P10 en Figma](002-diseno-pantallas.md) | diseño | 001 | PENDIENTE |
 | 003 | [Inicializar proyecto Flutter y utilidades base](003-init-proyecto.md) | configuración | — | PENDIENTE |
 | 004 | [Tema desde los tokens de Figma](004-tema.md) | código | 001, 003 | PENDIENTE |

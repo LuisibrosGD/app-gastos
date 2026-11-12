@@ -12,11 +12,18 @@ Las 10 pantallas de la v1 diseñadas en Figma con los componentes de 001, y expo
 - El contenido de cada pantalla está en SPEC §4. No añadir funciones que no estén ahí (nada de exportar, nube, cuentas, etc.).
 - Textos en español, con datos de ejemplo realistas en soles (S/ 12.50, "Almuerzo", "Taxi"…).
 - Los frames deben llamarse con el ID de SPEC, porque las tareas de código los referencian así.
+- **Correcciones de la auditoría de 001** (aplicarlas también a los componentes de la página `Componentes` y volver a exportar `docs/diseno/componentes.png`):
+  1. `alerta` no se usa para texto: el título del banner y los porcentajes van en `textoPrincipal`; `alerta` solo en la barra, el acento y los íconos.
+  2. El avatar del item de movimiento muestra un **ícono** de categoría, no una letra.
+  3. El ícono de la pestaña Ajustes es un engranaje (o equivalente reconocible).
+  4. El ejemplo del campo con error tiene un mensaje coherente con su contenido.
+  5. El hueco entre el avatar y el texto del item de movimiento es `espacio12`.
 
 ## Alcance
 **Se puede crear o modificar:**
 - El archivo de Figma "App Gastos" (página "Pantallas").
 - `docs/diseno/P01.png` … `docs/diseno/P10.png` y los PNG de estados listados abajo.
+- La página `Componentes` y `docs/diseno/componentes.png` (solo para las correcciones de 001).
 
 **Fuera de alcance:** cambiar los tokens de 001 (si hace falta, ponla en `BLOQUEADA` y explícalo) y cualquier código.
 
