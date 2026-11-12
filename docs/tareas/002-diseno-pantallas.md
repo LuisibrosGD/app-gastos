@@ -57,7 +57,7 @@ Las 10 pantallas de la v1 diseñadas en Figma con los componentes de 001, y expo
 Página `Pantallas` en el mismo archivo. Página `Componentes`: https://www.figma.com/design/jqNwN5MXEEiVNXAA0JQ0fg/app-gasto?node-id=6-146
 
 **Archivos creados o modificados:**
-- `docs/diseno/P01.png`, `P01b.png`, `P02a.png`, `P02b.png`, `P02c.png`, `P03.png`, `P03b.png`, `P03c.png`, `P04.png`, `P04b.png`, `P04c.png`, `P05.png`, `P05b.png`, `P06.png`, `P06b.png`, `P07.png`, `P08.png`, `P08b.png`, `P09.png`, `P09b.png`, `P10.png` (21 archivos, 720×1600 px).
+- `docs/diseno/P01.png`, `P01b.png`, `P02a.png`, `P02b.png`, `P02c.png`, `P03.png`, `P03b.png`, `P03c.png`, `P04.png`, `P04b.png`, `P04c.png`, `P05.png`, `P05b.png`, `P06.png`, `P06b.png`, `P07.png`, `P08.png`, `P08b.png`, `P09.png`, `P09b.png`, `P10.png` (21 archivos, 360×800 px).
 - `docs/diseno/componentes.png` (reexportado tras las correcciones).
 - `docs/tareas/002-diseno-pantallas.md` (estado y este reporte).
 - Figma, página `Pantallas`: 21 frames de 360×800 con los nombres `Pxx — Nombre`.
@@ -91,6 +91,13 @@ Cambios aplicados:
 Además, por indicación del usuario: los frames de la página `Pantallas` se reacomodaron en una rejilla 4×6 con 400×900 de paso, sin superposiciones (P01/P03 y P01b/P03b ya no comparten posición).
 
 Archivos reexportados: `P01b.png`, `P03.png`, `P03b.png`, `P03c.png`, `P04b.png`, `P05.png`, `P05b.png`, `P06.png`.
+
+### Reporte – ronda 2
+
+- Estado actualizado a `LISTA_PARA_AUDITORIA` (queda corregido el descuido de protocolo de la entrega anterior).
+- **P06**: los puntos de la leyenda se recrearon rellenos —los nodos anteriores se rasterizaban como anillos pese a tener relleno sólido—, incluidos los de «Ingresos / Gastos». Reexportado `P06.png`. En código (tarea 015) irán rellenos, igual que ahora.
+- Corregida una cifra del reporte: los PNG se exportan a **360×800 px**; la entrega anterior decía 720×1600 por error.
+- No se modificó ningún otro frame ni PNG.
 
 ---
 
@@ -133,3 +140,11 @@ Notas menores (no requieren otra ronda):
 - La cabecera de esta tarea seguía en `CAMBIOS_SOLICITADOS` al entregar la ronda 1. Al reentregar hay que cambiarla a `LISTA_PARA_AUDITORIA` (protocolo).
 - En P06 los puntos de la leyenda pasaron a ser anillos huecos; en código (tarea 015) se usan puntos rellenos con el color de la categoría.
 - Siguen vigentes las observaciones no bloqueantes de la ronda 1 (color de los puntos de los chips en P04/P04c, año de ejemplo, set de íconos de P09b → 006).
+
+**Ronda 3 — 2026-11-12 — APROBADA**
+
+Revisión de los retoques enviados después de la ronda 2:
+- `P06.png` reexportado a 360×800: todos los puntos de la leyenda están rellenos, también los de «Ingresos / Gastos». Ningún otro elemento del frame cambió. ✔
+- Las medidas del reporte ya están corregidas a 360×800 px, que es lo que mide de verdad (lo comprobé con PIL). ✔
+- `git diff` muestra que solo cambiaron `P06.png`, esta tarea y `.commandcode/taste/taste.md`, que es un archivo interno de Command Code. ✔
+- Esta vez el estado se entregó en `LISTA_PARA_AUDITORIA`, como pide el protocolo. ✔
