@@ -5,15 +5,22 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/colores.dart';
 import '../../../../core/theme/dimensiones.dart';
 import '../../../../core/theme/tipografia.dart';
+import '../../../../core/utils/fechas.dart';
 import '../../../../core/utils/moneda.dart';
 import '../../../categorias/data/catalogo.dart';
 import '../../data/modelos.dart';
 
 class MovimientoTile extends StatelessWidget {
-  const MovimientoTile({super.key, required this.item, this.onTap});
+  const MovimientoTile({
+    super.key,
+    required this.item,
+    this.onTap,
+    this.mostrarFecha = false,
+  });
 
   final MovimientoConCategoria item;
   final VoidCallback? onTap;
+  final bool mostrarFecha;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +31,12 @@ class MovimientoTile extends StatelessWidget {
     final nota = movimiento.nota;
 
     final titulo = (nota == null || nota.isEmpty) ? categoria.nombre : nota;
-    final subtitulo = (nota == null || nota.isEmpty)
+    var subtitulo = (nota == null || nota.isEmpty)
         ? (esIngreso ? l10n.tipoIngreso : l10n.tipoGasto)
         : categoria.nombre;
+    if (mostrarFecha) {
+      subtitulo = '$subtitulo · ${_etiquetaFecha(context, movimiento.fecha)}';
+    }
     final signo = esIngreso ? '+' : '-';
 
     return InkWell(
@@ -79,5 +89,15 @@ class MovimientoTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _etiquetaFecha(BuildContext context, DateTime fecha) {
+    final l10n = AppLocalizations.of(context);
+    final idioma = Localizations.localeOf(context).languageCode;
+    final dia = soloFecha(fecha);
+    final hoy = soloFecha(DateTime.now());
+    if (dia == hoy) return l10n.hoy;
+    if (dia == hoy.subtract(const Duration(days: 1))) return l10n.ayer;
+    return formatFecha(dia, idioma);
   }
 }

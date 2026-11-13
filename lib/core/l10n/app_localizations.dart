@@ -535,6 +535,96 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Esta acción no se puede deshacer.'**
   String get confirmarBorrarMovimientoMensaje;
+
+  /// No description provided for @inicioTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio'**
+  String get inicioTitulo;
+
+  /// No description provided for @navInicio.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio'**
+  String get navInicio;
+
+  /// No description provided for @navResumen.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen'**
+  String get navResumen;
+
+  /// No description provided for @navAjustes.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes'**
+  String get navAjustes;
+
+  /// No description provided for @balanceDeMes.
+  ///
+  /// In es, this message translates to:
+  /// **'Balance de {mes}'**
+  String balanceDeMes(String mes);
+
+  /// No description provided for @ultimosMovimientos.
+  ///
+  /// In es, this message translates to:
+  /// **'Últimos movimientos'**
+  String get ultimosMovimientos;
+
+  /// No description provided for @verTodos.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver todos'**
+  String get verTodos;
+
+  /// No description provided for @sinMovimientosInicioTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no hay movimientos'**
+  String get sinMovimientosInicioTitulo;
+
+  /// No description provided for @sinMovimientosInicioAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Registra tu primer gasto o ingreso para ver tu balance y tus resúmenes.'**
+  String get sinMovimientosInicioAyuda;
+
+  /// No description provided for @resumenTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen'**
+  String get resumenTitulo;
+
+  /// No description provided for @ajustesTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes'**
+  String get ajustesTitulo;
+
+  /// No description provided for @preferencias.
+  ///
+  /// In es, this message translates to:
+  /// **'Preferencias'**
+  String get preferencias;
+
+  /// No description provided for @organizacion.
+  ///
+  /// In es, this message translates to:
+  /// **'Organización'**
+  String get organizacion;
+
+  /// No description provided for @idioma.
+  ///
+  /// In es, this message translates to:
+  /// **'Idioma'**
+  String get idioma;
+
+  /// No description provided for @appVersion.
+  ///
+  /// In es, this message translates to:
+  /// **'App Gastos · versión 1.0'**
+  String get appVersion;
 }
 
 class _AppLocalizationsDelegate

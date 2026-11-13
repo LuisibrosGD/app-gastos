@@ -1,6 +1,6 @@
 # 010 — Navegación, Inicio P03 y Ajustes P10
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 007, 009
 **Referencias:** SPEC P03, P10 · ARQUITECTURA §5 (Router) · `docs/diseno/P03.png`, `P03b.png`, `P10.png`
@@ -68,22 +68,44 @@ class TarjetaBalance extends StatelessWidget { const TarjetaBalance({required th
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/core/router/app_router.dart`: `Rutas`, `StatefulShellRoute.indexedStack` con las 4 ramas y redirect de onboarding a `/inicio`.
+- `lib/core/router/shell_scaffold.dart`: `NavigationBar` de 4 pestañas con `goBranch`.
+- `lib/features/inicio/ui/inicio_screen.dart` y `widgets/tarjeta_balance.dart`.
+- `lib/features/ajustes/ui/ajustes_screen.dart`.
+- `lib/features/resumen/ui/resumen_screen.dart` (pantalla mínima con su título).
+- `lib/features/movimientos/ui/widgets/movimiento_tile.dart`: parámetro opcional `mostrarFecha` (ver desvíos).
+- `lib/core/l10n/app_es.arb`, `app_en.arb` y clases generadas.
+- `test/core/router/app_router_test.dart`, `test/features/inicio/ui/inicio_screen_test.dart`, `test/features/ajustes/ui/ajustes_screen_test.dart`.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `flutter gen-l10n` → textos nuevos generados.
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (80 tests; 6 nuevos)
 
 **Decisiones tomadas / desvíos del brief:**
--
+- `MovimientoTile` recibe `mostrarFecha` (por defecto `false`): P03 muestra «Comida · Hoy» en cada fila y P05 no muestra fecha. Sin ese parámetro no se podía reproducir el diseño; el valor por defecto conserva P05 y la 014.
+- El botón «Ver todos» usa `context.go(Rutas.movimientos)` para cambiar de rama sin apilar; el FAB usa `push` para abrir P04 a pantalla completa.
+- Inicio usa `movimientosRecientesProvider` (5 últimos) y `totalesMesProvider(inicioMes(now))`; la barra de presupuesto y el banner quedan para la 012.
+- Ajustes solo contiene Idioma y Categorías; no hay filas vacías ni «próximamente». El selector de idioma es un diálogo con Español/English.
+- Resumen es una pantalla mínima con su AppBar, sin contenido, para que la 015 la sustituya.
+- P04 y Categorías son rutas de nivel superior, fuera del shell.
 
 **Dudas o problemas pendientes:**
--
+- Ninguna.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-13 — APROBADA**
+
+- Pasan los 6 tests del paso 1. Corrí `flutter analyze` y salió limpio, pasan los 80 tests y `build_runner` no cambia nada.
+- Inicio (P03 y P03b) y Ajustes (P10) se ven como en sus PNG, sin las filas que llegan en la 012, la 014 y la 016. Ajustes no tiene entradas vacías ni «próximamente».
+- `totalesMesProvider` recibe `inicioMes(...)`, como pide el Contexto.
+- Acepto el desvío en `movimiento_tile.dart` (fuera del alcance): `mostrarFecha` es opcional, vale `false` por defecto y P05 no cambia.
+
+Notas, no bloquean:
+- `movimientos_screen.dart:185` y `:243` todavía tienen las rutas escritas a mano. Hay que cambiarlas por `Rutas.nuevoMovimiento` y `Rutas.movimiento(id)` la próxima vez que se toque ese archivo.
+- Si falla la carga, Inicio no muestra nada (`SizedBox.shrink`). Con una base local es poco probable.
+- `_EstadoVacioInicio` y `_FilaAjuste` usan `AppEspacio` como tamaño de ícono. Ya está anotado en la 016.

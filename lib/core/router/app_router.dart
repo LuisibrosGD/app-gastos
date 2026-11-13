@@ -2,37 +2,78 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/ajustes/providers/preferencias_providers.dart';
+import '../../features/ajustes/ui/ajustes_screen.dart';
 import '../../features/categorias/ui/categorias_screen.dart';
+import '../../features/inicio/ui/inicio_screen.dart';
 import '../../features/movimientos/ui/movimiento_form_screen.dart';
 import '../../features/movimientos/ui/movimientos_screen.dart';
 import '../../features/onboarding/ui/onboarding_screen.dart';
+import '../../features/resumen/ui/resumen_screen.dart';
+import 'shell_scaffold.dart';
 
-const _rutaOnboarding = '/onboarding';
+abstract final class Rutas {
+  static const inicio = '/inicio';
+  static const movimientos = '/movimientos';
+  static const resumen = '/resumen';
+  static const ajustes = '/ajustes';
+  static const onboarding = '/onboarding';
+  static const nuevoMovimiento = '/movimiento/nuevo';
+  static String movimiento(int id) => '/movimiento/$id';
+  static const categorias = '/ajustes/categorias';
+}
 
-/// Router de la aplicación. Provisionalmente, P05 es la ruta inicial hasta
-/// que la tarea 010 añada la navegación inferior y Ajustes.
 final appRouterProvider = Provider<GoRouter>((ref) {
   final onboardingCompleto = ref.watch(onboardingCompletoProvider);
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: Rutas.inicio,
     redirect: (context, state) {
-      final enOnboarding = state.matchedLocation == _rutaOnboarding;
-      if (!onboardingCompleto && !enOnboarding) return _rutaOnboarding;
-      if (onboardingCompleto && enOnboarding) return '/';
+      final enOnboarding = state.matchedLocation == Rutas.onboarding;
+      if (!onboardingCompleto && !enOnboarding) return Rutas.onboarding;
+      if (onboardingCompleto && enOnboarding) return Rutas.inicio;
       return null;
     },
     routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const MovimientosScreen(),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            ShellScaffold(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Rutas.inicio,
+                builder: (context, state) => const InicioScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Rutas.movimientos,
+                builder: (context, state) => const MovimientosScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Rutas.resumen,
+                builder: (context, state) => const ResumenScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Rutas.ajustes,
+                builder: (context, state) => const AjustesScreen(),
+              ),
+            ],
+          ),
+        ],
       ),
       GoRoute(
-        path: '/movimientos',
-        builder: (context, state) => const MovimientosScreen(),
-      ),
-      GoRoute(
-        path: '/movimiento/nuevo',
+        path: Rutas.nuevoMovimiento,
         builder: (context, state) => const MovimientoFormScreen(),
       ),
       GoRoute(
@@ -42,11 +83,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(
-        path: '/ajustes/categorias',
+        path: Rutas.categorias,
         builder: (context, state) => const CategoriasScreen(),
       ),
       GoRoute(
-        path: _rutaOnboarding,
+        path: Rutas.onboarding,
         builder: (context, state) => const OnboardingScreen(),
       ),
     ],

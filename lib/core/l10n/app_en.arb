@@ -92,5 +92,27 @@
   "errorGuardarMovimiento": "Couldn't save. Try again.",
   "errorCargarMovimiento": "Couldn't load the movement.",
   "confirmarBorrarMovimientoTitulo": "Delete movement?",
-  "confirmarBorrarMovimientoMensaje": "This action can't be undone."
+  "confirmarBorrarMovimientoMensaje": "This action can't be undone.",
+  "inicioTitulo": "Home",
+  "navInicio": "Home",
+  "navResumen": "Summary",
+  "navAjustes": "Settings",
+  "balanceDeMes": "Balance for {mes}",
+  "@balanceDeMes": {
+    "placeholders": {
+      "mes": {
+        "type": "String"
+      }
+    }
+  },
+  "ultimosMovimientos": "Latest movements",
+  "verTodos": "See all",
+  "sinMovimientosInicioTitulo": "No movements yet",
+  "sinMovimientosInicioAyuda": "Add your first expense or income to see your balance and summaries.",
+  "resumenTitulo": "Summary",
+  "ajustesTitulo": "Settings",
+  "preferencias": "Preferences",
+  "organizacion": "Organization",
+  "idioma": "Language",
+  "appVersion": "App Gastos · version 1.0"
 }

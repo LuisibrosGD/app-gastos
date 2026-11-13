@@ -236,4 +236,52 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get confirmarBorrarMovimientoMensaje =>
       'This action can\'t be undone.';
+
+  @override
+  String get inicioTitulo => 'Home';
+
+  @override
+  String get navInicio => 'Home';
+
+  @override
+  String get navResumen => 'Summary';
+
+  @override
+  String get navAjustes => 'Settings';
+
+  @override
+  String balanceDeMes(String mes) {
+    return 'Balance for $mes';
+  }
+
+  @override
+  String get ultimosMovimientos => 'Latest movements';
+
+  @override
+  String get verTodos => 'See all';
+
+  @override
+  String get sinMovimientosInicioTitulo => 'No movements yet';
+
+  @override
+  String get sinMovimientosInicioAyuda =>
+      'Add your first expense or income to see your balance and summaries.';
+
+  @override
+  String get resumenTitulo => 'Summary';
+
+  @override
+  String get ajustesTitulo => 'Settings';
+
+  @override
+  String get preferencias => 'Preferences';
+
+  @override
+  String get organizacion => 'Organization';
+
+  @override
+  String get idioma => 'Language';
+
+  @override
+  String get appVersion => 'App Gastos · version 1.0';
 }

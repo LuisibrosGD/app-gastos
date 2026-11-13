@@ -158,5 +158,27 @@
   "errorGuardarMovimiento": "No se pudo guardar. Inténtalo de nuevo.",
   "errorCargarMovimiento": "No se pudo cargar el movimiento.",
   "confirmarBorrarMovimientoTitulo": "¿Borrar movimiento?",
-  "confirmarBorrarMovimientoMensaje": "Esta acción no se puede deshacer."
+  "confirmarBorrarMovimientoMensaje": "Esta acción no se puede deshacer.",
+  "inicioTitulo": "Inicio",
+  "navInicio": "Inicio",
+  "navResumen": "Resumen",
+  "navAjustes": "Ajustes",
+  "balanceDeMes": "Balance de {mes}",
+  "@balanceDeMes": {
+    "placeholders": {
+      "mes": {
+        "type": "String"
+      }
+    }
+  },
+  "ultimosMovimientos": "Últimos movimientos",
+  "verTodos": "Ver todos",
+  "sinMovimientosInicioTitulo": "Aún no hay movimientos",
+  "sinMovimientosInicioAyuda": "Registra tu primer gasto o ingreso para ver tu balance y tus resúmenes.",
+  "resumenTitulo": "Resumen",
+  "ajustesTitulo": "Ajustes",
+  "preferencias": "Preferencias",
+  "organizacion": "Organización",
+  "idioma": "Idioma",
+  "appVersion": "App Gastos · versión 1.0"
 }
