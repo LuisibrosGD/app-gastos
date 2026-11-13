@@ -11,6 +11,8 @@ El formulario para crear, editar y borrar un movimiento (P04) y la lista mensual
 ## Contexto
 La navegación inferior llega en la 010. Por ahora registra `/movimientos` como ruta inicial `/` para poder probarla. Rutas de P04: `/movimiento/nuevo` y `/movimiento/:id`.
 
+Ojo con los providers de la 008: `movimientosMesProvider(filtro)` y `totalesMesProvider(mes)` usan la fecha como clave. Pasa siempre `inicioMes(...)`, nunca `DateTime.now()`. Si no, cada reconstrucción crea un provider nuevo y la consulta se reabre una y otra vez.
+
 ## Alcance
 **Se puede crear o modificar:**
 - `lib/features/movimientos/ui/movimiento_form_screen.dart`, `movimientos_screen.dart`

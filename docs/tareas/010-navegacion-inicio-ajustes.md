@@ -13,6 +13,8 @@ La navegación inferior con 4 pestañas, la pantalla de Inicio (balance del mes,
 - En Ajustes, las entradas de Presupuesto (012), Recurrentes (014) y Seguridad (016) se añaden en sus tareas. **No crear entradas vacías ni marcadores "próximamente".**
 - Resumen (015) todavía no existe: su pestaña muestra una pantalla mínima con su título, que la 015 sustituirá.
 
+Ojo con los providers de la 008: `movimientosMesProvider(filtro)` y `totalesMesProvider(mes)` usan la fecha como clave. Pasa siempre `inicioMes(...)`, nunca `DateTime.now()`. Si no, cada reconstrucción crea un provider nuevo y la consulta se reabre una y otra vez.
+
 ## Alcance
 **Se puede crear o modificar:**
 - `lib/core/router/app_router.dart`, `lib/core/router/shell_scaffold.dart`
