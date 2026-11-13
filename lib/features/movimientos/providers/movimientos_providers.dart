@@ -27,6 +27,11 @@ Stream<List<MovimientoConCategoria>> movimientosRecientes(Ref ref) {
 }
 
 @riverpod
+Future<MovimientoConCategoria?> movimiento(Ref ref, int id) {
+  return ref.watch(movimientosRepositoryProvider).obtener(id);
+}
+
+@riverpod
 Stream<TotalesMes> totalesMes(Ref ref, DateTime mes) {
   return ref.watch(movimientosRepositoryProvider).watchTotalesMes(mes);
 }

@@ -105,5 +105,58 @@
   "catOtrosGasto": "Otros",
   "catSueldo": "Sueldo",
   "catExtra": "Extra",
-  "catOtrosIngreso": "Otros"
+  "catOtrosIngreso": "Otros",
+  "movimientosTitulo": "Movimientos",
+  "nuevoMovimiento": "Nuevo movimiento",
+  "editarMovimiento": "Editar movimiento",
+  "accionBorrar": "Borrar",
+  "prefijoSoles": "S/",
+  "campoMonto": "Monto",
+  "campoCategoria": "Categoría",
+  "campoFecha": "Fecha",
+  "campoNotaOpcional": "Nota (opcional)",
+  "notaEjemplo": "Almuerzo con el equipo",
+  "fechaHoy": "Hoy, {fecha}",
+  "@fechaHoy": {
+    "placeholders": {
+      "fecha": {
+        "type": "String"
+      }
+    }
+  },
+  "hoy": "Hoy",
+  "ayer": "Ayer",
+  "filtroTodos": "Todos",
+  "filtroGastos": "Gastos",
+  "filtroIngresos": "Ingresos",
+  "categoriaFiltro": "Categoría: {valor}",
+  "@categoriaFiltro": {
+    "placeholders": {
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "categoriaTodas": "Todas",
+  "sinMovimientosMes": "Sin movimientos en {mes}",
+  "@sinMovimientosMes": {
+    "placeholders": {
+      "mes": {
+        "type": "String"
+      }
+    }
+  },
+  "sinMovimientosAyuda": "Prueba con otro mes o cambia los filtros.",
+  "registrarPrimero": "Registrar el primero",
+  "errorMontoRequerido": "Ingresa un monto",
+  "errorMontoFormato": "Usa como máximo 2 decimales",
+  "errorMontoMayorACero": "El monto debe ser mayor que cero",
+  "errorMontoMuyGrande": "El monto es demasiado grande",
+  "errorNotaMuyLargo": "La nota no puede superar los 200 caracteres",
+  "errorCategoriaRequerida": "Elige una categoría",
+  "errorCategoriaTipoNoCoincide": "La categoría no coincide con el tipo",
+  "errorGuardarMovimiento": "No se pudo guardar. Inténtalo de nuevo.",
+  "errorCargarMovimiento": "No se pudo cargar el movimiento.",
+  "confirmarBorrarMovimientoTitulo": "¿Borrar movimiento?",
+  "confirmarBorrarMovimientoMensaje": "Esta acción no se puede deshacer."
 }

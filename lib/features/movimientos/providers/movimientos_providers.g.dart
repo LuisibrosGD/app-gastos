@@ -180,6 +180,83 @@ final class MovimientosRecientesProvider
 String _$movimientosRecientesHash() =>
     r'fa5201a6a3468f6b777c4bf0de1607befbe8bda5';
 
+@ProviderFor(movimiento)
+final movimientoProvider = MovimientoFamily._();
+
+final class MovimientoProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<MovimientoConCategoria?>,
+          MovimientoConCategoria?,
+          FutureOr<MovimientoConCategoria?>
+        >
+    with
+        $FutureModifier<MovimientoConCategoria?>,
+        $FutureProvider<MovimientoConCategoria?> {
+  MovimientoProvider._({
+    required MovimientoFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'movimientoProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$movimientoHash();
+
+  @override
+  String toString() {
+    return r'movimientoProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<MovimientoConCategoria?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<MovimientoConCategoria?> create(Ref ref) {
+    final argument = this.argument as int;
+    return movimiento(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MovimientoProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$movimientoHash() => r'16f2c435ad32aae582e034e7879a30d53d008812';
+
+final class MovimientoFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<MovimientoConCategoria?>, int> {
+  MovimientoFamily._()
+    : super(
+        retry: null,
+        name: r'movimientoProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  MovimientoProvider call(int id) =>
+      MovimientoProvider._(argument: id, from: this);
+
+  @override
+  String toString() => r'movimientoProvider';
+}
+
 @ProviderFor(totalesMes)
 final totalesMesProvider = TotalesMesFamily._();
 

@@ -40,9 +40,12 @@ void main() {
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Categories'), findsOneWidget);
-    expect(find.text('Food'), findsOneWidget);
+    expect(find.text('Movements'), findsOneWidget);
     expect(PreferenciasRepository(prefs).onboardingCompleto, isTrue);
+
+    final categorias = await db.select(db.categorias).get();
+    expect(categorias, hasLength(12));
+    expect(categorias.map((c) => c.nombre), contains('Food'));
 
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.pumpAndSettle();

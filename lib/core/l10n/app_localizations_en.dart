@@ -133,4 +133,107 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catOtrosIngreso => 'Other';
+
+  @override
+  String get movimientosTitulo => 'Movements';
+
+  @override
+  String get nuevoMovimiento => 'New movement';
+
+  @override
+  String get editarMovimiento => 'Edit movement';
+
+  @override
+  String get accionBorrar => 'Delete';
+
+  @override
+  String get prefijoSoles => 'S/';
+
+  @override
+  String get campoMonto => 'Amount';
+
+  @override
+  String get campoCategoria => 'Category';
+
+  @override
+  String get campoFecha => 'Date';
+
+  @override
+  String get campoNotaOpcional => 'Note (optional)';
+
+  @override
+  String get notaEjemplo => 'Lunch with the team';
+
+  @override
+  String fechaHoy(String fecha) {
+    return 'Today, $fecha';
+  }
+
+  @override
+  String get hoy => 'Today';
+
+  @override
+  String get ayer => 'Yesterday';
+
+  @override
+  String get filtroTodos => 'All';
+
+  @override
+  String get filtroGastos => 'Expenses';
+
+  @override
+  String get filtroIngresos => 'Income';
+
+  @override
+  String categoriaFiltro(String valor) {
+    return 'Category: $valor';
+  }
+
+  @override
+  String get categoriaTodas => 'All';
+
+  @override
+  String sinMovimientosMes(String mes) {
+    return 'No movements in $mes';
+  }
+
+  @override
+  String get sinMovimientosAyuda => 'Try another month or change the filters.';
+
+  @override
+  String get registrarPrimero => 'Add the first one';
+
+  @override
+  String get errorMontoRequerido => 'Enter an amount';
+
+  @override
+  String get errorMontoFormato => 'Use at most 2 decimals';
+
+  @override
+  String get errorMontoMayorACero => 'Amount must be greater than zero';
+
+  @override
+  String get errorMontoMuyGrande => 'Amount is too large';
+
+  @override
+  String get errorNotaMuyLargo => 'Note can\'t exceed 200 characters';
+
+  @override
+  String get errorCategoriaRequerida => 'Choose a category';
+
+  @override
+  String get errorCategoriaTipoNoCoincide => 'Category doesn\'t match the type';
+
+  @override
+  String get errorGuardarMovimiento => 'Couldn\'t save. Try again.';
+
+  @override
+  String get errorCargarMovimiento => 'Couldn\'t load the movement.';
+
+  @override
+  String get confirmarBorrarMovimientoTitulo => 'Delete movement?';
+
+  @override
+  String get confirmarBorrarMovimientoMensaje =>
+      'This action can\'t be undone.';
 }

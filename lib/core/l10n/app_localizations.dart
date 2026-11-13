@@ -343,6 +343,198 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Otros'**
   String get catOtrosIngreso;
+
+  /// No description provided for @movimientosTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Movimientos'**
+  String get movimientosTitulo;
+
+  /// No description provided for @nuevoMovimiento.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo movimiento'**
+  String get nuevoMovimiento;
+
+  /// No description provided for @editarMovimiento.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar movimiento'**
+  String get editarMovimiento;
+
+  /// No description provided for @accionBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar'**
+  String get accionBorrar;
+
+  /// No description provided for @prefijoSoles.
+  ///
+  /// In es, this message translates to:
+  /// **'S/'**
+  String get prefijoSoles;
+
+  /// No description provided for @campoMonto.
+  ///
+  /// In es, this message translates to:
+  /// **'Monto'**
+  String get campoMonto;
+
+  /// No description provided for @campoCategoria.
+  ///
+  /// In es, this message translates to:
+  /// **'Categoría'**
+  String get campoCategoria;
+
+  /// No description provided for @campoFecha.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha'**
+  String get campoFecha;
+
+  /// No description provided for @campoNotaOpcional.
+  ///
+  /// In es, this message translates to:
+  /// **'Nota (opcional)'**
+  String get campoNotaOpcional;
+
+  /// No description provided for @notaEjemplo.
+  ///
+  /// In es, this message translates to:
+  /// **'Almuerzo con el equipo'**
+  String get notaEjemplo;
+
+  /// No description provided for @fechaHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy, {fecha}'**
+  String fechaHoy(String fecha);
+
+  /// No description provided for @hoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get hoy;
+
+  /// No description provided for @ayer.
+  ///
+  /// In es, this message translates to:
+  /// **'Ayer'**
+  String get ayer;
+
+  /// No description provided for @filtroTodos.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos'**
+  String get filtroTodos;
+
+  /// No description provided for @filtroGastos.
+  ///
+  /// In es, this message translates to:
+  /// **'Gastos'**
+  String get filtroGastos;
+
+  /// No description provided for @filtroIngresos.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresos'**
+  String get filtroIngresos;
+
+  /// No description provided for @categoriaFiltro.
+  ///
+  /// In es, this message translates to:
+  /// **'Categoría: {valor}'**
+  String categoriaFiltro(String valor);
+
+  /// No description provided for @categoriaTodas.
+  ///
+  /// In es, this message translates to:
+  /// **'Todas'**
+  String get categoriaTodas;
+
+  /// No description provided for @sinMovimientosMes.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin movimientos en {mes}'**
+  String sinMovimientosMes(String mes);
+
+  /// No description provided for @sinMovimientosAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Prueba con otro mes o cambia los filtros.'**
+  String get sinMovimientosAyuda;
+
+  /// No description provided for @registrarPrimero.
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar el primero'**
+  String get registrarPrimero;
+
+  /// No description provided for @errorMontoRequerido.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa un monto'**
+  String get errorMontoRequerido;
+
+  /// No description provided for @errorMontoFormato.
+  ///
+  /// In es, this message translates to:
+  /// **'Usa como máximo 2 decimales'**
+  String get errorMontoFormato;
+
+  /// No description provided for @errorMontoMayorACero.
+  ///
+  /// In es, this message translates to:
+  /// **'El monto debe ser mayor que cero'**
+  String get errorMontoMayorACero;
+
+  /// No description provided for @errorMontoMuyGrande.
+  ///
+  /// In es, this message translates to:
+  /// **'El monto es demasiado grande'**
+  String get errorMontoMuyGrande;
+
+  /// No description provided for @errorNotaMuyLargo.
+  ///
+  /// In es, this message translates to:
+  /// **'La nota no puede superar los 200 caracteres'**
+  String get errorNotaMuyLargo;
+
+  /// No description provided for @errorCategoriaRequerida.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige una categoría'**
+  String get errorCategoriaRequerida;
+
+  /// No description provided for @errorCategoriaTipoNoCoincide.
+  ///
+  /// In es, this message translates to:
+  /// **'La categoría no coincide con el tipo'**
+  String get errorCategoriaTipoNoCoincide;
+
+  /// No description provided for @errorGuardarMovimiento.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar. Inténtalo de nuevo.'**
+  String get errorGuardarMovimiento;
+
+  /// No description provided for @errorCargarMovimiento.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo cargar el movimiento.'**
+  String get errorCargarMovimiento;
+
+  /// No description provided for @confirmarBorrarMovimientoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar movimiento?'**
+  String get confirmarBorrarMovimientoTitulo;
+
+  /// No description provided for @confirmarBorrarMovimientoMensaje.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta acción no se puede deshacer.'**
+  String get confirmarBorrarMovimientoMensaje;
 }
 
 class _AppLocalizationsDelegate

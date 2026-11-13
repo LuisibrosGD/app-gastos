@@ -39,5 +39,58 @@
   "catOtrosGasto": "Other",
   "catSueldo": "Salary",
   "catExtra": "Extra",
-  "catOtrosIngreso": "Other"
+  "catOtrosIngreso": "Other",
+  "movimientosTitulo": "Movements",
+  "nuevoMovimiento": "New movement",
+  "editarMovimiento": "Edit movement",
+  "accionBorrar": "Delete",
+  "prefijoSoles": "S/",
+  "campoMonto": "Amount",
+  "campoCategoria": "Category",
+  "campoFecha": "Date",
+  "campoNotaOpcional": "Note (optional)",
+  "notaEjemplo": "Lunch with the team",
+  "fechaHoy": "Today, {fecha}",
+  "@fechaHoy": {
+    "placeholders": {
+      "fecha": {
+        "type": "String"
+      }
+    }
+  },
+  "hoy": "Today",
+  "ayer": "Yesterday",
+  "filtroTodos": "All",
+  "filtroGastos": "Expenses",
+  "filtroIngresos": "Income",
+  "categoriaFiltro": "Category: {valor}",
+  "@categoriaFiltro": {
+    "placeholders": {
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "categoriaTodas": "All",
+  "sinMovimientosMes": "No movements in {mes}",
+  "@sinMovimientosMes": {
+    "placeholders": {
+      "mes": {
+        "type": "String"
+      }
+    }
+  },
+  "sinMovimientosAyuda": "Try another month or change the filters.",
+  "registrarPrimero": "Add the first one",
+  "errorMontoRequerido": "Enter an amount",
+  "errorMontoFormato": "Use at most 2 decimals",
+  "errorMontoMayorACero": "Amount must be greater than zero",
+  "errorMontoMuyGrande": "Amount is too large",
+  "errorNotaMuyLargo": "Note can't exceed 200 characters",
+  "errorCategoriaRequerida": "Choose a category",
+  "errorCategoriaTipoNoCoincide": "Category doesn't match the type",
+  "errorGuardarMovimiento": "Couldn't save. Try again.",
+  "errorCargarMovimiento": "Couldn't load the movement.",
+  "confirmarBorrarMovimientoTitulo": "Delete movement?",
+  "confirmarBorrarMovimientoMensaje": "This action can't be undone."
 }
