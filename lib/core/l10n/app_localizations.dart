@@ -596,6 +596,36 @@ abstract class AppLocalizations {
   /// **'Resumen'**
   String get resumenTitulo;
 
+  /// No description provided for @resumenGastos.
+  ///
+  /// In es, this message translates to:
+  /// **'Gastos'**
+  String get resumenGastos;
+
+  /// No description provided for @resumenIngresos.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresos'**
+  String get resumenIngresos;
+
+  /// No description provided for @resumenIngresosVsGastos.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresos vs. gastos'**
+  String get resumenIngresosVsGastos;
+
+  /// No description provided for @resumenSinDatosTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin datos en {mes}'**
+  String resumenSinDatosTitulo(String mes);
+
+  /// No description provided for @resumenSinDatosCuerpo.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuando registres gastos e ingresos verás aquí el resumen por categoría y la comparación de los últimos 6 meses.'**
+  String get resumenSinDatosCuerpo;
+
   /// No description provided for @ajustesTitulo.
   ///
   /// In es, this message translates to:

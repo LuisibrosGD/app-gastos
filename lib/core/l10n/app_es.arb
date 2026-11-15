@@ -176,6 +176,18 @@
   "sinMovimientosInicioTitulo": "Aún no hay movimientos",
   "sinMovimientosInicioAyuda": "Registra tu primer gasto o ingreso para ver tu balance y tus resúmenes.",
   "resumenTitulo": "Resumen",
+  "resumenGastos": "Gastos",
+  "resumenIngresos": "Ingresos",
+  "resumenIngresosVsGastos": "Ingresos vs. gastos",
+  "resumenSinDatosTitulo": "Sin datos en {mes}",
+  "@resumenSinDatosTitulo": {
+    "placeholders": {
+      "mes": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenSinDatosCuerpo": "Cuando registres gastos e ingresos verás aquí el resumen por categoría y la comparación de los últimos 6 meses.",
   "ajustesTitulo": "Ajustes",
   "preferencias": "Preferencias",
   "organizacion": "Organización",

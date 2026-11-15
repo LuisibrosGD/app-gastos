@@ -110,6 +110,18 @@
   "sinMovimientosInicioTitulo": "No movements yet",
   "sinMovimientosInicioAyuda": "Add your first expense or income to see your balance and summaries.",
   "resumenTitulo": "Summary",
+  "resumenGastos": "Expenses",
+  "resumenIngresos": "Income",
+  "resumenIngresosVsGastos": "Income vs. expenses",
+  "resumenSinDatosTitulo": "No data in {mes}",
+  "@resumenSinDatosTitulo": {
+    "placeholders": {
+      "mes": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenSinDatosCuerpo": "Once you record income and expenses, you'll see the summary by category and the comparison of the last 6 months here.",
   "ajustesTitulo": "Settings",
   "preferencias": "Preferences",
   "organizacion": "Organization",

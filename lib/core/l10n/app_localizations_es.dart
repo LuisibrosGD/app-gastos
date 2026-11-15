@@ -275,6 +275,24 @@ class AppLocalizationsEs extends AppLocalizations {
   String get resumenTitulo => 'Resumen';
 
   @override
+  String get resumenGastos => 'Gastos';
+
+  @override
+  String get resumenIngresos => 'Ingresos';
+
+  @override
+  String get resumenIngresosVsGastos => 'Ingresos vs. gastos';
+
+  @override
+  String resumenSinDatosTitulo(String mes) {
+    return 'Sin datos en $mes';
+  }
+
+  @override
+  String get resumenSinDatosCuerpo =>
+      'Cuando registres gastos e ingresos verás aquí el resumen por categoría y la comparación de los últimos 6 meses.';
+
+  @override
   String get ajustesTitulo => 'Ajustes';
 
   @override

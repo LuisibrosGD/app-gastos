@@ -46,7 +46,7 @@
 | 012 | [Presupuesto: pantalla P07 y avisos en Inicio](012-presupuesto-ui.md) | código | 010, 011 | APROBADA |
 | 013 | [Recurrentes: lógica y generador](013-recurrentes-logica.md) | código | 011 | APROBADA |
 | 014 | [Recurrentes: pantalla P08 y ciclo de vida](014-recurrentes-ui.md) | código | 010, 013 | APROBADA |
-| 015 | [Resumen P06 con gráficos](015-resumen.md) | código | 010 | PENDIENTE |
+| 015 | [Resumen P06 con gráficos](015-resumen.md) | código | 010 | APROBADA |
 | 016 | [Seguridad: PIN, huella y bloqueo P01](016-seguridad.md) | código | 014 | PENDIENTE |
 | 017 | [Build release y prueba en el teléfono](017-release.md) | configuración | 001–016 | PENDIENTE |
 

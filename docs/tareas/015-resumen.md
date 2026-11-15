@@ -1,6 +1,6 @@
 # 015 — Resumen P06 con gráficos
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 010
 **Referencias:** SPEC P06, R2 (las archivadas aparecen en el resumen) · `docs/diseno/P06.png`, `P06b.png`
@@ -66,22 +66,38 @@ class ResumenRepository {
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/features/resumen/data/resumen_repository.dart`.
+- `lib/features/resumen/providers/resumen_providers.dart` y su `.g.dart`.
+- `lib/features/resumen/ui/resumen_screen.dart`, `ui/widgets/grafico_categorias.dart`, `grafico_meses.dart`.
+- `lib/core/l10n/app_es.arb`, `app_en.arb` y clases generadas.
+- `test/features/resumen/data/resumen_repository_test.dart`, `test/features/resumen/ui/resumen_screen_test.dart`.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `dart run build_runner build --delete-conflicting-outputs` → providers generados sin errores.
+- `flutter gen-l10n` → textos nuevos generados.
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (127 tests; 6 nuevos)
 
 **Decisiones tomadas / desvíos del brief:**
--
+- `watchGastosPorCategoria` usa `SUM` + `GROUP BY` sobre el join con categorías (sin filtrar archivadas) y calcula en Dart el porcentaje como `double`; los totales siguen en céntimos `int`.
+- `watchUltimosMeses` emite el valor inicial y se suscribe a `tableUpdates` de movimientos, cancelando la suscripción. Completa los meses vacíos con ceros mediante una consulta por mes.
+- La leyenda del gráfico circular muestra punto de color, nombre y porcentaje, como el PNG P06; el monto total aparece en el centro del donut y en las barras. El texto del brief pedía también el monto en la leyenda, pero se prioriza el diseño.
+- El estado vacío (P06b) oculta también el gráfico de meses aunque existan movimientos en otros meses, tal como muestra el PNG.
+- El selector de mes está en las acciones del AppBar y comparte `SelectorMes` con P05.
 
 **Dudas o problemas pendientes:**
--
+- Ninguna.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-15 — APROBADA**
+
+Verificado: `flutter analyze` sin problemas, `flutter test` 127 en verde, `build_runner` sin cambios en `.g.dart`. Solo se tocaron archivos del Alcance. P06 y P06b se parecen a sus PNG. Los totales van en céntimos `int` y solo el porcentaje es `double`. Las categorías archivadas aparecen (R2). Los 6 meses salen completos y con ceros. Se acepta la leyenda sin monto por categoría: coincide con el PNG y con SPEC P06 ("leyenda y %"), y el total está en el centro del donut.
+
+Notas no bloqueantes:
+- Un mes que solo tiene ingresos muestra "Sin datos en {mes}" y oculta también las barras de 6 meses. Sigue el brief y el PNG, pero puede confundir; revisarlo si molesta en el uso real.
+- Los tamaños del gráfico (148, 22, 48, 170, 7 y 240) son números fijos en lugar de constantes de `dimensiones.dart`.
+- Si la consulta falla, la pantalla queda vacía sin mensaje (igual que en otras pantallas).
