@@ -300,4 +300,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get canalPresupuesto => 'Budget';
+
+  @override
+  String get presupuestoTitulo => 'Budget';
+
+  @override
+  String get errorCargarPresupuesto => 'Couldn\'t load the budget.';
+
+  @override
+  String get presupuestoTotal => 'Total budget';
+
+  @override
+  String get totalMensual => 'Monthly total';
+
+  @override
+  String get editar => 'Edit';
+
+  @override
+  String get gastadoEsteMes => 'Spent this month';
+
+  @override
+  String get porCategoria => 'By category';
+
+  @override
+  String get anadirLimiteCategoria => 'Add category limit';
+
+  @override
+  String get presupuestoSinDefinir => 'Not set';
+
+  @override
+  String get elegirCategoria => 'Choose a category';
+
+  @override
+  String porcentaje(int valor) {
+    return '$valor%';
+  }
+
+  @override
+  String gastadoDeLimite(String gastado, String limite) {
+    return '$gastado of $limite';
+  }
+
+  @override
+  String presupuestoAlertaTitulo(int porcentaje) {
+    return 'Budget at $porcentaje%';
+  }
+
+  @override
+  String categoriaAlertaTitulo(String categoria, int porcentaje) {
+    return '$categoria at $porcentaje%';
+  }
+
+  @override
+  String presupuestoAlertaCuerpo(String gastado, String limite) {
+    return 'You\'ve spent $gastado of $limite this month.';
+  }
 }

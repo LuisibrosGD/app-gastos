@@ -204,5 +204,64 @@
     }
   },
   "alertaPresupuestoTotal": "Total",
-  "canalPresupuesto": "Presupuesto"
+  "canalPresupuesto": "Presupuesto",
+  "presupuestoTitulo": "Presupuesto",
+  "errorCargarPresupuesto": "No se pudo cargar el presupuesto.",
+  "presupuestoTotal": "Presupuesto total",
+  "totalMensual": "Total mensual",
+  "editar": "Editar",
+  "gastadoEsteMes": "Gastado este mes",
+  "porCategoria": "Por categoría",
+  "anadirLimiteCategoria": "Añadir límite por categoría",
+  "presupuestoSinDefinir": "Sin definir",
+  "elegirCategoria": "Elige una categoría",
+  "porcentaje": "{valor} %",
+  "@porcentaje": {
+    "placeholders": {
+      "valor": {
+        "type": "int"
+      }
+    }
+  },
+  "gastadoDeLimite": "{gastado} de {limite}",
+  "@gastadoDeLimite": {
+    "placeholders": {
+      "gastado": {
+        "type": "String"
+      },
+      "limite": {
+        "type": "String"
+      }
+    }
+  },
+  "presupuestoAlertaTitulo": "Presupuesto al {porcentaje} %",
+  "@presupuestoAlertaTitulo": {
+    "placeholders": {
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "categoriaAlertaTitulo": "{categoria} al {porcentaje} %",
+  "@categoriaAlertaTitulo": {
+    "placeholders": {
+      "categoria": {
+        "type": "String"
+      },
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "presupuestoAlertaCuerpo": "Llevas {gastado} de {limite} este mes.",
+  "@presupuestoAlertaCuerpo": {
+    "placeholders": {
+      "gastado": {
+        "type": "String"
+      },
+      "limite": {
+        "type": "String"
+      }
+    }
+  }
 }

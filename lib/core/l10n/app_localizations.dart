@@ -649,6 +649,96 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Presupuesto'**
   String get canalPresupuesto;
+
+  /// No description provided for @presupuestoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Presupuesto'**
+  String get presupuestoTitulo;
+
+  /// No description provided for @errorCargarPresupuesto.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo cargar el presupuesto.'**
+  String get errorCargarPresupuesto;
+
+  /// No description provided for @presupuestoTotal.
+  ///
+  /// In es, this message translates to:
+  /// **'Presupuesto total'**
+  String get presupuestoTotal;
+
+  /// No description provided for @totalMensual.
+  ///
+  /// In es, this message translates to:
+  /// **'Total mensual'**
+  String get totalMensual;
+
+  /// No description provided for @editar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar'**
+  String get editar;
+
+  /// No description provided for @gastadoEsteMes.
+  ///
+  /// In es, this message translates to:
+  /// **'Gastado este mes'**
+  String get gastadoEsteMes;
+
+  /// No description provided for @porCategoria.
+  ///
+  /// In es, this message translates to:
+  /// **'Por categoría'**
+  String get porCategoria;
+
+  /// No description provided for @anadirLimiteCategoria.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir límite por categoría'**
+  String get anadirLimiteCategoria;
+
+  /// No description provided for @presupuestoSinDefinir.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin definir'**
+  String get presupuestoSinDefinir;
+
+  /// No description provided for @elegirCategoria.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige una categoría'**
+  String get elegirCategoria;
+
+  /// No description provided for @porcentaje.
+  ///
+  /// In es, this message translates to:
+  /// **'{valor} %'**
+  String porcentaje(int valor);
+
+  /// No description provided for @gastadoDeLimite.
+  ///
+  /// In es, this message translates to:
+  /// **'{gastado} de {limite}'**
+  String gastadoDeLimite(String gastado, String limite);
+
+  /// No description provided for @presupuestoAlertaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Presupuesto al {porcentaje} %'**
+  String presupuestoAlertaTitulo(int porcentaje);
+
+  /// No description provided for @categoriaAlertaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'{categoria} al {porcentaje} %'**
+  String categoriaAlertaTitulo(String categoria, int porcentaje);
+
+  /// No description provided for @presupuestoAlertaCuerpo.
+  ///
+  /// In es, this message translates to:
+  /// **'Llevas {gastado} de {limite} este mes.'**
+  String presupuestoAlertaCuerpo(String gastado, String limite);
 }
 
 class _AppLocalizationsDelegate

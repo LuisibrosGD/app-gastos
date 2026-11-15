@@ -8,6 +8,7 @@ import '../../features/inicio/ui/inicio_screen.dart';
 import '../../features/movimientos/ui/movimiento_form_screen.dart';
 import '../../features/movimientos/ui/movimientos_screen.dart';
 import '../../features/onboarding/ui/onboarding_screen.dart';
+import '../../features/presupuesto/ui/presupuesto_screen.dart';
 import '../../features/resumen/ui/resumen_screen.dart';
 import 'shell_scaffold.dart';
 
@@ -20,6 +21,7 @@ abstract final class Rutas {
   static const nuevoMovimiento = '/movimiento/nuevo';
   static String movimiento(int id) => '/movimiento/$id';
   static const categorias = '/ajustes/categorias';
+  static const presupuesto = '/ajustes/presupuesto';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -85,6 +87,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Rutas.categorias,
         builder: (context, state) => const CategoriasScreen(),
+      ),
+      GoRoute(
+        path: Rutas.presupuesto,
+        builder: (context, state) => const PresupuestoScreen(),
       ),
       GoRoute(
         path: Rutas.onboarding,

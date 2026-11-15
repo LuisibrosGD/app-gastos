@@ -86,6 +86,10 @@ class AjustesScreen extends ConsumerWidget {
           _TarjetaAjustes(
             filas: [
               _FilaAjuste(
+                texto: l10n.presupuestoTitulo,
+                alTocar: () => context.push(Rutas.presupuesto),
+              ),
+              _FilaAjuste(
                 texto: l10n.categoriasTitulo,
                 alTocar: () => context.push(Rutas.categorias),
               ),

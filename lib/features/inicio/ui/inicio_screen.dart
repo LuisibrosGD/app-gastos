@@ -13,6 +13,10 @@ import '../../ajustes/providers/preferencias_providers.dart';
 import '../../movimientos/data/modelos.dart';
 import '../../movimientos/providers/movimientos_providers.dart';
 import '../../movimientos/ui/widgets/movimiento_tile.dart';
+import '../../presupuesto/domain/progreso.dart';
+import '../../presupuesto/providers/presupuesto_providers.dart';
+import '../../presupuesto/ui/widgets/banner_alerta.dart';
+import '../../presupuesto/ui/widgets/barra_progreso.dart';
 import 'widgets/tarjeta_balance.dart';
 
 class InicioScreen extends ConsumerWidget {
@@ -25,6 +29,7 @@ class InicioScreen extends ConsumerWidget {
     final mes = inicioMes(DateTime.now());
     final totales = ref.watch(totalesMesProvider(mes));
     final recientes = ref.watch(movimientosRecientesProvider);
+    final progresos = ref.watch(progresoPresupuestoProvider(mes));
 
     return Scaffold(
       appBar: AppBar(
@@ -63,6 +68,11 @@ class InicioScreen extends ConsumerWidget {
             ),
             error: (error, stackTrace) => const SizedBox.shrink(),
           ),
+          progresos.when(
+            data: (lista) => _BloquePresupuesto(progresos: lista),
+            loading: () => const SizedBox.shrink(),
+            error: (error, stackTrace) => const SizedBox.shrink(),
+          ),
           const SizedBox(height: AppEspacio.xl),
           recientes.when(
             data: (lista) => lista.isEmpty
@@ -85,6 +95,51 @@ class InicioScreen extends ConsumerWidget {
 String _tituloMes(DateTime mes, String idioma) {
   final texto = DateFormat('MMMM y', idioma).format(mes);
   return texto[0].toUpperCase() + texto.substring(1);
+}
+
+class _BloquePresupuesto extends StatelessWidget {
+  const _BloquePresupuesto({required this.progresos});
+
+  final List<ProgresoPresupuesto> progresos;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    ProgresoPresupuesto? total;
+    for (final progreso in progresos) {
+      if (progreso.categoria == null) {
+        total = progreso;
+        break;
+      }
+    }
+    final hayAlerta = progresos.any((progreso) => progreso.enAlerta);
+    if (total == null && !hayAlerta) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(top: AppEspacio.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (total != null) ...[
+            EncabezadoProgreso(
+              texto: l10n.presupuestoTotal,
+              porcentaje: total.porcentaje,
+            ),
+            const SizedBox(height: AppEspacio.xs),
+            BarraProgreso(progreso: total),
+          ],
+          if (hayAlerta) ...[
+            if (total != null) const SizedBox(height: AppEspacio.m),
+            InkWell(
+              borderRadius: BorderRadius.circular(AppRadio.m),
+              onTap: () => context.push(Rutas.presupuesto),
+              child: BannerAlerta(progresos: progresos),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
 }
 
 class _UltimosMovimientos extends StatelessWidget {

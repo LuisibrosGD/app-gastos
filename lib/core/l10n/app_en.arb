@@ -138,5 +138,64 @@
     }
   },
   "alertaPresupuestoTotal": "Total",
-  "canalPresupuesto": "Budget"
+  "canalPresupuesto": "Budget",
+  "presupuestoTitulo": "Budget",
+  "errorCargarPresupuesto": "Couldn't load the budget.",
+  "presupuestoTotal": "Total budget",
+  "totalMensual": "Monthly total",
+  "editar": "Edit",
+  "gastadoEsteMes": "Spent this month",
+  "porCategoria": "By category",
+  "anadirLimiteCategoria": "Add category limit",
+  "presupuestoSinDefinir": "Not set",
+  "elegirCategoria": "Choose a category",
+  "porcentaje": "{valor}%",
+  "@porcentaje": {
+    "placeholders": {
+      "valor": {
+        "type": "int"
+      }
+    }
+  },
+  "gastadoDeLimite": "{gastado} of {limite}",
+  "@gastadoDeLimite": {
+    "placeholders": {
+      "gastado": {
+        "type": "String"
+      },
+      "limite": {
+        "type": "String"
+      }
+    }
+  },
+  "presupuestoAlertaTitulo": "Budget at {porcentaje}%",
+  "@presupuestoAlertaTitulo": {
+    "placeholders": {
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "categoriaAlertaTitulo": "{categoria} at {porcentaje}%",
+  "@categoriaAlertaTitulo": {
+    "placeholders": {
+      "categoria": {
+        "type": "String"
+      },
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "presupuestoAlertaCuerpo": "You've spent {gastado} of {limite} this month.",
+  "@presupuestoAlertaCuerpo": {
+    "placeholders": {
+      "gastado": {
+        "type": "String"
+      },
+      "limite": {
+        "type": "String"
+      }
+    }
+  }
 }
