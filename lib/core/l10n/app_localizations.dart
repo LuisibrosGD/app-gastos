@@ -625,6 +625,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'App Gastos · versión 1.0'**
   String get appVersion;
+
+  /// No description provided for @alertaPresupuestoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Presupuesto al {porcentaje}%'**
+  String alertaPresupuestoTitulo(int porcentaje);
+
+  /// No description provided for @alertaPresupuestoCuerpo.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre}: {gastado} de {limite}'**
+  String alertaPresupuestoCuerpo(String nombre, String gastado, String limite);
+
+  /// No description provided for @alertaPresupuestoTotal.
+  ///
+  /// In es, this message translates to:
+  /// **'Total'**
+  String get alertaPresupuestoTotal;
+
+  /// No description provided for @canalPresupuesto.
+  ///
+  /// In es, this message translates to:
+  /// **'Presupuesto'**
+  String get canalPresupuesto;
 }
 
 class _AppLocalizationsDelegate

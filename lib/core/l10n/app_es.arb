@@ -180,5 +180,29 @@
   "preferencias": "Preferencias",
   "organizacion": "Organización",
   "idioma": "Idioma",
-  "appVersion": "App Gastos · versión 1.0"
+  "appVersion": "App Gastos · versión 1.0",
+  "alertaPresupuestoTitulo": "Presupuesto al {porcentaje}%",
+  "@alertaPresupuestoTitulo": {
+    "placeholders": {
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "alertaPresupuestoCuerpo": "{nombre}: {gastado} de {limite}",
+  "@alertaPresupuestoCuerpo": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      },
+      "gastado": {
+        "type": "String"
+      },
+      "limite": {
+        "type": "String"
+      }
+    }
+  },
+  "alertaPresupuestoTotal": "Total",
+  "canalPresupuesto": "Presupuesto"
 }

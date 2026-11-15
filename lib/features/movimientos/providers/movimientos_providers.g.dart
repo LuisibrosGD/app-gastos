@@ -356,7 +356,7 @@ final class MovimientosControllerProvider
 }
 
 String _$movimientosControllerHash() =>
-    r'85ec688cfff89bc6e1d11effd999a15a18a1bb90';
+    r'ef33fd2c2ea2b43b6304d3f2e4045ec40854d96b';
 
 abstract class _$MovimientosController extends $AsyncNotifier<void> {
   FutureOr<void> build();

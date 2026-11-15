@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/database/database_provider.dart';
+import '../../../core/database/enums.dart';
+import '../../presupuesto/providers/presupuesto_providers.dart';
 import '../data/modelos.dart';
 import '../data/movimientos_repository.dart';
 
@@ -43,11 +45,23 @@ class MovimientosController extends _$MovimientosController {
 
   Future<int> guardar({int? id, required MovimientoInput input}) async {
     final repositorio = ref.read(movimientosRepositoryProvider);
+    final int guardadoId;
     if (id == null) {
-      return repositorio.crear(input);
+      guardadoId = await repositorio.crear(input);
+    } else {
+      await repositorio.actualizar(id, input);
+      guardadoId = id;
     }
-    await repositorio.actualizar(id, input);
-    return id;
+
+    if (input.tipo == TipoMovimiento.gasto) {
+      try {
+        await ref
+            .read(alertasServiceProvider)
+            .revisar(fecha: input.fecha, categoriaId: input.categoriaId);
+      } catch (_) {}
+    }
+
+    return guardadoId;
   }
 
   Future<void> eliminar(int id) {

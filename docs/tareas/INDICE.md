@@ -42,7 +42,7 @@
 | 008 | [Movimientos: datos y controlador](008-movimientos-datos.md) | código | 006 | APROBADA |
 | 009 | [Movimientos: pantallas P04 y P05](009-movimientos-ui.md) | código | 007, 008 | APROBADA |
 | 010 | [Navegación, Inicio P03 y Ajustes P10](010-navegacion-inicio-ajustes.md) | código | 007, 009 | APROBADA |
-| 011 | [Presupuesto: datos y alertas](011-presupuesto-datos-alertas.md) | código | 008 | PENDIENTE |
+| 011 | [Presupuesto: datos y alertas](011-presupuesto-datos-alertas.md) | código | 008 | APROBADA |
 | 012 | [Presupuesto: pantalla P07 y avisos en Inicio](012-presupuesto-ui.md) | código | 010, 011 | PENDIENTE |
 | 013 | [Recurrentes: lógica y generador](013-recurrentes-logica.md) | código | 011 | PENDIENTE |
 | 014 | [Recurrentes: pantalla P08 y ciclo de vida](014-recurrentes-ui.md) | código | 010, 013 | PENDIENTE |

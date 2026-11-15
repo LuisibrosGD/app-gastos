@@ -288,4 +288,20 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get appVersion => 'App Gastos · versión 1.0';
+
+  @override
+  String alertaPresupuestoTitulo(int porcentaje) {
+    return 'Presupuesto al $porcentaje%';
+  }
+
+  @override
+  String alertaPresupuestoCuerpo(String nombre, String gastado, String limite) {
+    return '$nombre: $gastado de $limite';
+  }
+
+  @override
+  String get alertaPresupuestoTotal => 'Total';
+
+  @override
+  String get canalPresupuesto => 'Presupuesto';
 }
