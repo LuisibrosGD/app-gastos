@@ -1,6 +1,6 @@
 # 017 — Build release y prueba en el teléfono
 
-**Estado:** PENDIENTE
+**Estado:** BLOQUEADA
 **Tipo:** configuración
 **Depende de:** 001–016
 **Referencias:** SPEC §7 (criterios de aceptación de la v1)
@@ -28,19 +28,19 @@ Es una app personal que no se publica en Play Store. El APK se firma con una cla
 5. El usuario instala el APK en su teléfono (por USB desde Android Studio o copiando el archivo) y recorre el checklist. Command Code anota los resultados que le informe el usuario.
 
 ## Checklist manual (en el teléfono)
-- [ ] Primer arranque: onboarding en español, categorías creadas, PIN omitido.
-- [ ] Crear un gasto con "12,50": aparece en Inicio como S/ 12.50.
-- [ ] Editar el gasto y borrarlo.
-- [ ] Crear un ingreso: el balance de Inicio se actualiza.
-- [ ] P05: cambiar de mes y filtrar por categoría.
-- [ ] P06: el gráfico circular y las barras muestran los datos.
-- [ ] P09: crear una categoría; intentar borrar una con movimientos → se archiva.
-- [ ] P07: presupuesto total pequeño; superar el 80 % → una sola notificación y banner en Inicio.
-- [ ] P08: regla con el día de hoy → al reabrir la app aparece una sola vez.
-- [ ] P10: cambiar a English → todo traducido; volver a Español.
-- [ ] Activar PIN y huella; salir más de 1 minuto → pide desbloqueo; 5 PIN mal → espera de 30 s.
-- [ ] Modo avión: todo sigue funcionando.
-- [ ] Cerrar la app por completo y reabrirla: los datos siguen ahí.
+- [x] Primer arranque: onboarding en español, categorías creadas, PIN omitido.
+- [x] Crear un gasto con "12,50": aparece en Inicio como S/ 12.50.
+- [x] Editar el gasto y borrarlo.
+- [x] Crear un ingreso: el balance de Inicio se actualiza.
+- [ ] P05: cambiar de mes y filtrar por categoría. **FALLA:** el botón de categoría en Movimientos no abre nada hasta reiniciar la app; tras reiniciar sí funciona.
+- [x] P06: el gráfico circular y las barras muestran los datos.
+- [ ] P09: crear una categoría; intentar borrar una con movimientos → se archiva. **PARCIAL:** se archiva bien y el gasto sigue en el historial, pero no hay forma de ver las categorías archivadas.
+- [x] P07: presupuesto total pequeño; superar el 80 % → una sola notificación y banner en Inicio. **Nota:** el banner salió al momento; la notificación llegó una sola vez pero con unos 5 minutos de retraso, al usar por primera vez una regla recurrente.
+- [x] P08: regla con el día de hoy → al reabrir la app aparece una sola vez.
+- [x] P10: cambiar a English → todo traducido; volver a Español.
+- [x] Activar PIN y huella; salir más de 1 minuto → pide desbloqueo; 5 PIN mal → espera de 30 s.
+- [x] Modo avión: todo sigue funcionando.
+- [x] Cerrar la app por completo y reabrirla: los datos siguen ahí.
 
 ## Criterios de aceptación
 - [ ] `flutter build apk --release` genera el APK sin errores.
@@ -55,26 +55,65 @@ Es una app personal que no se publica en Play Store. El APK se firma con una cla
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `android/app/build.gradle.kts`: firma release condicional desde `android/key.properties`, con firma de depuración como respaldo si no existe.
+- `.gitignore`: `android/key.properties`, `*.jks`, `*.keystore`.
+- `android/app/src/main/res/mipmap-*/ic_launcher.png` (48, 72, 96, 144 y 192 px).
+- `android/app/src/main/res/mipmap-*/ic_launcher_foreground.png` (108, 162, 216, 324 y 432 px), `mipmap-anydpi-v26/ic_launcher.xml` y `values/colors.xml` para el ícono adaptativo.
+- Ícono generado en Figma (nodo `35:2` del archivo `app-gasto`) y exportado a 1024×1024.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
-- `flutter build apk --release` →
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (140 tests)
+- `flutter build apk --release` → `app-release.apk` (61.7 MB), sin errores.
+- `flutter build apk --release --split-per-abi` → `app-armeabi-v7a-release.apk` (19.6 MB), `app-arm64-v8a-release.apk` (21.9 MB), `app-x86_64-release.apk` (23.2 MB).
+- `git status --short` → no aparecen `key.properties`, `.jks` ni `.keystore`.
+- `flutter devices` → solo Windows, Chrome y Edge; no hay teléfono ni emulador Android conectado.
 
 **Resultado del checklist manual:**
--
+- Ejecutado por el usuario en su teléfono con el APK arm64.
+- OK: onboarding, gasto «12,50», editar/borrar, ingreso y balance, P06, P08, P10, PIN/huella con espera de 30 s, modo avión y persistencia tras cerrar la app.
+- **Fallo P05:** en Movimientos, el botón de filtro por categoría no abre el selector; no pasa nada hasta reiniciar la app, y entonces sí funciona.
+- **Fallo P09:** al borrar una categoría con movimientos se archiva correctamente y el gasto permanece en el historial, pero no existe ninguna vista para consultar las categorías archivadas.
+- **Observación P07:** el banner del 80 % apareció; la notificación llegó una sola vez, pero con unos 5 minutos de retraso (al usar por primera vez una regla recurrente).
 
 **Decisiones tomadas / desvíos del brief:**
--
+- El ícono se creó en Figma con la API de generación vectorial (billetera blanca y monedas sobre fondo `#4054B2`) y se exportó a 1024×1024. Se generaron los mipmap clásicos y un ícono adaptativo (`anydpi-v26`) con fondo de color y foreground rasterizado.
+- La firma release se activa sola cuando existe `android/key.properties`; sin ese archivo se firma con la clave de depuración para que el APK se pueda instalar y probar. El `storeFile` se resuelve respecto a `android/`.
+- Instrucciones para la clave del usuario (ejecutar en `android/`):
+  ```
+  keytool -genkeypair -v -keystore app-gastos.jks -alias app-gastos ^
+    -keyalg RSA -keysize 2048 -validity 10000
+  ```
+  Después crear `android/key.properties`:
+  ```
+  storePassword=...
+  keyPassword=...
+  keyAlias=app-gastos
+  storeFile=app-gastos.jks
+  ```
+  y volver a ejecutar `flutter build apk --release`.
+- APK recomendado para instalar: `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk` (21.9 MB). Instalación por USB: `adb install -r build/app/outputs/flutter-apk/app-arm64-v8a-release.apk`.
 
 **Dudas o problemas pendientes:**
--
+- La tarea queda `BLOQUEADA` por dos fallos del checklist que, según el brief, no se corrigen aquí:
+  1. P05: el filtro por categoría no responde hasta reiniciar la app.
+  2. P09: no hay forma de ver las categorías archivadas.
+- Revisar también el retraso de ~5 minutos de la notificación del presupuesto (P07); puede ser la entrega del sistema, pero conviene confirmarlo en la tarea de corrección.
+- El APK actual usa la firma de depuración porque el usuario todavía no ha creado su clave. Al generarla y crear `key.properties`, el siguiente build usará la firma propia.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-15 — BLOQUEADA (sigue así hasta cerrar 018–021)**
+
+Verificado: `flutter analyze` sin problemas y `flutter test` 140 en verde. La firma lee `android/key.properties` y, si no existe, usa la de depuración. `key.properties`, `*.jks` y `*.keystore` están ignorados por git (`git check-ignore` lo confirma). El ícono adaptativo es correcto. Solo se tocaron archivos del Alcance. La configuración y el ícono se guardan ya en un commit parcial para que no se mezclen con las correcciones.
+
+Fallos del checklist y tareas que los corrigen:
+- P05, el filtro por categoría no abre: tarea 018. Causa probable: `movimientos_screen.dart:33-38` espera `categoriasPorTipoProvider(...).future` con `ref.read`. En Riverpod 3 un provider que nadie escucha queda en pausa, así que ese `future` puede no terminar nunca.
+- P09, no se ven las archivadas: tarea 019. `categorias_screen.dart` usa el provider que las excluye, aunque la fila ya sabe mostrar «Archivada».
+- Mejoras pedidas por el usuario: tareas 020 (solo vertical, margen inferior y fila de recurrentes) y 021 (teclado de PIN).
+- Retraso de la notificación (P07): `notificador.dart` la muestra al instante con prioridad alta. Lo más probable es que el gasto recurrente se generara al reabrir la app, unos minutos después de crear la regla (R5), o que el sistema de ahorro de batería la retrasara. No se crea tarea. El usuario lo confirmará creando a mano un gasto que supere el 80 %.
+
+Al cerrar 018–021: nuevo APK y repetir P05, P09, P07 y el bloqueo.

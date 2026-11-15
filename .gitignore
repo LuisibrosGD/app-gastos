@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firma de release (tarea 017): la clave y sus contraseñas no van al repo
+android/key.properties
+*.jks
+*.keystore

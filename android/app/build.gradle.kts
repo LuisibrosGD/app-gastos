@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -5,6 +8,13 @@ plugins {
 }
 
 val appMinSdk = 24
+
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+val tieneFirmaRelease = keystorePropertiesFile.exists()
+if (tieneFirmaRelease) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
 
 android {
     namespace = "com.appgastos.app_gastos"
@@ -27,11 +37,28 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (tieneFirmaRelease) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = rootProject.file(
+                    keystoreProperties["storeFile"] as String,
+                )
+                storePassword = keystoreProperties["storePassword"] as String
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // Firma de release: tarea 017.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // Firma de release: tarea 017. Sin key.properties se usa la firma
+            // de depuración para que el APK se pueda instalar y probar.
+            signingConfig = if (tieneFirmaRelease) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
