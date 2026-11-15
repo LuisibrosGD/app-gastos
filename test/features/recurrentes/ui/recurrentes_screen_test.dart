@@ -221,6 +221,24 @@ void main() {
     await tester.pumpAndSettle();
   });
 
+  testWidgets('el monto y el switch de una regla no se solapan',
+      (tester) async {
+    configurarPantalla(tester);
+    await preparar();
+    await crearRegla(nota: 'Alquiler');
+
+    await tester.pumpWidget(app(const RecurrentesScreen()));
+    await tester.pumpAndSettle();
+
+    final monto = tester.getRect(find.text('- S/ 750.00'));
+    final interruptor = tester.getRect(find.byType(Switch));
+    expect(monto.overlaps(interruptor), isFalse);
+    expect(tester.takeException(), isNull);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpAndSettle();
+  });
+
   testWidgets('desactivar una regla con el switch la marca inactiva',
       (tester) async {
     configurarPantalla(tester);

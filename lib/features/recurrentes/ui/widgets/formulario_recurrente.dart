@@ -164,6 +164,7 @@ class _FormularioRecurrenteState extends ConsumerState<FormularioRecurrente> {
     final l10n = AppLocalizations.of(context);
     final idioma = ref.watch(idiomaActualProvider).languageCode;
     final categorias = ref.watch(categoriasPorTipoProvider(_tipo));
+    final insetInferior = MediaQuery.paddingOf(context).bottom;
 
     return Scaffold(
       appBar: AppBar(
@@ -189,7 +190,12 @@ class _FormularioRecurrenteState extends ConsumerState<FormularioRecurrente> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.all(AppEspacio.l),
+          padding: EdgeInsets.fromLTRB(
+            AppEspacio.l,
+            AppEspacio.l,
+            AppEspacio.l,
+            AppEspacio.l + insetInferior,
+          ),
           children: [
             SelectorTipoMovimiento(
               tipo: _tipo,

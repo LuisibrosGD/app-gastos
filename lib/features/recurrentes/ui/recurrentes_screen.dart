@@ -22,6 +22,7 @@ class RecurrentesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final reglas = ref.watch(recurrentesProvider);
+    final insetInferior = MediaQuery.paddingOf(context).bottom;
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +46,12 @@ class RecurrentesScreen extends ConsumerWidget {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(AppEspacio.l),
+        padding: EdgeInsets.fromLTRB(
+          AppEspacio.l,
+          AppEspacio.l,
+          AppEspacio.l,
+          AppEspacio.l + insetInferior,
+        ),
         children: [
           Text(
             l10n.recurrentesAyuda,
@@ -122,10 +128,38 @@ class _TarjetaRecurrente extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      titulo,
-                      style: AppTexto.cuerpo,
-                      overflow: TextOverflow.ellipsis,
+                    LayoutBuilder(
+                      builder: (context, constraints) => Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              titulo,
+                              style: AppTexto.cuerpo,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: AppEspacio.s),
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: constraints.maxWidth * 0.65,
+                            ),
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                '${esIngreso ? '+' : '-'} '
+                                '${formatSoles(regla.montoCentimos)}',
+                                style: AppTexto.cuerpo.copyWith(
+                                  color: esIngreso
+                                      ? AppColores.ingreso
+                                      : AppColores.gasto,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: AppEspacio.xs),
                     Text(
@@ -138,27 +172,10 @@ class _TarjetaRecurrente extends ConsumerWidget {
                 ),
               ),
               const SizedBox(width: AppEspacio.s),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    '${esIngreso ? '+' : '-'} '
-                    '${formatSoles(regla.montoCentimos)}',
-                    style: AppTexto.cuerpo.copyWith(
-                      color: esIngreso
-                          ? AppColores.ingreso
-                          : AppColores.gasto,
-                    ),
-                  ),
-                  SizedBox(
-                    height: AppEspacio.xl,
-                    child: Switch(
-                      value: regla.activo,
-                      onChanged: (valor) =>
-                          _cambiarActivo(context, ref, regla, valor),
-                    ),
-                  ),
-                ],
+              Switch(
+                value: regla.activo,
+                onChanged: (valor) =>
+                    _cambiarActivo(context, ref, regla, valor),
               ),
             ],
           ),

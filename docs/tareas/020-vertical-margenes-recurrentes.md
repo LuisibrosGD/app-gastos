@@ -1,6 +1,6 @@
 # 020 — Solo vertical, margen inferior y fila de recurrentes
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 017 (parcial)
 **Referencias:** SPEC P07, P08, P09 · Mejoras pedidas por el usuario tras la prueba de la 017
@@ -56,22 +56,38 @@ Tres arreglos visuales detectados en el teléfono:
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/main.dart`: `SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])` antes de `runApp`.
+- `android/app/src/main/AndroidManifest.xml`: `android:screenOrientation="portrait"` en la activity.
+- Margen inferior con `MediaQuery.paddingOf(context).bottom` sumado al `padding` del `ListView`:
+  - `lib/features/categorias/ui/categorias_screen.dart`
+  - `lib/features/presupuesto/ui/presupuesto_screen.dart`
+  - `lib/features/recurrentes/ui/recurrentes_screen.dart`
+  - `lib/features/recurrentes/ui/widgets/formulario_recurrente.dart`
+  - `lib/features/movimientos/ui/movimiento_form_screen.dart`
+- `lib/features/recurrentes/ui/recurrentes_screen.dart`: fila nueva, monto dentro de la columna central y `Switch` solo a la derecha.
+- `test/features/recurrentes/ui/recurrentes_screen_test.dart`: test de no solapamiento entre monto e interruptor.
+- `test/features/categorias/ui/categorias_screen_test.dart`: test del margen inferior con `padding.bottom` de 48.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (149 tests).
 
 **Decisiones tomadas / desvíos del brief:**
--
+- `onboarding_screen.dart` ya estaba envuelto en `SafeArea`, que consume el inset inferior; no se tocó para no duplicar el espacio.
+- Se usó el mismo método (sumar `MediaQuery.paddingOf(context).bottom` al padding explícito) en las cinco pantallas de la lista. Las pantallas con barra de pestañas quedaron intactas, como indica el alcance.
+- El monto va en la misma línea del título; para que no desborde con títulos largos, se limita su ancho al 65 % de la columna central y se reduce solo si hace falta (`FittedBox`), mientras el título usa `maxLines: 1` con `…`. El `Switch` no tiene `SizedBox` y queda centrado verticalmente.
+- En los tests, la fuente de prueba ocupa el ancho del tamaño de letra de cada glifo, así que la fila desbordaba incluso con montos normales; el ajuste con `FittedBox` mantiene el test sin desbordes y en el teléfono el monto se ve a tamaño completo.
 
 **Dudas o problemas pendientes:**
--
+- La comprobación física (girar el teléfono y ver la barra del sistema) queda pendiente en el dispositivo del usuario.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-15 — APROBADA**
+
+Verificado: `flutter analyze` sin problemas y `flutter test` 149 en verde. Solo se tocaron archivos del Alcance. La orientación vertical está fijada en `main.dart` y en el manifest. Las cinco pantallas usan el mismo método para el margen inferior (sumar `MediaQuery.paddingOf(context).bottom` al padding del `ListView`). Onboarding no cambió porque ya usa `SafeArea`, y la decisión es correcta. En la fila de recurrentes, el `Switch` ya no está dentro del `SizedBox` que lo recortaba y queda solo a la derecha; el monto va en la línea del título, el título se corta con `…`, y el `FittedBox` solo reduce el monto si falta espacio. Los dos tests nuevos prueban lo pedido: con `getRect` el monto y el interruptor no se solapan, y con un inset inferior de 48 la última categoría queda por encima de la barra.
+
+Pendiente: confirmarlo en el teléfono (girarlo, ver el final de Categorías y una regla recurrente).

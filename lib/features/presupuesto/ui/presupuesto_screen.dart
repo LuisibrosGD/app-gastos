@@ -65,9 +65,15 @@ class _Contenido extends ConsumerWidget {
         .where((progreso) => progreso.categoria != null)
         .toList();
     final esPrimero = progresos.isEmpty;
+    final insetInferior = MediaQuery.paddingOf(context).bottom;
 
     return ListView(
-      padding: const EdgeInsets.all(AppEspacio.l),
+      padding: EdgeInsets.fromLTRB(
+        AppEspacio.l,
+        AppEspacio.l,
+        AppEspacio.l,
+        AppEspacio.l + insetInferior,
+      ),
       children: [
         Container(
           padding: const EdgeInsets.all(AppEspacio.l),

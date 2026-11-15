@@ -17,6 +17,7 @@ class CategoriasScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final insetInferior = MediaQuery.paddingOf(context).bottom;
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +42,12 @@ class CategoriasScreen extends ConsumerWidget {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(AppEspacio.l),
+        padding: EdgeInsets.fromLTRB(
+          AppEspacio.l,
+          AppEspacio.l,
+          AppEspacio.l,
+          AppEspacio.l + insetInferior,
+        ),
         children: [
           _SeccionCategorias(
             titulo: l10n.categoriasGastos,

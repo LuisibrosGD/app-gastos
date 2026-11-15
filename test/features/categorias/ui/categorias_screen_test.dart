@@ -107,6 +107,31 @@ void main() {
     await tester.pumpAndSettle();
   });
 
+  testWidgets('la última fila queda por encima del inset inferior', (
+    tester,
+  ) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(800, 600);
+    tester.view.padding = const FakeViewPadding(bottom: 48);
+    addTearDown(tester.view.reset);
+
+    final db = AppDatabase(NativeDatabase.memory());
+    addTearDown(db.close);
+    for (var i = 0; i < 20; i++) {
+      await sembrar(db, 'Cat ${i.toString().padLeft(2, '0')}');
+    }
+
+    await abrir(tester, db);
+    await tester.drag(find.byType(ListView), const Offset(0, -5000));
+    await tester.pumpAndSettle();
+
+    final ultima = tester.getRect(find.text('Cat 19'));
+    expect(ultima.bottom, lessThanOrEqualTo(600 - 48));
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpAndSettle();
+  });
+
   testWidgets('restaurar una archivada la devuelve a su sección', (
     tester,
   ) async {
