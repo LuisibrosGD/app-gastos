@@ -15,7 +15,7 @@ App móvil de uso **personal** para controlar gastos e ingresos propios.
 
 | Tema | Decisión |
 |---|---|
-| Plataforma | Solo Android |
+| Plataforma | Solo Android, solo en vertical |
 | Datos | 100 % locales en el teléfono. Sin cuentas, sin internet |
 | Moneda | Una sola: Soles (PEN), formato `S/ 1,234.50` |
 | Idiomas | Español (por defecto) e inglés |
@@ -42,7 +42,7 @@ Navegación inferior con 4 pestañas: **Inicio · Movimientos · Resumen · Ajus
 
 | ID | Pantalla | Contenido y comportamiento |
 |---|---|---|
-| P01 | Bloqueo | Se muestra al abrir la app y al volver tras más de 60 s en segundo plano, solo si el bloqueo está activo. Intenta primero con huella si está disponible; el PIN es el respaldo. |
+| P01 | Bloqueo | Se muestra al abrir la app y al volver tras más de 60 s en segundo plano, solo si el bloqueo está activo. Intenta primero con huella si está disponible; el PIN es el respaldo. Teclado con los números desordenados (se mezclan al abrir y tras cada fallo); se comprueba al escribir el 4.º dígito, sin botón de confirmar; la huella va como ícono en la esquina inferior izquierda del teclado. |
 | P02 | Primera vez | Elegir idioma → crear las categorías por defecto → ofrecer configurar el PIN (se puede omitir). Solo en el primer arranque. |
 | P03 | Inicio | Balance del mes actual, barra de progreso del presupuesto total (si existe), aviso de alerta activa, últimos 5 movimientos y botón flotante **+**. |
 | P04 | Nuevo / Editar movimiento | Selector gasto/ingreso, monto, categoría (filtrada por tipo), fecha (por defecto hoy), nota opcional. En edición, botón **Borrar** con confirmación. |
@@ -69,6 +69,7 @@ Navegación inferior con 4 pestañas: **Inicio · Movimientos · Resumen · Ajus
 - Nombre obligatorio, de 30 caracteres como máximo.
 - No se borra una categoría que tenga movimientos o reglas recurrentes: se archiva.
 - Las categorías archivadas no aparecen en los selectores, pero sí en el historial y en el resumen.
+- En P09 se ven en una sección «Archivadas» y se pueden restaurar; al restaurarlas vuelven a los selectores.
 
 ### R3. Presupuesto
 - Es un límite **mensual fijo** que se aplica igual todos los meses.
@@ -89,7 +90,7 @@ Navegación inferior con 4 pestañas: **Inicio · Movimientos · Resumen · Ajus
 - Borrar una regla no borra los movimientos que ya generó.
 
 ### R6. Bloqueo
-- El PIN tiene de 4 a 6 dígitos y nunca se guarda en texto plano.
+- El PIN tiene exactamente 4 dígitos y nunca se guarda en texto plano.
 - La huella solo se ofrece si el teléfono la soporta y tiene alguna registrada.
 - Tras 5 PIN incorrectos seguidos, la entrada se bloquea durante 30 s.
 - Desactivar el bloqueo o cambiar el PIN exige introducir antes el PIN actual.
