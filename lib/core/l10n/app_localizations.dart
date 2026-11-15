@@ -524,6 +524,12 @@ abstract class AppLocalizations {
   /// **'No se pudo cargar el movimiento.'**
   String get errorCargarMovimiento;
 
+  /// No description provided for @errorGuardarCategoria.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudieron guardar las categorías.'**
+  String get errorGuardarCategoria;
+
   /// No description provided for @confirmarBorrarMovimientoTitulo.
   ///
   /// In es, this message translates to:
@@ -649,6 +655,150 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Idioma'**
   String get idioma;
+
+  /// No description provided for @seguridad.
+  ///
+  /// In es, this message translates to:
+  /// **'Seguridad'**
+  String get seguridad;
+
+  /// No description provided for @bloqueo.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloqueo'**
+  String get bloqueo;
+
+  /// No description provided for @cambiarPin.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar PIN'**
+  String get cambiarPin;
+
+  /// No description provided for @usarHuella.
+  ///
+  /// In es, this message translates to:
+  /// **'Usar huella'**
+  String get usarHuella;
+
+  /// No description provided for @pinIngresa.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa tu PIN para continuar'**
+  String get pinIngresa;
+
+  /// No description provided for @pinIncorrecto.
+  ///
+  /// In es, this message translates to:
+  /// **'PIN incorrecto'**
+  String get pinIncorrecto;
+
+  /// No description provided for @pinEspera.
+  ///
+  /// In es, this message translates to:
+  /// **'Demasiados intentos. Espera {segundos} s'**
+  String pinEspera(int segundos);
+
+  /// No description provided for @huellaUsar.
+  ///
+  /// In es, this message translates to:
+  /// **'Usar huella digital'**
+  String get huellaUsar;
+
+  /// No description provided for @huellaMotivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Desbloquea App Gastos'**
+  String get huellaMotivo;
+
+  /// No description provided for @protegerTusGastos.
+  ///
+  /// In es, this message translates to:
+  /// **'Protege tus gastos'**
+  String get protegerTusGastos;
+
+  /// No description provided for @protegerAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Activa un PIN de 4 a 6 dígitos o usa tu huella. Podrás cambiarlo cuando quieras en Ajustes.'**
+  String get protegerAyuda;
+
+  /// No description provided for @configurarPin.
+  ///
+  /// In es, this message translates to:
+  /// **'Configurar PIN'**
+  String get configurarPin;
+
+  /// No description provided for @ahoraNo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora no'**
+  String get ahoraNo;
+
+  /// No description provided for @crearPinTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear PIN'**
+  String get crearPinTitulo;
+
+  /// No description provided for @crearPinIntroduce.
+  ///
+  /// In es, this message translates to:
+  /// **'Introduce un PIN de 4 a 6 dígitos'**
+  String get crearPinIntroduce;
+
+  /// No description provided for @crearPinRepite.
+  ///
+  /// In es, this message translates to:
+  /// **'Repite el PIN'**
+  String get crearPinRepite;
+
+  /// No description provided for @errorPinFormato.
+  ///
+  /// In es, this message translates to:
+  /// **'El PIN debe tener de 4 a 6 dígitos'**
+  String get errorPinFormato;
+
+  /// No description provided for @errorPinNoCoincide.
+  ///
+  /// In es, this message translates to:
+  /// **'Los PIN no coinciden'**
+  String get errorPinNoCoincide;
+
+  /// No description provided for @pinActualTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Introduce tu PIN actual'**
+  String get pinActualTitulo;
+
+  /// No description provided for @pinActualAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirma tu PIN para continuar'**
+  String get pinActualAyuda;
+
+  /// No description provided for @huellaPreguntaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Usar huella?'**
+  String get huellaPreguntaTitulo;
+
+  /// No description provided for @huellaPreguntaMensaje.
+  ///
+  /// In es, this message translates to:
+  /// **'También podrás desbloquear la app con tu huella.'**
+  String get huellaPreguntaMensaje;
+
+  /// No description provided for @accionSi.
+  ///
+  /// In es, this message translates to:
+  /// **'Sí'**
+  String get accionSi;
+
+  /// No description provided for @errorGuardarPin.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar el PIN'**
+  String get errorGuardarPin;
 
   /// No description provided for @appVersion.
   ///

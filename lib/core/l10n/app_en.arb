@@ -91,6 +91,7 @@
   "errorCategoriaTipoNoCoincide": "Category doesn't match the type",
   "errorGuardarMovimiento": "Couldn't save. Try again.",
   "errorCargarMovimiento": "Couldn't load the movement.",
+  "errorGuardarCategoria": "Couldn't save the categories.",
   "confirmarBorrarMovimientoTitulo": "Delete movement?",
   "confirmarBorrarMovimientoMensaje": "This action can't be undone.",
   "inicioTitulo": "Home",
@@ -126,6 +127,37 @@
   "preferencias": "Preferences",
   "organizacion": "Organization",
   "idioma": "Language",
+  "seguridad": "Security",
+  "bloqueo": "Lock",
+  "cambiarPin": "Change PIN",
+  "usarHuella": "Use fingerprint",
+  "pinIngresa": "Enter your PIN to continue",
+  "pinIncorrecto": "Wrong PIN",
+  "pinEspera": "Too many attempts. Try again in {segundos} s",
+  "@pinEspera": {
+    "placeholders": {
+      "segundos": {
+        "type": "int"
+      }
+    }
+  },
+  "huellaUsar": "Use fingerprint",
+  "huellaMotivo": "Unlock App Gastos",
+  "protegerTusGastos": "Protect your expenses",
+  "protegerAyuda": "Set a 4 to 6 digit PIN or use your fingerprint. You can change it later in Settings.",
+  "configurarPin": "Set PIN",
+  "ahoraNo": "Not now",
+  "crearPinTitulo": "Create PIN",
+  "crearPinIntroduce": "Enter a 4 to 6 digit PIN",
+  "crearPinRepite": "Repeat the PIN",
+  "errorPinFormato": "The PIN must have 4 to 6 digits",
+  "errorPinNoCoincide": "The PINs don't match",
+  "pinActualTitulo": "Enter your current PIN",
+  "pinActualAyuda": "Confirm your PIN to continue",
+  "huellaPreguntaTitulo": "Use fingerprint?",
+  "huellaPreguntaMensaje": "You'll also be able to unlock the app with your fingerprint.",
+  "accionSi": "Yes",
+  "errorGuardarPin": "Couldn't save the PIN",
   "appVersion": "App Gastos · version 1.0",
   "alertaPresupuestoTitulo": "Budget at {porcentaje}%",
   "@alertaPresupuestoTitulo": {

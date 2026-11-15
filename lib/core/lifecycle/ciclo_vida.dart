@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/ajustes/providers/preferencias_providers.dart';
 import '../../features/recurrentes/providers/recurrentes_providers.dart';
+import '../../features/seguridad/providers/bloqueo_providers.dart';
 
 class CicloDeVida extends ConsumerStatefulWidget {
   const CicloDeVida({super.key, required this.child});
@@ -19,7 +20,10 @@ class _CicloDeVidaState extends ConsumerState<CicloDeVida> {
   @override
   void initState() {
     super.initState();
-    _escucha = AppLifecycleListener(onResume: _generar);
+    _escucha = AppLifecycleListener(
+      onPause: _alPasarASegundoPlano,
+      onResume: _alVolver,
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => _generar());
   }
 
@@ -27,6 +31,17 @@ class _CicloDeVidaState extends ConsumerState<CicloDeVida> {
   void dispose() {
     _escucha?.dispose();
     super.dispose();
+  }
+
+  void _alPasarASegundoPlano() {
+    ref
+        .read(bloqueoControllerProvider.notifier)
+        .alPasarASegundoPlano();
+  }
+
+  Future<void> _alVolver() async {
+    ref.read(bloqueoControllerProvider.notifier).alVolver();
+    await _generar();
   }
 
   Future<void> _generar() async {

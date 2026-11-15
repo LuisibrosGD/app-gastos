@@ -157,6 +157,7 @@
   "errorCategoriaTipoNoCoincide": "La categoría no coincide con el tipo",
   "errorGuardarMovimiento": "No se pudo guardar. Inténtalo de nuevo.",
   "errorCargarMovimiento": "No se pudo cargar el movimiento.",
+  "errorGuardarCategoria": "No se pudieron guardar las categorías.",
   "confirmarBorrarMovimientoTitulo": "¿Borrar movimiento?",
   "confirmarBorrarMovimientoMensaje": "Esta acción no se puede deshacer.",
   "inicioTitulo": "Inicio",
@@ -192,6 +193,37 @@
   "preferencias": "Preferencias",
   "organizacion": "Organización",
   "idioma": "Idioma",
+  "seguridad": "Seguridad",
+  "bloqueo": "Bloqueo",
+  "cambiarPin": "Cambiar PIN",
+  "usarHuella": "Usar huella",
+  "pinIngresa": "Ingresa tu PIN para continuar",
+  "pinIncorrecto": "PIN incorrecto",
+  "pinEspera": "Demasiados intentos. Espera {segundos} s",
+  "@pinEspera": {
+    "placeholders": {
+      "segundos": {
+        "type": "int"
+      }
+    }
+  },
+  "huellaUsar": "Usar huella digital",
+  "huellaMotivo": "Desbloquea App Gastos",
+  "protegerTusGastos": "Protege tus gastos",
+  "protegerAyuda": "Activa un PIN de 4 a 6 dígitos o usa tu huella. Podrás cambiarlo cuando quieras en Ajustes.",
+  "configurarPin": "Configurar PIN",
+  "ahoraNo": "Ahora no",
+  "crearPinTitulo": "Crear PIN",
+  "crearPinIntroduce": "Introduce un PIN de 4 a 6 dígitos",
+  "crearPinRepite": "Repite el PIN",
+  "errorPinFormato": "El PIN debe tener de 4 a 6 dígitos",
+  "errorPinNoCoincide": "Los PIN no coinciden",
+  "pinActualTitulo": "Introduce tu PIN actual",
+  "pinActualAyuda": "Confirma tu PIN para continuar",
+  "huellaPreguntaTitulo": "¿Usar huella?",
+  "huellaPreguntaMensaje": "También podrás desbloquear la app con tu huella.",
+  "accionSi": "Sí",
+  "errorGuardarPin": "No se pudo guardar el PIN",
   "appVersion": "App Gastos · versión 1.0",
   "alertaPresupuestoTitulo": "Presupuesto al {porcentaje}%",
   "@alertaPresupuestoTitulo": {

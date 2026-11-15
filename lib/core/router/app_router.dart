@@ -12,6 +12,8 @@ import '../../features/presupuesto/ui/presupuesto_screen.dart';
 import '../../features/recurrentes/ui/recurrente_form_screen.dart';
 import '../../features/recurrentes/ui/recurrentes_screen.dart';
 import '../../features/resumen/ui/resumen_screen.dart';
+import '../../features/seguridad/providers/bloqueo_providers.dart';
+import '../../features/seguridad/ui/bloqueo_screen.dart';
 import 'shell_scaffold.dart';
 
 abstract final class Rutas {
@@ -27,17 +29,31 @@ abstract final class Rutas {
   static const recurrentes = '/ajustes/recurrentes';
   static const nuevaRecurrente = '/ajustes/recurrentes/nueva';
   static String recurrente(int id) => '/ajustes/recurrentes/$id';
+  static const bloqueo = '/bloqueo';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final onboardingCompleto = ref.watch(onboardingCompletoProvider);
 
-  return GoRouter(
+  final router = GoRouter(
     initialLocation: Rutas.inicio,
     redirect: (context, state) {
       final enOnboarding = state.matchedLocation == Rutas.onboarding;
       if (!onboardingCompleto && !enOnboarding) return Rutas.onboarding;
       if (onboardingCompleto && enOnboarding) return Rutas.inicio;
+
+      final bloqueado = ref.read(bloqueoControllerProvider).bloqueado;
+      final enBloqueo = state.matchedLocation == Rutas.bloqueo;
+      if (bloqueado && !enBloqueo) {
+        return Uri(
+          path: Rutas.bloqueo,
+          queryParameters: {'desde': state.uri.path},
+        ).toString();
+      }
+      if (!bloqueado && enBloqueo) {
+        final desde = state.uri.queryParameters['desde'];
+        return desde == null || desde.isEmpty ? Rutas.inicio : desde;
+      }
       return null;
     },
     routes: [
@@ -112,9 +128,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(
+        path: Rutas.bloqueo,
+        builder: (context, state) => const BloqueoScreen(),
+      ),
+      GoRoute(
         path: Rutas.onboarding,
         builder: (context, state) => const OnboardingScreen(),
       ),
     ],
   );
+
+  ref.listen(bloqueoControllerProvider, (anterior, siguiente) {
+    if (anterior?.bloqueado != siguiente.bloqueado) router.refresh();
+  });
+
+  return router;
 });

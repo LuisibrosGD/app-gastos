@@ -39,6 +39,10 @@ void main() {
 
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
+    expect(find.text('Protect your expenses'), findsOneWidget);
+
+    await tester.tap(find.text('Not now'));
+    await tester.pumpAndSettle();
 
     expect(find.text('Movements'), findsOneWidget);
     expect(PreferenciasRepository(prefs).onboardingCompleto, isTrue);

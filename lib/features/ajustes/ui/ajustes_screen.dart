@@ -7,16 +7,27 @@ import '../../../core/router/app_router.dart';
 import '../../../core/theme/colores.dart';
 import '../../../core/theme/dimensiones.dart';
 import '../../../core/theme/tipografia.dart';
+import '../../seguridad/providers/bloqueo_providers.dart';
+import '../../seguridad/ui/crear_pin_screen.dart';
 import '../providers/preferencias_providers.dart';
+import 'widgets/filas_ajustes.dart';
 
-class AjustesScreen extends ConsumerWidget {
+class AjustesScreen extends ConsumerStatefulWidget {
   const AjustesScreen({super.key});
 
-  Future<void> _elegirIdioma(
-    BuildContext context,
-    WidgetRef ref,
-    AppLocalizations l10n,
-  ) async {
+  @override
+  ConsumerState<AjustesScreen> createState() => _AjustesScreenState();
+}
+
+class _AjustesScreenState extends ConsumerState<AjustesScreen> {
+  late bool _bloqueoActivo = ref
+      .read(preferenciasRepositoryProvider)
+      .bloqueoActivo;
+  late bool _usarHuella = ref
+      .read(preferenciasRepositoryProvider)
+      .usarHuella;
+
+  Future<void> _elegirIdioma(AppLocalizations l10n) async {
     final codigo = await showDialog<String>(
       context: context,
       builder: (contexto) => SimpleDialog(
@@ -38,10 +49,109 @@ class AjustesScreen extends ConsumerWidget {
     }
   }
 
+  Future<bool> _verificarPinActual(AppLocalizations l10n) async {
+    final servicio = ref.read(pinServiceProvider);
+    if (!await servicio.tienePin()) return true;
+    if (!mounted) return false;
+
+    final controlador = TextEditingController();
+    final pin = await showDialog<String>(
+      context: context,
+      builder: (contexto) => AlertDialog(
+        title: Text(l10n.pinActualTitulo),
+        content: TextField(
+          controller: controlador,
+          autofocus: true,
+          obscureText: true,
+          keyboardType: TextInputType.number,
+          maxLength: 6,
+          decoration: InputDecoration(
+            labelText: l10n.pinActualAyuda,
+            counterText: '',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(contexto).pop(),
+            child: Text(l10n.accionCancelar),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(contexto).pop(controlador.text),
+            child: Text(l10n.accionContinuar),
+          ),
+        ],
+      ),
+    );
+    controlador.dispose();
+    if (pin == null) return false;
+
+    final correcto = await ref
+        .read(bloqueoControllerProvider.notifier)
+        .verificarPinActual(pin);
+    if (!correcto && mounted) {
+      final estado = ref.read(bloqueoControllerProvider);
+      final espera = estado.esperarHasta;
+      final ahora = ref.read(relojProvider)();
+      final mensaje = espera != null && espera.isAfter(ahora)
+          ? l10n.pinEspera(espera.difference(ahora).inSeconds)
+          : l10n.pinIncorrecto;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(mensaje)));
+    }
+    return correcto;
+  }
+
+  Future<void> _refrescarSeguridad() async {
+    final prefs = ref.read(preferenciasRepositoryProvider);
+    if (!mounted) return;
+    setState(() {
+      _bloqueoActivo = prefs.bloqueoActivo;
+      _usarHuella = prefs.usarHuella;
+    });
+  }
+
+  Future<void> _cambiarBloqueo(
+    AppLocalizations l10n,
+    bool valor,
+  ) async {
+    if (valor && !await ref.read(pinServiceProvider).tienePin()) {
+      if (!mounted) return;
+      final creado = await Navigator.of(context).push<bool>(
+        MaterialPageRoute(
+          builder: (_) => const CrearPinScreen(ofrecerHuella: true),
+        ),
+      );
+      if (creado == true) await _refrescarSeguridad();
+      return;
+    }
+
+    if (!await _verificarPinActual(l10n)) return;
+    await ref.read(preferenciasRepositoryProvider).setBloqueoActivo(valor);
+    if (mounted) setState(() => _bloqueoActivo = valor);
+  }
+
+  Future<void> _cambiarPin(AppLocalizations l10n) async {
+    if (!await _verificarPinActual(l10n)) return;
+    if (!mounted) return;
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => const CrearPinScreen(activarBloqueo: false),
+      ),
+    );
+    await _refrescarSeguridad();
+  }
+
+  Future<void> _cambiarHuella(bool valor) async {
+    await ref.read(preferenciasRepositoryProvider).setUsarHuella(valor);
+    if (mounted) setState(() => _usarHuella = valor);
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final idioma = ref.watch(idiomaActualProvider).languageCode;
+    final huella = ref.watch(biometriaDisponibleProvider).value ?? false;
 
     return Scaffold(
       appBar: AppBar(
@@ -64,15 +174,30 @@ class AjustesScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: AppEspacio.s),
-          _TarjetaAjustes(
+          TarjetaAjustes(
             filas: [
-              _FilaAjuste(
+              FilaAjuste(
                 texto: l10n.idioma,
                 valor: idioma == 'en'
                     ? l10n.idiomaIngles
                     : l10n.idiomaEspanol,
-                alTocar: () => _elegirIdioma(context, ref, l10n),
+                alTocar: () => _elegirIdioma(l10n),
               ),
+              FilaSwitch(
+                texto: l10n.bloqueo,
+                valor: _bloqueoActivo,
+                alCambiar: (valor) => _cambiarBloqueo(l10n, valor),
+              ),
+              FilaAjuste(
+                texto: l10n.cambiarPin,
+                alTocar: () => _cambiarPin(l10n),
+              ),
+              if (huella)
+                FilaSwitch(
+                  texto: l10n.usarHuella,
+                  valor: _usarHuella,
+                  alCambiar: _cambiarHuella,
+                ),
             ],
           ),
           const SizedBox(height: AppEspacio.xl),
@@ -83,17 +208,17 @@ class AjustesScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: AppEspacio.s),
-          _TarjetaAjustes(
+          TarjetaAjustes(
             filas: [
-              _FilaAjuste(
+              FilaAjuste(
                 texto: l10n.presupuestoTitulo,
                 alTocar: () => context.push(Rutas.presupuesto),
               ),
-              _FilaAjuste(
+              FilaAjuste(
                 texto: l10n.recurrentesTitulo,
                 alTocar: () => context.push(Rutas.recurrentes),
               ),
-              _FilaAjuste(
+              FilaAjuste(
                 texto: l10n.categoriasTitulo,
                 alTocar: () => context.push(Rutas.categorias),
               ),
@@ -108,73 +233,6 @@ class AjustesScreen extends ConsumerWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _TarjetaAjustes extends StatelessWidget {
-  const _TarjetaAjustes({required this.filas});
-
-  final List<Widget> filas;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColores.superficie,
-        borderRadius: BorderRadius.circular(AppRadio.l),
-        border: Border.all(color: AppColores.borde),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(AppRadio.l),
-        child: Column(
-          children: [
-            for (var i = 0; i < filas.length; i++) ...[
-              if (i > 0) const Divider(height: 1),
-              filas[i],
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _FilaAjuste extends StatelessWidget {
-  const _FilaAjuste({required this.texto, this.valor, required this.alTocar});
-
-  final String texto;
-  final String? valor;
-  final VoidCallback alTocar;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: alTocar,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppEspacio.l,
-          vertical: AppEspacio.l,
-        ),
-        child: Row(
-          children: [
-            Expanded(child: Text(texto, style: AppTexto.cuerpo)),
-            if (valor != null)
-              Text(
-                valor!,
-                style: AppTexto.etiqueta.copyWith(
-                  color: AppColores.textoSecundario,
-                ),
-              ),
-            const SizedBox(width: AppEspacio.s),
-            const Icon(
-              Icons.chevron_right,
-              size: AppEspacio.xl,
-              color: AppColores.textoSecundario,
-            ),
-          ],
-        ),
       ),
     );
   }

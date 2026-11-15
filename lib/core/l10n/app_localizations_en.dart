@@ -231,6 +231,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorCargarMovimiento => 'Couldn\'t load the movement.';
 
   @override
+  String get errorGuardarCategoria => 'Couldn\'t save the categories.';
+
+  @override
   String get confirmarBorrarMovimientoTitulo => 'Delete movement?';
 
   @override
@@ -299,6 +302,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get idioma => 'Language';
+
+  @override
+  String get seguridad => 'Security';
+
+  @override
+  String get bloqueo => 'Lock';
+
+  @override
+  String get cambiarPin => 'Change PIN';
+
+  @override
+  String get usarHuella => 'Use fingerprint';
+
+  @override
+  String get pinIngresa => 'Enter your PIN to continue';
+
+  @override
+  String get pinIncorrecto => 'Wrong PIN';
+
+  @override
+  String pinEspera(int segundos) {
+    return 'Too many attempts. Try again in $segundos s';
+  }
+
+  @override
+  String get huellaUsar => 'Use fingerprint';
+
+  @override
+  String get huellaMotivo => 'Unlock App Gastos';
+
+  @override
+  String get protegerTusGastos => 'Protect your expenses';
+
+  @override
+  String get protegerAyuda =>
+      'Set a 4 to 6 digit PIN or use your fingerprint. You can change it later in Settings.';
+
+  @override
+  String get configurarPin => 'Set PIN';
+
+  @override
+  String get ahoraNo => 'Not now';
+
+  @override
+  String get crearPinTitulo => 'Create PIN';
+
+  @override
+  String get crearPinIntroduce => 'Enter a 4 to 6 digit PIN';
+
+  @override
+  String get crearPinRepite => 'Repeat the PIN';
+
+  @override
+  String get errorPinFormato => 'The PIN must have 4 to 6 digits';
+
+  @override
+  String get errorPinNoCoincide => 'The PINs don\'t match';
+
+  @override
+  String get pinActualTitulo => 'Enter your current PIN';
+
+  @override
+  String get pinActualAyuda => 'Confirm your PIN to continue';
+
+  @override
+  String get huellaPreguntaTitulo => 'Use fingerprint?';
+
+  @override
+  String get huellaPreguntaMensaje =>
+      'You\'ll also be able to unlock the app with your fingerprint.';
+
+  @override
+  String get accionSi => 'Yes';
+
+  @override
+  String get errorGuardarPin => 'Couldn\'t save the PIN';
 
   @override
   String get appVersion => 'App Gastos · version 1.0';

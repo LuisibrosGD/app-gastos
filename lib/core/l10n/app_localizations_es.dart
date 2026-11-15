@@ -235,6 +235,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get errorCargarMovimiento => 'No se pudo cargar el movimiento.';
 
   @override
+  String get errorGuardarCategoria => 'No se pudieron guardar las categorías.';
+
+  @override
   String get confirmarBorrarMovimientoTitulo => '¿Borrar movimiento?';
 
   @override
@@ -303,6 +306,82 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get idioma => 'Idioma';
+
+  @override
+  String get seguridad => 'Seguridad';
+
+  @override
+  String get bloqueo => 'Bloqueo';
+
+  @override
+  String get cambiarPin => 'Cambiar PIN';
+
+  @override
+  String get usarHuella => 'Usar huella';
+
+  @override
+  String get pinIngresa => 'Ingresa tu PIN para continuar';
+
+  @override
+  String get pinIncorrecto => 'PIN incorrecto';
+
+  @override
+  String pinEspera(int segundos) {
+    return 'Demasiados intentos. Espera $segundos s';
+  }
+
+  @override
+  String get huellaUsar => 'Usar huella digital';
+
+  @override
+  String get huellaMotivo => 'Desbloquea App Gastos';
+
+  @override
+  String get protegerTusGastos => 'Protege tus gastos';
+
+  @override
+  String get protegerAyuda =>
+      'Activa un PIN de 4 a 6 dígitos o usa tu huella. Podrás cambiarlo cuando quieras en Ajustes.';
+
+  @override
+  String get configurarPin => 'Configurar PIN';
+
+  @override
+  String get ahoraNo => 'Ahora no';
+
+  @override
+  String get crearPinTitulo => 'Crear PIN';
+
+  @override
+  String get crearPinIntroduce => 'Introduce un PIN de 4 a 6 dígitos';
+
+  @override
+  String get crearPinRepite => 'Repite el PIN';
+
+  @override
+  String get errorPinFormato => 'El PIN debe tener de 4 a 6 dígitos';
+
+  @override
+  String get errorPinNoCoincide => 'Los PIN no coinciden';
+
+  @override
+  String get pinActualTitulo => 'Introduce tu PIN actual';
+
+  @override
+  String get pinActualAyuda => 'Confirma tu PIN para continuar';
+
+  @override
+  String get huellaPreguntaTitulo => '¿Usar huella?';
+
+  @override
+  String get huellaPreguntaMensaje =>
+      'También podrás desbloquear la app con tu huella.';
+
+  @override
+  String get accionSi => 'Sí';
+
+  @override
+  String get errorGuardarPin => 'No se pudo guardar el PIN';
 
   @override
   String get appVersion => 'App Gastos · versión 1.0';

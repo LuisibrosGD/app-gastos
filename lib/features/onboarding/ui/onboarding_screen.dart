@@ -7,6 +7,7 @@ import '../../../core/theme/dimensiones.dart';
 import '../../../core/theme/tipografia.dart';
 import '../../ajustes/providers/preferencias_providers.dart';
 import '../../categorias/providers/categorias_providers.dart';
+import '../../seguridad/ui/crear_pin_screen.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -41,12 +42,37 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     if (_creando) return;
     setState(() => _creando = true);
 
-    await ref
-        .read(categoriasRepositoryProvider)
-        .crearPorDefecto(
-          gastos: _nombresGasto(l10n),
-          ingresos: _nombresIngreso(l10n),
-        );
+    try {
+      await ref
+          .read(categoriasRepositoryProvider)
+          .crearPorDefecto(
+            gastos: _nombresGasto(l10n),
+            ingresos: _nombresIngreso(l10n),
+          );
+      if (!mounted) return;
+      setState(() {
+        _creando = false;
+        _paso = 2;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _creando = false);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.errorGuardarCategoria)));
+    }
+  }
+
+  Future<void> _configurarPin() async {
+    final creado = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => const CrearPinScreen(ofrecerHuella: true),
+      ),
+    );
+    if (creado == true) await _completar();
+  }
+
+  Future<void> _completar() async {
     await ref.read(onboardingCompletoProvider.notifier).completar();
   }
 
@@ -58,7 +84,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppEspacio.l),
-          child: _paso == 0 ? _pasoIdioma(l10n) : _pasoCategorias(l10n),
+          child: switch (_paso) {
+            0 => _pasoIdioma(l10n),
+            1 => _pasoCategorias(l10n),
+            _ => _pasoSeguridad(l10n),
+          },
         ),
       ),
     );
@@ -96,6 +126,43 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           child: FilledButton(
             onPressed: () => setState(() => _paso = 1),
             child: Text(l10n.accionContinuar),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _pasoSeguridad(AppLocalizations l10n) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: AppEspacio.xl),
+        const Icon(
+          Icons.lock_outline,
+          size: 40,
+          color: AppColores.primario,
+        ),
+        const SizedBox(height: AppEspacio.l),
+        Text(l10n.protegerTusGastos, style: AppTexto.titulo),
+        const SizedBox(height: AppEspacio.s),
+        Text(
+          l10n.protegerAyuda,
+          style: AppTexto.cuerpo.copyWith(color: AppColores.textoSecundario),
+        ),
+        const SizedBox(height: AppEspacio.xxl),
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: _configurarPin,
+            child: Text(l10n.configurarPin),
+          ),
+        ),
+        const SizedBox(height: AppEspacio.m),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+            onPressed: _completar,
+            child: Text(l10n.ahoraNo),
           ),
         ),
       ],
@@ -171,10 +238,10 @@ class _OpcionIdioma extends StatelessWidget {
           children: [
             Expanded(child: Text(texto, style: AppTexto.cuerpo)),
             if (seleccionado)
-              const Icon(
+              Icon(
                 Icons.check,
                 color: AppColores.primario,
-                size: AppEspacio.xl,
+                size: IconTheme.of(context).size,
               ),
           ],
         ),

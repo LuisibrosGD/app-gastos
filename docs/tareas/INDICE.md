@@ -47,7 +47,7 @@
 | 013 | [Recurrentes: lógica y generador](013-recurrentes-logica.md) | código | 011 | APROBADA |
 | 014 | [Recurrentes: pantalla P08 y ciclo de vida](014-recurrentes-ui.md) | código | 010, 013 | APROBADA |
 | 015 | [Resumen P06 con gráficos](015-resumen.md) | código | 010 | APROBADA |
-| 016 | [Seguridad: PIN, huella y bloqueo P01](016-seguridad.md) | código | 014 | PENDIENTE |
+| 016 | [Seguridad: PIN, huella y bloqueo P01](016-seguridad.md) | código | 014 | APROBADA |
 | 017 | [Build release y prueba en el teléfono](017-release.md) | configuración | 001–016 | PENDIENTE |
 
 Las tareas 001–002 (Figma) y 003 (init) son independientes y pueden hacerse en cualquier orden. La 004 necesita las dos ramas.
