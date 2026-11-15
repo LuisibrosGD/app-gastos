@@ -141,6 +141,66 @@ void main() {
     await cerrar(tester);
   });
 
+  testWidgets('el filtro de categoría abre el selector en el primer arranque', (
+    tester,
+  ) async {
+    await preparar();
+    await abrir(tester);
+
+    await tester.tap(find.text('Categoría: Todas'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.text('Categoría'), findsOneWidget);
+    expect(find.text('Todas'), findsOneWidget);
+    expect(find.text('Comida'), findsOneWidget);
+    expect(find.text('Sueldo'), findsOneWidget);
+    await cerrar(tester);
+  });
+
+  testWidgets('elegir una categoría filtra la lista y «Todas» lo quita', (
+    tester,
+  ) async {
+    await preparar();
+    final hoy = soloFecha(DateTime.now());
+    await insertar(
+      nota: 'Almuerzo',
+      monto: 2450,
+      fecha: hoy,
+      tipo: TipoMovimiento.gasto,
+      categoriaId: catComida,
+    );
+    await insertar(
+      nota: 'Pago',
+      monto: 250000,
+      fecha: hoy,
+      tipo: TipoMovimiento.ingreso,
+      categoriaId: catSueldo,
+    );
+
+    await abrir(tester);
+    expect(find.text('Almuerzo'), findsOneWidget);
+    expect(find.text('Pago'), findsOneWidget);
+
+    await tester.tap(find.text('Categoría: Todas'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(SimpleDialogOption, 'Comida'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Almuerzo'), findsOneWidget);
+    expect(find.text('Pago'), findsNothing);
+    expect(find.text('Categoría: Comida'), findsOneWidget);
+
+    await tester.tap(find.text('Categoría: Comida'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(SimpleDialogOption, 'Todas'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Almuerzo'), findsOneWidget);
+    expect(find.text('Pago'), findsOneWidget);
+    await cerrar(tester);
+  });
+
   testWidgets('cambiar de mes con SelectorMes actualiza la lista', (
     tester,
   ) async {

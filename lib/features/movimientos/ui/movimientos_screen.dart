@@ -29,15 +29,10 @@ class _MovimientosScreenState extends ConsumerState<MovimientosScreen> {
   TipoMovimiento? _tipo;
   Categoria? _categoria;
 
-  Future<void> _elegirCategoria(AppLocalizations l10n) async {
-    final gastos = await ref.read(
-      categoriasPorTipoProvider(TipoMovimiento.gasto).future,
-    );
-    final ingresos = await ref.read(
-      categoriasPorTipoProvider(TipoMovimiento.ingreso).future,
-    );
-    if (!mounted) return;
-
+  Future<void> _elegirCategoria(
+    AppLocalizations l10n,
+    List<Categoria> categorias,
+  ) async {
     final seleccion = await showDialog<_SeleccionCategoria>(
       context: context,
       builder: (contexto) => SimpleDialog(
@@ -48,7 +43,7 @@ class _MovimientosScreenState extends ConsumerState<MovimientosScreen> {
                 Navigator.of(contexto).pop(const _SeleccionCategoria(null)),
             child: Text(l10n.categoriaTodas, style: AppTexto.cuerpo),
           ),
-          for (final categoria in [...gastos, ...ingresos])
+          for (final categoria in categorias)
             SimpleDialogOption(
               onPressed: () => Navigator.of(
                 contexto,
@@ -84,6 +79,18 @@ class _MovimientosScreenState extends ConsumerState<MovimientosScreen> {
         ),
       ),
     );
+    final categoriasGasto = ref.watch(
+      categoriasPorTipoProvider(TipoMovimiento.gasto),
+    );
+    final categoriasIngreso = ref.watch(
+      categoriasPorTipoProvider(TipoMovimiento.ingreso),
+    );
+    final categorias = [
+      ...?categoriasGasto.value,
+      ...?categoriasIngreso.value,
+    ];
+    final categoriasListas =
+        categoriasGasto.hasValue && categoriasIngreso.hasValue;
 
     return Scaffold(
       appBar: AppBar(
@@ -143,7 +150,9 @@ class _MovimientosScreenState extends ConsumerState<MovimientosScreen> {
                 const SizedBox(height: AppEspacio.m),
                 InkWell(
                   borderRadius: BorderRadius.circular(AppRadio.l),
-                  onTap: () => _elegirCategoria(l10n),
+                  onTap: categoriasListas
+                      ? () => _elegirCategoria(l10n, categorias)
+                      : null,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppEspacio.m,
