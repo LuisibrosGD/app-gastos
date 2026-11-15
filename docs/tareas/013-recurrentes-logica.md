@@ -1,6 +1,6 @@
 # 013 — Recurrentes: lógica y generador
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 011
 **Referencias:** SPEC R5 · ARQUITECTURA §4 (recurrentes), §5 · INDICE A3, A4
@@ -99,22 +99,54 @@ El generador crea los movimientos aunque la categoría esté **archivada**: la r
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/features/recurrentes/domain/ocurrencias.dart`.
+- `lib/features/recurrentes/data/recurrentes_repository.dart`, `generador_recurrentes.dart`.
+- `lib/features/recurrentes/providers/recurrentes_providers.dart` y su `.g.dart`.
+- `test/features/recurrentes/domain/ocurrencias_test.dart`, `test/features/recurrentes/data/recurrentes_repository_test.dart`, `generador_recurrentes_test.dart`.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `dart run build_runner build --delete-conflicting-outputs` → 16 salidas generadas, sin errores.
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (115 tests; 15 nuevos)
 
 **Decisiones tomadas / desvíos del brief:**
--
+- `ocurrenciasPendientes` normaliza `fechaInicio`, `ultimaGeneracion` y `hoy` con `soloFecha`; mensual recorre desde el mes de `desde` hasta el de `hoy` y recorta el día al último del mes; semanal avanza día a día desde `desde + 1`.
+- `RecurrentesRepository` ordena `watchTodas` por activas primero, nombre de categoría y `id`. `actualizar` no escribe `ultimaGeneracion`, como pide el brief.
+- El generador crea las reglas activas en una transacción por regla usando `MovimientosRepository.crear` (con `recurrenteId`) y guarda `ultimaGeneracion = soloFecha(hoy)` dentro de la misma transacción. Las alertas se revisan después, solo para gastos.
+- Los tests usan `NotificadorFalso implements Notificador`, como el test de `AlertasService`.
 
 **Dudas o problemas pendientes:**
--
+- Ninguna. La UI y el ciclo de vida quedan para la tarea 014, fuera de alcance.
+
+### Reporte – ronda 2
+
+**Cambios realizados:**
+- `generarPendientes` ahora relee cada regla por `id` dentro de su transacción y descarta las que ya no existen o están inactivas. `ocurrenciasPendientes` se calcula con esa lectura fresca, así una segunda llamada concurrente ve la `ultimaGeneracion` ya escrita y no duplica. Los contadores locales solo se vuelcan al resultado tras completar la transacción.
+- Cada `alertas.revisar` va en `try/catch`: un fallo de alertas ya no aborta la generación ni propaga la excepción al arranque.
+- Nuevo test `'dos generaciones simultáneas no duplican'`: `Future.wait` sobre dos llamadas, suma de resultados 3 y exactamente 3 movimientos.
+
+**Comandos ejecutados y resultado:**
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (116 tests)
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-15 — CAMBIOS_SOLICITADOS**
+
+Verificado: `flutter analyze` sin problemas, `flutter test` 115 en verde, `build_runner` sin cambios en `.g.dart`. `ocurrencias.dart` es Dart puro y los casos de A3 (bisiesto, día 31, inicio futuro) están cubiertos. Repositorio, validaciones y orden de `watchTodas` coinciden con el brief.
+
+Cambios pedidos:
+1. **Dos llamadas seguidas al generador pueden duplicar movimientos (incumple R5).** `generador_recurrentes.dart`: las reglas se leen *antes* de las transacciones. En la 014 el generador se lanzará al abrir la app y al volver a primer plano; si las dos llamadas se solapan, ambas leen la misma `ultimaGeneracion` y crean las mismas ocurrencias dos veces. Esperado: dentro de la transacción de cada regla, volver a leer la regla por `id` (si ya no existe o está inactiva, saltarla) y calcular `ocurrenciasPendientes` con esa lectura, de modo que la segunda llamada vea la `ultimaGeneracion` ya actualizada.
+   Test: `test('dos generaciones simultáneas no duplican')` → `await Future.wait([g.generarPendientes(hoy), g.generarPendientes(hoy)])` sobre una regla con 3 ocurrencias pendientes; deben existir exactamente 3 movimientos y la suma de los dos resultados debe ser 3.
+2. **Un fallo al revisar alertas hace fallar todo el generador.** Los movimientos ya están guardados, pero la excepción de `alertas.revisar` sube a quien llama (en la 014, el arranque de la app). Esperado: envolver cada `alertas.revisar` en `try/catch` y seguir con el resto, igual que hace `MovimientosController.guardar`.
+
+Nota no bloqueante: cambiar la `fechaInicio` de una regla a una fecha anterior no rellena ocurrencias antiguas porque `ultimaGeneracion` ya avanzó; es coherente con el brief.
+
+**Ronda 2 — 2026-11-15 — APROBADA**
+
+Verificado: `flutter analyze` sin problemas, `flutter test` 116 en verde, `build_runner` sin cambios en `.g.dart`. El generador relee cada regla dentro de su transacción (y salta las borradas o desactivadas), y el test `'dos generaciones simultáneas no duplican'` lo comprueba. Cada `alertas.revisar` está aislado con `try/catch`.
+
+Nota no bloqueante: el Estado volvió a quedarse en `CAMBIOS_SOLICITADOS` al entregar la ronda; hay que ponerlo en `LISTA_PARA_AUDITORIA`.
