@@ -21,6 +21,7 @@ class BloqueoScreen extends ConsumerStatefulWidget {
 
 class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
   String _pin = '';
+  late List<int> _orden;
   String? _error;
   bool _verificando = false;
   bool _huellaDisponible = false;
@@ -32,6 +33,7 @@ class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
   @override
   void initState() {
     super.initState();
+    _orden = mezclarDigitos(ref.read(randomPinProvider));
     WidgetsBinding.instance.addPostFrameCallback((_) => _prepararHuella());
   }
 
@@ -57,11 +59,13 @@ class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
   }
 
   void _pulsar(int numero) {
-    if (_esperando || _verificando || _pin.length >= 6) return;
+    if (_esperando || _verificando || _pin.length >= 4) return;
+    final pin = '$_pin$numero';
     setState(() {
-      _pin += '$numero';
+      _pin = pin;
       _error = null;
     });
+    if (pin.length == 4) _verificar();
   }
 
   void _borrar() {
@@ -72,14 +76,11 @@ class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
     });
   }
 
-  Future<void> _confirmar(AppLocalizations l10n) async {
+  Future<void> _verificar() async {
     if (_esperando || _verificando) return;
-    if (_pin.length < 4) {
-      setState(() => _error = l10n.errorPinFormato);
-      return;
-    }
-
+    final l10n = AppLocalizations.of(context);
     setState(() => _verificando = true);
+
     final correcto = await ref
         .read(bloqueoControllerProvider.notifier)
         .intentarPin(_pin);
@@ -97,6 +98,7 @@ class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
     setState(() {
       _verificando = false;
       _pin = '';
+      _orden = mezclarDigitos(ref.read(randomPinProvider));
       _error = l10n.pinIncorrecto;
     });
   }
@@ -110,6 +112,7 @@ class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
       _verificando = false;
       _pin = '';
       _error = null;
+      _orden = mezclarDigitos(ref.read(randomPinProvider));
       _esperando = restantes > 0;
       _restantes = restantes;
     });
@@ -144,6 +147,7 @@ class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final huellaDisponible = _huellaDisponible && _huellaActivada;
 
     return Scaffold(
       backgroundColor: AppColores.fondo,
@@ -190,21 +194,11 @@ class _BloqueoScreenState extends ConsumerState<BloqueoScreen> {
               ),
               const SizedBox(height: AppEspacio.m),
               TecladoPin(
+                orden: _orden,
                 habilitado: !_esperando && !_verificando,
                 alPulsar: _pulsar,
                 alBorrar: _borrar,
-                alConfirmar: () => _confirmar(l10n),
-              ),
-              const SizedBox(height: AppEspacio.l),
-              SizedBox(
-                height: AppEspacio.xxl,
-                child: _huellaDisponible && _huellaActivada
-                    ? TextButton.icon(
-                        onPressed: _intentarHuella,
-                        icon: const Icon(Icons.fingerprint),
-                        label: Text(l10n.huellaUsar),
-                      )
-                    : null,
+                alHuella: huellaDisponible ? _intentarHuella : null,
               ),
               const Spacer(),
             ],

@@ -56,6 +56,47 @@ final class RelojProvider
 
 String _$relojHash() => r'614099210aea97dccb5b899b144ebf30c42577ec';
 
+@ProviderFor(randomPin)
+final randomPinProvider = RandomPinProvider._();
+
+final class RandomPinProvider
+    extends $FunctionalProvider<Random, Random, Random>
+    with $Provider<Random> {
+  RandomPinProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'randomPinProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$randomPinHash();
+
+  @$internal
+  @override
+  $ProviderElement<Random> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Random create(Ref ref) {
+    return randomPin(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Random value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Random>(value),
+    );
+  }
+}
+
+String _$randomPinHash() => r'a0bdf62ff1ae97b86e15ea98b325b50953c429ac';
+
 @ProviderFor(pinService)
 final pinServiceProvider = PinServiceProvider._();
 

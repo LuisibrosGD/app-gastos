@@ -336,7 +336,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get huellaUsar => 'Use fingerprint';
+  String get huellaTecla => 'Unlock with fingerprint';
 
   @override
   String get huellaMotivo => 'Unlock App Gastos';
@@ -346,7 +346,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get protegerAyuda =>
-      'Set a 4 to 6 digit PIN or use your fingerprint. You can change it later in Settings.';
+      'Set a 4 digit PIN or use your fingerprint. You can change it later in Settings.';
 
   @override
   String get configurarPin => 'Set PIN';
@@ -358,13 +358,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get crearPinTitulo => 'Create PIN';
 
   @override
-  String get crearPinIntroduce => 'Enter a 4 to 6 digit PIN';
+  String get crearPinIntroduce => 'Enter a 4 digit PIN';
 
   @override
   String get crearPinRepite => 'Repeat the PIN';
 
   @override
-  String get errorPinFormato => 'The PIN must have 4 to 6 digits';
+  String get errorPinFormato => 'The PIN must have 4 digits';
 
   @override
   String get errorPinNoCoincide => 'The PINs don\'t match';

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/colores.dart';
@@ -12,12 +10,10 @@ class PuntosPin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final total = max(4, rellenos);
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (var i = 0; i < total; i++)
+        for (var i = 0; i < 4; i++)
           Container(
             width: AppEspacio.s,
             height: AppEspacio.s,

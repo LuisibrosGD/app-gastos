@@ -1,25 +1,36 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/colores.dart';
 import '../../../../core/theme/dimensiones.dart';
 import '../../../../core/theme/tipografia.dart';
 
+List<int> mezclarDigitos(Random random) {
+  return List<int>.generate(10, (indice) => indice)..shuffle(random);
+}
+
 class TecladoPin extends StatelessWidget {
   const TecladoPin({
     super.key,
+    required this.orden,
     required this.alPulsar,
     required this.alBorrar,
-    this.alConfirmar,
+    this.alHuella,
     this.habilitado = true,
   });
 
+  final List<int> orden;
   final ValueChanged<int> alPulsar;
   final VoidCallback alBorrar;
-  final VoidCallback? alConfirmar;
+  final VoidCallback? alHuella;
   final bool habilitado;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return GridView.count(
       crossAxisCount: 3,
       shrinkWrap: true,
@@ -28,21 +39,28 @@ class TecladoPin extends StatelessWidget {
       crossAxisSpacing: AppEspacio.s,
       childAspectRatio: 1.75,
       children: [
-        for (var numero = 1; numero <= 9; numero++)
+        for (final numero in orden.take(9))
           _Tecla(
             texto: '$numero',
             habilitada: habilitado,
             alTocar: () => alPulsar(numero),
           ),
+        if (alHuella == null)
+          const SizedBox.shrink()
+        else
+          Semantics(
+            label: l10n.huellaTecla,
+            button: true,
+            child: _Tecla(
+              icono: Icons.fingerprint,
+              habilitada: habilitado,
+              alTocar: alHuella,
+            ),
+          ),
         _Tecla(
-          icono: Icons.check,
-          habilitada: habilitado && alConfirmar != null,
-          alTocar: alConfirmar,
-        ),
-        _Tecla(
-          texto: '0',
+          texto: '${orden[9]}',
           habilitada: habilitado,
-          alTocar: () => alPulsar(0),
+          alTocar: () => alPulsar(orden[9]),
         ),
         _Tecla(
           icono: Icons.backspace_outlined,

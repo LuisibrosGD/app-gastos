@@ -17,7 +17,7 @@ class PinService {
   final Random _random;
 
   Future<void> guardarPin(String pin) async {
-    if (!RegExp(r'^\d{4,6}$').hasMatch(pin)) {
+    if (!RegExp(r'^\d{4}$').hasMatch(pin)) {
       throw ValidacionException('pin', 'formato');
     }
 

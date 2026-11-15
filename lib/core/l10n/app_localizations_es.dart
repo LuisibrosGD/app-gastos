@@ -340,7 +340,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get huellaUsar => 'Usar huella digital';
+  String get huellaTecla => 'Desbloquear con huella';
 
   @override
   String get huellaMotivo => 'Desbloquea App Gastos';
@@ -350,7 +350,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get protegerAyuda =>
-      'Activa un PIN de 4 a 6 dígitos o usa tu huella. Podrás cambiarlo cuando quieras en Ajustes.';
+      'Activa un PIN de 4 dígitos o usa tu huella. Podrás cambiarlo cuando quieras en Ajustes.';
 
   @override
   String get configurarPin => 'Configurar PIN';
@@ -362,13 +362,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get crearPinTitulo => 'Crear PIN';
 
   @override
-  String get crearPinIntroduce => 'Introduce un PIN de 4 a 6 dígitos';
+  String get crearPinIntroduce => 'Introduce un PIN de 4 dígitos';
 
   @override
   String get crearPinRepite => 'Repite el PIN';
 
   @override
-  String get errorPinFormato => 'El PIN debe tener de 4 a 6 dígitos';
+  String get errorPinFormato => 'El PIN debe tener 4 dígitos';
 
   @override
   String get errorPinNoCoincide => 'Los PIN no coinciden';

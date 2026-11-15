@@ -28,15 +28,24 @@ class CrearPinScreen extends ConsumerStatefulWidget {
 class _CrearPinScreenState extends ConsumerState<CrearPinScreen> {
   String _pin = '';
   String? _primerPin;
+  late List<int> _orden;
   String? _error;
   bool _guardando = false;
 
+  @override
+  void initState() {
+    super.initState();
+    _orden = mezclarDigitos(ref.read(randomPinProvider));
+  }
+
   void _pulsar(int numero) {
-    if (_guardando || _pin.length >= 6) return;
+    if (_guardando || _pin.length >= 4) return;
+    final pin = '$_pin$numero';
     setState(() {
-      _pin += '$numero';
+      _pin = pin;
       _error = null;
     });
+    if (pin.length == 4) _procesar();
   }
 
   void _borrar() {
@@ -47,12 +56,9 @@ class _CrearPinScreenState extends ConsumerState<CrearPinScreen> {
     });
   }
 
-  Future<void> _confirmar(AppLocalizations l10n) async {
+  Future<void> _procesar() async {
     if (_guardando) return;
-    if (_pin.length < 4) {
-      setState(() => _error = l10n.errorPinFormato);
-      return;
-    }
+    final l10n = AppLocalizations.of(context);
 
     if (_primerPin == null) {
       setState(() {
@@ -66,6 +72,7 @@ class _CrearPinScreenState extends ConsumerState<CrearPinScreen> {
     if (_pin != _primerPin) {
       setState(() {
         _pin = '';
+        _orden = mezclarDigitos(ref.read(randomPinProvider));
         _error = l10n.errorPinNoCoincide;
       });
       return;
@@ -105,6 +112,7 @@ class _CrearPinScreenState extends ConsumerState<CrearPinScreen> {
         _guardando = false;
         _error = l10n.errorPinFormato;
         _pin = '';
+        _orden = mezclarDigitos(ref.read(randomPinProvider));
       });
     } catch (_) {
       if (!mounted) return;
@@ -187,10 +195,10 @@ class _CrearPinScreenState extends ConsumerState<CrearPinScreen> {
               ),
               const SizedBox(height: AppEspacio.m),
               TecladoPin(
+                orden: _orden,
                 habilitado: !_guardando,
                 alPulsar: _pulsar,
                 alBorrar: _borrar,
-                alConfirmar: () => _confirmar(l10n),
               ),
             ],
           ),

@@ -68,8 +68,8 @@ void main() {
     expect(await servicio.tienePin(), isTrue);
   });
 
-  test('"123" y "1234567" y "12a4" lanzan ValidacionException', () async {
-    for (final pin in ['123', '1234567', '12a4']) {
+  test('guardar con 3, 5 o 6 dígitos lanza ValidacionException', () async {
+    for (final pin in ['123', '12345', '123456']) {
       await expectLater(
         servicio.guardarPin(pin),
         throwsA(

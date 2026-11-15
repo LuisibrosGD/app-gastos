@@ -716,11 +716,11 @@ abstract class AppLocalizations {
   /// **'Demasiados intentos. Espera {segundos} s'**
   String pinEspera(int segundos);
 
-  /// No description provided for @huellaUsar.
+  /// No description provided for @huellaTecla.
   ///
   /// In es, this message translates to:
-  /// **'Usar huella digital'**
-  String get huellaUsar;
+  /// **'Desbloquear con huella'**
+  String get huellaTecla;
 
   /// No description provided for @huellaMotivo.
   ///
@@ -737,7 +737,7 @@ abstract class AppLocalizations {
   /// No description provided for @protegerAyuda.
   ///
   /// In es, this message translates to:
-  /// **'Activa un PIN de 4 a 6 dígitos o usa tu huella. Podrás cambiarlo cuando quieras en Ajustes.'**
+  /// **'Activa un PIN de 4 dígitos o usa tu huella. Podrás cambiarlo cuando quieras en Ajustes.'**
   String get protegerAyuda;
 
   /// No description provided for @configurarPin.
@@ -761,7 +761,7 @@ abstract class AppLocalizations {
   /// No description provided for @crearPinIntroduce.
   ///
   /// In es, this message translates to:
-  /// **'Introduce un PIN de 4 a 6 dígitos'**
+  /// **'Introduce un PIN de 4 dígitos'**
   String get crearPinIntroduce;
 
   /// No description provided for @crearPinRepite.
@@ -773,7 +773,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorPinFormato.
   ///
   /// In es, this message translates to:
-  /// **'El PIN debe tener de 4 a 6 dígitos'**
+  /// **'El PIN debe tener 4 dígitos'**
   String get errorPinFormato;
 
   /// No description provided for @errorPinNoCoincide.

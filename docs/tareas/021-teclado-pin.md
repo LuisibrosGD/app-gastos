@@ -1,6 +1,6 @@
 # 021 — Teclado de PIN: 4 dígitos, sin confirmar, desordenado y con huella
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 016
 **Referencias:** SPEC P01, R6 (actualizada: el PIN tiene exactamente 4 dígitos) · Mejoras pedidas por el usuario tras la prueba de la 017
@@ -70,22 +70,47 @@ Distribución: los 10 dígitos (0–9) se reparten al azar en las 10 posiciones 
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/features/seguridad/data/pin_service.dart`: validación `^\d{4}$`.
+- `lib/features/seguridad/ui/widgets/teclado_pin.dart`: API `orden` + `alHuella`, `mezclarDigitos(Random)`, huella/borrar en las esquinas inferiores y etiqueta accesible.
+- `lib/features/seguridad/ui/widgets/puntos_pin.dart`: siempre 4 puntos.
+- `lib/features/seguridad/ui/widgets/verificar_pin_dialogo.dart` (nuevo): diálogo con puntos, teclado desordenado, cuenta atrás y cancelación.
+- `lib/features/seguridad/ui/bloqueo_screen.dart`: verificación automática al 4.º dígito, sin ✓ ni botón de texto de huella.
+- `lib/features/seguridad/ui/crear_pin_screen.dart`: 4 dígitos, paso automático a «Repite el PIN» y guardado al coincidir.
+- `lib/features/seguridad/providers/bloqueo_providers.dart`: `randomPinProvider` (`Random.secure()` por defecto).
+- `lib/features/ajustes/ui/ajustes_screen.dart`: el PIN actual se pide con el diálogo nuevo.
+- ARB es/en y clases generadas: textos de 4 dígitos, `huellaTecla` y eliminación de `huellaUsar`.
+- Tests: `pin_service_test.dart`, `teclado_pin_test.dart` (nuevo), `bloqueo_screen_test.dart`, `crear_pin_screen_test.dart` (nuevo) y `ajustes_screen_test.dart`.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `flutter gen-l10n` → clases de localización regeneradas.
+- `dart run build_runner build --delete-conflicting-outputs` → providers regenerados.
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (159 tests).
 
 **Decisiones tomadas / desvíos del brief:**
--
+- El diálogo de PIN actual va dentro de un `SingleChildScrollView` para que no desborde en pantallas bajas o con teclado abierto; en el teléfono se ve completo.
+- Al escribir el 4.º dígito se comprueba automáticamente; el 5.º se ignora. Tras un PIN incorrecto se vacían los puntos y se vuelve a mezclar el teclado, igual que al abrir cada pantalla.
+- La huella solo aparece en P01 con biometría disponible y activada; en crear PIN y en el diálogo de Ajustes el hueco inferior izquierdo queda vacío.
+- El intento automático de huella al abrir P01 se conserva. El botón de texto «Usar huella» y su texto ARB se eliminaron.
+- P01 y Crear PIN ya usaban `SafeArea`, y el diálogo usa los insets propios de `Dialog`; no hizo falta añadir margen inferior adicional.
 
 **Dudas o problemas pendientes:**
--
+- Falta la comprobación física del teclado desordenado y la huella en el teléfono.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-15 — APROBADA**
+
+Verificado: `flutter analyze` sin problemas y `flutter test` 159 en verde. Solo se tocaron archivos del Alcance.
+- `PinService` valida `^\d{4}$`; el hash con sal y el contador no cambian, y el PIN no se guarda ni se imprime en claro.
+- `TecladoPin` recibe `orden` y `alHuella`. Los 9 primeros dígitos del orden van arriba y el 10.º en el centro de la última fila; las esquinas son huella o hueco a la izquierda y borrar a la derecha. Ya no existe la tecla ✓ ni el botón «Usar huella» (`huellaUsar` eliminado de los ARB).
+- P01, crear PIN y el diálogo nuevo de Ajustes comprueban solos al 4.º dígito, ignoran el 5.º, y mezclan las teclas al abrir y tras cada fallo. El `Random` sale de `randomPinProvider` (`Random.secure()` por defecto).
+- El diálogo de Ajustes devuelve `true` o `false`, muestra la cuenta atrás de 30 s y cancela su temporizador al cerrarse. Sustituye por completo al `TextField` anterior.
+- Tests: los tres unitarios pedidos, los de P01 (incluido que el orden cambia tras un fallo y que el 5.º dígito no llega al servicio), los de crear PIN y los dos del diálogo de Ajustes.
+
+Observación menor, sin cambios: el test de la huella comprueba que la tecla existe y llama a la biometría, pero no su posición; la posición queda garantizada por cómo se construye la cuadrícula.
+
+Pendiente: probarlo en el teléfono. Si el PIN actual tiene 5 o 6 dígitos, desactivar el bloqueo antes de instalar el nuevo APK.

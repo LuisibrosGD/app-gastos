@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,6 +15,9 @@ AppLocalizations _textos(Ref ref) =>
 
 @Riverpod(keepAlive: true)
 DateTime Function() reloj(Ref ref) => DateTime.now;
+
+@Riverpod(keepAlive: true)
+Random randomPin(Ref ref) => Random.secure();
 
 @Riverpod(keepAlive: true)
 PinService pinService(Ref ref) {

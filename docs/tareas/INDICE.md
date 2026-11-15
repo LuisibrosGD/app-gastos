@@ -52,6 +52,6 @@
 | 018 | [Corrección: filtro por categoría de P05](018-fix-filtro-categoria.md) | código | 009 | APROBADA |
 | 019 | [Ver y restaurar categorías archivadas](019-categorias-archivadas.md) | código | 006 | APROBADA |
 | 020 | [Solo vertical, margen inferior y fila de recurrentes](020-vertical-margenes-recurrentes.md) | código | 017 (parcial) | APROBADA |
-| 021 | [Teclado de PIN: 4 dígitos, desordenado y con huella](021-teclado-pin.md) | código | 016 | PENDIENTE |
+| 021 | [Teclado de PIN: 4 dígitos, desordenado y con huella](021-teclado-pin.md) | código | 016 | APROBADA |
 
 Las tareas 001–002 (Figma) y 003 (init) son independientes y pueden hacerse en cualquier orden. La 004 necesita las dos ramas.

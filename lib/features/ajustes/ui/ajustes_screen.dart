@@ -9,6 +9,7 @@ import '../../../core/theme/dimensiones.dart';
 import '../../../core/theme/tipografia.dart';
 import '../../seguridad/providers/bloqueo_providers.dart';
 import '../../seguridad/ui/crear_pin_screen.dart';
+import '../../seguridad/ui/widgets/verificar_pin_dialogo.dart';
 import '../providers/preferencias_providers.dart';
 import 'widgets/filas_ajustes.dart';
 
@@ -49,57 +50,11 @@ class _AjustesScreenState extends ConsumerState<AjustesScreen> {
     }
   }
 
-  Future<bool> _verificarPinActual(AppLocalizations l10n) async {
+  Future<bool> _verificarPinActual() async {
     final servicio = ref.read(pinServiceProvider);
     if (!await servicio.tienePin()) return true;
     if (!mounted) return false;
-
-    final controlador = TextEditingController();
-    final pin = await showDialog<String>(
-      context: context,
-      builder: (contexto) => AlertDialog(
-        title: Text(l10n.pinActualTitulo),
-        content: TextField(
-          controller: controlador,
-          autofocus: true,
-          obscureText: true,
-          keyboardType: TextInputType.number,
-          maxLength: 6,
-          decoration: InputDecoration(
-            labelText: l10n.pinActualAyuda,
-            counterText: '',
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(contexto).pop(),
-            child: Text(l10n.accionCancelar),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(contexto).pop(controlador.text),
-            child: Text(l10n.accionContinuar),
-          ),
-        ],
-      ),
-    );
-    controlador.dispose();
-    if (pin == null) return false;
-
-    final correcto = await ref
-        .read(bloqueoControllerProvider.notifier)
-        .verificarPinActual(pin);
-    if (!correcto && mounted) {
-      final estado = ref.read(bloqueoControllerProvider);
-      final espera = estado.esperarHasta;
-      final ahora = ref.read(relojProvider)();
-      final mensaje = espera != null && espera.isAfter(ahora)
-          ? l10n.pinEspera(espera.difference(ahora).inSeconds)
-          : l10n.pinIncorrecto;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(mensaje)));
-    }
-    return correcto;
+    return mostrarVerificarPinDialogo(context);
   }
 
   Future<void> _refrescarSeguridad() async {
@@ -111,10 +66,7 @@ class _AjustesScreenState extends ConsumerState<AjustesScreen> {
     });
   }
 
-  Future<void> _cambiarBloqueo(
-    AppLocalizations l10n,
-    bool valor,
-  ) async {
+  Future<void> _cambiarBloqueo(bool valor) async {
     if (valor && !await ref.read(pinServiceProvider).tienePin()) {
       if (!mounted) return;
       final creado = await Navigator.of(context).push<bool>(
@@ -126,13 +78,13 @@ class _AjustesScreenState extends ConsumerState<AjustesScreen> {
       return;
     }
 
-    if (!await _verificarPinActual(l10n)) return;
+    if (!await _verificarPinActual()) return;
     await ref.read(preferenciasRepositoryProvider).setBloqueoActivo(valor);
     if (mounted) setState(() => _bloqueoActivo = valor);
   }
 
-  Future<void> _cambiarPin(AppLocalizations l10n) async {
-    if (!await _verificarPinActual(l10n)) return;
+  Future<void> _cambiarPin() async {
+    if (!await _verificarPinActual()) return;
     if (!mounted) return;
     await Navigator.of(context).push<bool>(
       MaterialPageRoute(
@@ -186,11 +138,11 @@ class _AjustesScreenState extends ConsumerState<AjustesScreen> {
               FilaSwitch(
                 texto: l10n.bloqueo,
                 valor: _bloqueoActivo,
-                alCambiar: (valor) => _cambiarBloqueo(l10n, valor),
+                alCambiar: _cambiarBloqueo,
               ),
               FilaAjuste(
                 texto: l10n.cambiarPin,
-                alTocar: () => _cambiarPin(l10n),
+                alTocar: _cambiarPin,
               ),
               if (huella)
                 FilaSwitch(
