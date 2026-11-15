@@ -253,6 +253,53 @@
       }
     }
   },
+  "recurrentesTitulo": "Recurrentes",
+  "recurrentesAyuda": "Se generan automáticamente al abrir la app.",
+  "recurrentesNueva": "Nueva",
+  "recurrenteNueva": "Nueva regla",
+  "recurrenteEditar": "Editar regla",
+  "campoFrecuencia": "Frecuencia",
+  "frecuenciaMensual": "Mensual",
+  "frecuenciaSemanal": "Semanal",
+  "campoDia": "Día",
+  "diaDelMes": "Día {dia} del mes",
+  "@diaDelMes": {
+    "placeholders": {
+      "dia": {
+        "type": "int"
+      }
+    }
+  },
+  "campoFechaInicio": "Fecha de inicio",
+  "activa": "Activa",
+  "recurrenteMensual": "Mensual · día {dia}",
+  "@recurrenteMensual": {
+    "placeholders": {
+      "dia": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenteSemanal": "Semanal · {dia}",
+  "@recurrenteSemanal": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      }
+    }
+  },
+  "diaLunes": "lunes",
+  "diaMartes": "martes",
+  "diaMiercoles": "miércoles",
+  "diaJueves": "jueves",
+  "diaViernes": "viernes",
+  "diaSabado": "sábado",
+  "diaDomingo": "domingo",
+  "errorDiaFueraDeRango": "Elige un día válido",
+  "errorGuardarRecurrente": "No se pudo guardar la regla",
+  "errorCargarRecurrente": "No se pudo cargar la regla",
+  "confirmarBorrarRecurrenteTitulo": "¿Eliminar la regla?",
+  "confirmarBorrarRecurrenteMensaje": "Los movimientos ya creados se conservarán.",
   "presupuestoAlertaCuerpo": "Llevas {gastado} de {limite} este mes.",
   "@presupuestoAlertaCuerpo": {
     "placeholders": {

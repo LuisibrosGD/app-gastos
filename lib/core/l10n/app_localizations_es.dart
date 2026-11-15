@@ -356,6 +356,91 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get recurrentesTitulo => 'Recurrentes';
+
+  @override
+  String get recurrentesAyuda => 'Se generan automáticamente al abrir la app.';
+
+  @override
+  String get recurrentesNueva => 'Nueva';
+
+  @override
+  String get recurrenteNueva => 'Nueva regla';
+
+  @override
+  String get recurrenteEditar => 'Editar regla';
+
+  @override
+  String get campoFrecuencia => 'Frecuencia';
+
+  @override
+  String get frecuenciaMensual => 'Mensual';
+
+  @override
+  String get frecuenciaSemanal => 'Semanal';
+
+  @override
+  String get campoDia => 'Día';
+
+  @override
+  String diaDelMes(int dia) {
+    return 'Día $dia del mes';
+  }
+
+  @override
+  String get campoFechaInicio => 'Fecha de inicio';
+
+  @override
+  String get activa => 'Activa';
+
+  @override
+  String recurrenteMensual(int dia) {
+    return 'Mensual · día $dia';
+  }
+
+  @override
+  String recurrenteSemanal(String dia) {
+    return 'Semanal · $dia';
+  }
+
+  @override
+  String get diaLunes => 'lunes';
+
+  @override
+  String get diaMartes => 'martes';
+
+  @override
+  String get diaMiercoles => 'miércoles';
+
+  @override
+  String get diaJueves => 'jueves';
+
+  @override
+  String get diaViernes => 'viernes';
+
+  @override
+  String get diaSabado => 'sábado';
+
+  @override
+  String get diaDomingo => 'domingo';
+
+  @override
+  String get errorDiaFueraDeRango => 'Elige un día válido';
+
+  @override
+  String get errorGuardarRecurrente => 'No se pudo guardar la regla';
+
+  @override
+  String get errorCargarRecurrente => 'No se pudo cargar la regla';
+
+  @override
+  String get confirmarBorrarRecurrenteTitulo => '¿Eliminar la regla?';
+
+  @override
+  String get confirmarBorrarRecurrenteMensaje =>
+      'Los movimientos ya creados se conservarán.';
+
+  @override
   String presupuestoAlertaCuerpo(String gastado, String limite) {
     return 'Llevas $gastado de $limite este mes.';
   }

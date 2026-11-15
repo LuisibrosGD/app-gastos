@@ -352,6 +352,92 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get recurrentesTitulo => 'Recurring';
+
+  @override
+  String get recurrentesAyuda =>
+      'They\'re created automatically when you open the app.';
+
+  @override
+  String get recurrentesNueva => 'New';
+
+  @override
+  String get recurrenteNueva => 'New rule';
+
+  @override
+  String get recurrenteEditar => 'Edit rule';
+
+  @override
+  String get campoFrecuencia => 'Frequency';
+
+  @override
+  String get frecuenciaMensual => 'Monthly';
+
+  @override
+  String get frecuenciaSemanal => 'Weekly';
+
+  @override
+  String get campoDia => 'Day';
+
+  @override
+  String diaDelMes(int dia) {
+    return 'Day $dia of the month';
+  }
+
+  @override
+  String get campoFechaInicio => 'Start date';
+
+  @override
+  String get activa => 'Active';
+
+  @override
+  String recurrenteMensual(int dia) {
+    return 'Monthly · day $dia';
+  }
+
+  @override
+  String recurrenteSemanal(String dia) {
+    return 'Weekly · $dia';
+  }
+
+  @override
+  String get diaLunes => 'Monday';
+
+  @override
+  String get diaMartes => 'Tuesday';
+
+  @override
+  String get diaMiercoles => 'Wednesday';
+
+  @override
+  String get diaJueves => 'Thursday';
+
+  @override
+  String get diaViernes => 'Friday';
+
+  @override
+  String get diaSabado => 'Saturday';
+
+  @override
+  String get diaDomingo => 'Sunday';
+
+  @override
+  String get errorDiaFueraDeRango => 'Choose a valid day';
+
+  @override
+  String get errorGuardarRecurrente => 'Couldn\'t save the rule';
+
+  @override
+  String get errorCargarRecurrente => 'Couldn\'t load the rule';
+
+  @override
+  String get confirmarBorrarRecurrenteTitulo => 'Delete the rule?';
+
+  @override
+  String get confirmarBorrarRecurrenteMensaje =>
+      'Movements already created will be kept.';
+
+  @override
   String presupuestoAlertaCuerpo(String gastado, String limite) {
     return 'You\'ve spent $gastado of $limite this month.';
   }

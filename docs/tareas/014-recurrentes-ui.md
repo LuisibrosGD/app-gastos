@@ -1,6 +1,6 @@
 # 014 — Recurrentes: pantalla P08 y ciclo de vida
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 010, 013
 **Referencias:** SPEC P08, R5 · ARQUITECTURA §5 (Arranque, Ciclo de vida) · `docs/diseno/P08.png`, `P08b.png`
@@ -56,22 +56,41 @@ class CicloDeVida extends ConsumerStatefulWidget { const CicloDeVida({required t
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/features/recurrentes/ui/recurrentes_screen.dart`, `recurrente_form_screen.dart`.
+- `lib/features/recurrentes/ui/widgets/formulario_recurrente.dart`, `selector_frecuencia.dart`, `campo_dia.dart`, `campos_formulario.dart` (extraídos para respetar la regla 8).
+- `lib/core/lifecycle/ciclo_vida.dart` y `lib/app.dart` (envuelto con `CicloDeVida`).
+- `lib/core/router/app_router.dart` y `lib/features/ajustes/ui/ajustes_screen.dart` (entrada «Recurrentes»).
+- `lib/core/l10n/app_es.arb`, `app_en.arb` y clases generadas.
+- `test/features/recurrentes/ui/recurrentes_screen_test.dart`, `test/core/lifecycle/ciclo_vida_test.dart`.
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- `flutter gen-l10n` → textos nuevos generados.
+- `flutter analyze` → `No issues found!`
+- `flutter test` → `All tests passed!` (121 tests; 5 nuevos)
 
 **Decisiones tomadas / desvíos del brief:**
--
+- P08 lista cada regla en una tarjeta con icono de categoría, título (nota o nombre de categoría), importe con signo y color, subtítulo «Mensual · día N» / «Semanal · día» y switch que actualiza `activo` mediante `actualizar`.
+- El formulario reutiliza `SelectorTipoMovimiento`, `ChipCategoria`, `CampoFecha` y `CampoMonto` de P04, y valida igual: errores por campo y SnackBar para fallos inesperados. El día se elige con un desplegable que cambia entre 1–31 y lunes–domingo según la frecuencia.
+- La edición carga la regla desde `recurrentesProvider` y ofrece «Borrar» con confirmación que avisa de que los movimientos se conservan.
+- `CicloDeVida` se monta en el `builder` de `MaterialApp.router`: genera una vez tras el primer frame (si el onboarding está completo) y otra en cada `onResume`; cualquier error se registra con `debugPrint`.
+- Las rutas `nueva` y `:id` se declararon en ese orden para que «nueva» no se interprete como un id.
+- Los cuatro archivos de widgets se añaden al Alcance para que el formulario no pase de ~300 líneas.
 
 **Dudas o problemas pendientes:**
--
+- No se ejecutó la prueba manual en el teléfono (crear una regla con día de hoy, cerrar y abrir la app) porque no hay dispositivo ni emulador conectado.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-15 — APROBADA**
+
+Verificado: `flutter analyze` sin problemas, `flutter test` 121 en verde, `build_runner` sin cambios en `.g.dart`. P08 y P08b se parecen a sus PNG. `CicloDeVida` genera tras el primer frame (con onboarding completo) y en cada `onResume`, con errores solo en `debugPrint`; junto al generador de la 013, que relee la regla dentro de la transacción, abrir y volver a la app no duplica. La confirmación de borrado avisa de que los movimientos se conservan (R5). Se aceptan los cuatro widgets extraídos.
+
+Notas no bloqueantes (para cuando se toquen estos archivos):
+- `app_router.dart`: un `:id` no numérico (`int.tryParse` → null) abre el formulario de alta en lugar de un error. Usar `Rutas.recurrente` evita el caso en la práctica.
+- `recurrente_form_screen.dart`: al borrar, el stream puede reconstruir antes del `pop` y mostrar un instante «no se pudo cargar».
+- `recurrentes_screen.dart`: si la carga falla no se muestra nada (`SizedBox.shrink`), igual que en Inicio.
+- El día por defecto es 1; podría ser el día de hoy, para que coincida con la fecha de inicio.
+- Pendiente la prueba en el teléfono (regla con día de hoy, cerrar y abrir, un solo movimiento).

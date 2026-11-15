@@ -90,6 +90,10 @@ class AjustesScreen extends ConsumerWidget {
                 alTocar: () => context.push(Rutas.presupuesto),
               ),
               _FilaAjuste(
+                texto: l10n.recurrentesTitulo,
+                alTocar: () => context.push(Rutas.recurrentes),
+              ),
+              _FilaAjuste(
                 texto: l10n.categoriasTitulo,
                 alTocar: () => context.push(Rutas.categorias),
               ),

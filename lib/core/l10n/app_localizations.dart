@@ -734,6 +734,162 @@ abstract class AppLocalizations {
   /// **'{categoria} al {porcentaje} %'**
   String categoriaAlertaTitulo(String categoria, int porcentaje);
 
+  /// No description provided for @recurrentesTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Recurrentes'**
+  String get recurrentesTitulo;
+
+  /// No description provided for @recurrentesAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Se generan automáticamente al abrir la app.'**
+  String get recurrentesAyuda;
+
+  /// No description provided for @recurrentesNueva.
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva'**
+  String get recurrentesNueva;
+
+  /// No description provided for @recurrenteNueva.
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva regla'**
+  String get recurrenteNueva;
+
+  /// No description provided for @recurrenteEditar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar regla'**
+  String get recurrenteEditar;
+
+  /// No description provided for @campoFrecuencia.
+  ///
+  /// In es, this message translates to:
+  /// **'Frecuencia'**
+  String get campoFrecuencia;
+
+  /// No description provided for @frecuenciaMensual.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensual'**
+  String get frecuenciaMensual;
+
+  /// No description provided for @frecuenciaSemanal.
+  ///
+  /// In es, this message translates to:
+  /// **'Semanal'**
+  String get frecuenciaSemanal;
+
+  /// No description provided for @campoDia.
+  ///
+  /// In es, this message translates to:
+  /// **'Día'**
+  String get campoDia;
+
+  /// No description provided for @diaDelMes.
+  ///
+  /// In es, this message translates to:
+  /// **'Día {dia} del mes'**
+  String diaDelMes(int dia);
+
+  /// No description provided for @campoFechaInicio.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha de inicio'**
+  String get campoFechaInicio;
+
+  /// No description provided for @activa.
+  ///
+  /// In es, this message translates to:
+  /// **'Activa'**
+  String get activa;
+
+  /// No description provided for @recurrenteMensual.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensual · día {dia}'**
+  String recurrenteMensual(int dia);
+
+  /// No description provided for @recurrenteSemanal.
+  ///
+  /// In es, this message translates to:
+  /// **'Semanal · {dia}'**
+  String recurrenteSemanal(String dia);
+
+  /// No description provided for @diaLunes.
+  ///
+  /// In es, this message translates to:
+  /// **'lunes'**
+  String get diaLunes;
+
+  /// No description provided for @diaMartes.
+  ///
+  /// In es, this message translates to:
+  /// **'martes'**
+  String get diaMartes;
+
+  /// No description provided for @diaMiercoles.
+  ///
+  /// In es, this message translates to:
+  /// **'miércoles'**
+  String get diaMiercoles;
+
+  /// No description provided for @diaJueves.
+  ///
+  /// In es, this message translates to:
+  /// **'jueves'**
+  String get diaJueves;
+
+  /// No description provided for @diaViernes.
+  ///
+  /// In es, this message translates to:
+  /// **'viernes'**
+  String get diaViernes;
+
+  /// No description provided for @diaSabado.
+  ///
+  /// In es, this message translates to:
+  /// **'sábado'**
+  String get diaSabado;
+
+  /// No description provided for @diaDomingo.
+  ///
+  /// In es, this message translates to:
+  /// **'domingo'**
+  String get diaDomingo;
+
+  /// No description provided for @errorDiaFueraDeRango.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige un día válido'**
+  String get errorDiaFueraDeRango;
+
+  /// No description provided for @errorGuardarRecurrente.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar la regla'**
+  String get errorGuardarRecurrente;
+
+  /// No description provided for @errorCargarRecurrente.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo cargar la regla'**
+  String get errorCargarRecurrente;
+
+  /// No description provided for @confirmarBorrarRecurrenteTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Eliminar la regla?'**
+  String get confirmarBorrarRecurrenteTitulo;
+
+  /// No description provided for @confirmarBorrarRecurrenteMensaje.
+  ///
+  /// In es, this message translates to:
+  /// **'Los movimientos ya creados se conservarán.'**
+  String get confirmarBorrarRecurrenteMensaje;
+
   /// No description provided for @presupuestoAlertaCuerpo.
   ///
   /// In es, this message translates to:

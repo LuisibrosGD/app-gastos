@@ -187,6 +187,53 @@
       }
     }
   },
+  "recurrentesTitulo": "Recurring",
+  "recurrentesAyuda": "They're created automatically when you open the app.",
+  "recurrentesNueva": "New",
+  "recurrenteNueva": "New rule",
+  "recurrenteEditar": "Edit rule",
+  "campoFrecuencia": "Frequency",
+  "frecuenciaMensual": "Monthly",
+  "frecuenciaSemanal": "Weekly",
+  "campoDia": "Day",
+  "diaDelMes": "Day {dia} of the month",
+  "@diaDelMes": {
+    "placeholders": {
+      "dia": {
+        "type": "int"
+      }
+    }
+  },
+  "campoFechaInicio": "Start date",
+  "activa": "Active",
+  "recurrenteMensual": "Monthly · day {dia}",
+  "@recurrenteMensual": {
+    "placeholders": {
+      "dia": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenteSemanal": "Weekly · {dia}",
+  "@recurrenteSemanal": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      }
+    }
+  },
+  "diaLunes": "Monday",
+  "diaMartes": "Tuesday",
+  "diaMiercoles": "Wednesday",
+  "diaJueves": "Thursday",
+  "diaViernes": "Friday",
+  "diaSabado": "Saturday",
+  "diaDomingo": "Sunday",
+  "errorDiaFueraDeRango": "Choose a valid day",
+  "errorGuardarRecurrente": "Couldn't save the rule",
+  "errorCargarRecurrente": "Couldn't load the rule",
+  "confirmarBorrarRecurrenteTitulo": "Delete the rule?",
+  "confirmarBorrarRecurrenteMensaje": "Movements already created will be kept.",
   "presupuestoAlertaCuerpo": "You've spent {gastado} of {limite} this month.",
   "@presupuestoAlertaCuerpo": {
     "placeholders": {
