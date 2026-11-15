@@ -24,6 +24,21 @@ class CategoriasRepository {
     return consulta.watch();
   }
 
+  Stream<List<Categoria>> watchArchivadas() {
+    return (_db.select(_db.categorias)
+          ..where((t) => t.archivada.equals(true))
+          ..orderBy([(t) => OrderingTerm(expression: t.nombre)]))
+        .watch();
+  }
+
+  Future<void> restaurar(int id) async {
+    await (_db.update(
+      _db.categorias,
+    )..where((t) => t.id.equals(id))).write(
+      const CategoriasCompanion(archivada: Value(false)),
+    );
+  }
+
   Future<Categoria?> obtener(int id) {
     return (_db.select(
       _db.categorias,

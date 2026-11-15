@@ -23,6 +23,18 @@
   "@categoriaArchivada": {
     "description": "Marca de una categoría archivada"
   },
+  "categoriasArchivadas": "Archivadas",
+  "@categoriasArchivadas": {
+    "description": "Título de la sección de categorías archivadas en P09"
+  },
+  "accionRestaurar": "Restaurar",
+  "@accionRestaurar": {
+    "description": "Acción para restaurar una categoría archivada"
+  },
+  "categoriaRestauradaAviso": "La categoría se restauró.",
+  "@categoriaRestauradaAviso": {
+    "description": "Mensaje tras restaurar una categoría"
+  },
   "categoriaNueva": "Nueva categoría",
   "@categoriaNueva": {
     "description": "Título del formulario para crear una categoría"

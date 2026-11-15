@@ -52,8 +52,43 @@ class CategoriasScreen extends ConsumerWidget {
             titulo: l10n.categoriasIngresos,
             tipo: TipoMovimiento.ingreso,
           ),
+          _SeccionArchivadas(titulo: l10n.categoriasArchivadas),
         ],
       ),
+    );
+  }
+}
+
+class _SeccionArchivadas extends ConsumerWidget {
+  const _SeccionArchivadas({required this.titulo});
+
+  final String titulo;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final archivadas = ref.watch(categoriasArchivadasProvider);
+
+    return archivadas.when(
+      data: (lista) => lista.isEmpty
+          ? const SizedBox.shrink()
+          : Padding(
+              padding: const EdgeInsets.only(top: AppEspacio.xl),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    titulo,
+                    style: AppTexto.etiqueta.copyWith(
+                      color: AppColores.textoSecundario,
+                    ),
+                  ),
+                  const SizedBox(height: AppEspacio.s),
+                  _TarjetaCategorias(categorias: lista),
+                ],
+              ),
+            ),
+      loading: () => const SizedBox.shrink(),
+      error: (error, stackTrace) => const SizedBox.shrink(),
     );
   }
 }

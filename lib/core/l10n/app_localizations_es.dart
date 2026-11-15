@@ -27,6 +27,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get categoriaArchivada => 'Archivada';
 
   @override
+  String get categoriasArchivadas => 'Archivadas';
+
+  @override
+  String get accionRestaurar => 'Restaurar';
+
+  @override
+  String get categoriaRestauradaAviso => 'La categoría se restauró.';
+
+  @override
   String get categoriaNueva => 'Nueva categoría';
 
   @override

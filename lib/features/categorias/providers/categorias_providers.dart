@@ -20,3 +20,7 @@ final categoriasPorTipoProvider =
     StreamProvider.family<List<Categoria>, TipoMovimiento>((ref, tipo) {
       return ref.watch(categoriasRepositoryProvider).watchPorTipo(tipo);
     });
+
+final categoriasArchivadasProvider = StreamProvider<List<Categoria>>((ref) {
+  return ref.watch(categoriasRepositoryProvider).watchArchivadas();
+});

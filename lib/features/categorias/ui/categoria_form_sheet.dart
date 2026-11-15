@@ -106,6 +106,19 @@ class _CategoriaFormSheetState extends ConsumerState<CategoriaFormSheet> {
     }
   }
 
+  Future<void> _restaurar() async {
+    final l10n = AppLocalizations.of(context);
+    await ref
+        .read(categoriasRepositoryProvider)
+        .restaurar(widget.categoria!.id);
+    if (!mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    Navigator.of(context).pop();
+    messenger.showSnackBar(
+      SnackBar(content: Text(l10n.categoriaRestauradaAviso)),
+    );
+  }
+
   Future<void> _eliminar() async {
     final l10n = AppLocalizations.of(context);
     final confirmado = await showDialog<bool>(
@@ -217,14 +230,23 @@ class _CategoriaFormSheetState extends ConsumerState<CategoriaFormSheet> {
             if (_esEdicion) ...[
               const SizedBox(height: AppEspacio.s),
               Center(
-                child: TextButton.icon(
-                  onPressed: _eliminar,
-                  icon: const Icon(Icons.delete_outline),
-                  label: Text(l10n.accionEliminar),
-                  style: TextButton.styleFrom(
-                    foregroundColor: AppColores.error,
-                  ),
-                ),
+                child: widget.categoria!.archivada
+                    ? TextButton.icon(
+                        onPressed: _restaurar,
+                        icon: const Icon(Icons.restore),
+                        label: Text(l10n.accionRestaurar),
+                        style: TextButton.styleFrom(
+                          foregroundColor: AppColores.primario,
+                        ),
+                      )
+                    : TextButton.icon(
+                        onPressed: _eliminar,
+                        icon: const Icon(Icons.delete_outline),
+                        label: Text(l10n.accionEliminar),
+                        style: TextButton.styleFrom(
+                          foregroundColor: AppColores.error,
+                        ),
+                      ),
               ),
             ],
           ],

@@ -134,6 +134,24 @@ abstract class AppLocalizations {
   /// **'Archivada'**
   String get categoriaArchivada;
 
+  /// Título de la sección de categorías archivadas en P09
+  ///
+  /// In es, this message translates to:
+  /// **'Archivadas'**
+  String get categoriasArchivadas;
+
+  /// Acción para restaurar una categoría archivada
+  ///
+  /// In es, this message translates to:
+  /// **'Restaurar'**
+  String get accionRestaurar;
+
+  /// Mensaje tras restaurar una categoría
+  ///
+  /// In es, this message translates to:
+  /// **'La categoría se restauró.'**
+  String get categoriaRestauradaAviso;
+
   /// Título del formulario para crear una categoría
   ///
   /// In es, this message translates to:

@@ -149,6 +149,65 @@ void main() {
     expect(todas.first.archivada, isTrue);
   });
 
+  test('watchArchivadas devuelve solo las archivadas de ambos tipos', () async {
+    final gasto = await crearCategoria('Cine');
+    final ingreso = await crearCategoria(
+      'Bono',
+      tipo: TipoMovimiento.ingreso,
+    );
+    await crearCategoria('Comida');
+
+    for (final (id, tipo) in [
+      (gasto, TipoMovimiento.gasto),
+      (ingreso, TipoMovimiento.ingreso),
+    ]) {
+      await db
+          .into(db.movimientos)
+          .insert(
+            MovimientosCompanion.insert(
+              tipo: tipo,
+              montoCentimos: 1000,
+              fecha: DateTime(2026, 11, 11),
+              categoriaId: id,
+              creadoEn: DateTime(2026, 11, 11, 10),
+            ),
+          );
+      await repo.eliminarOArchivar(id);
+    }
+
+    final archivadas = await repo.watchArchivadas().first;
+
+    expect(archivadas.map((c) => c.nombre), ['Bono', 'Cine']);
+    expect(archivadas.every((c) => c.archivada), isTrue);
+  });
+
+  test(
+    'restaurar la devuelve a watchPorTipo y la saca de watchArchivadas',
+    () async {
+      final id = await crearCategoria('Cine');
+      await db
+          .into(db.movimientos)
+          .insert(
+            MovimientosCompanion.insert(
+              tipo: TipoMovimiento.gasto,
+              montoCentimos: 1000,
+              fecha: DateTime(2026, 11, 11),
+              categoriaId: id,
+              creadoEn: DateTime(2026, 11, 11, 10),
+            ),
+          );
+      await repo.eliminarOArchivar(id);
+      expect(await repo.watchArchivadas().first, hasLength(1));
+
+      await repo.restaurar(id);
+
+      expect(await repo.watchArchivadas().first, isEmpty);
+      final activas = await repo.watchPorTipo(TipoMovimiento.gasto).first;
+      expect(activas.map((c) => c.nombre), ['Cine']);
+      expect(activas.single.archivada, isFalse);
+    },
+  );
+
   test('crearPorDefecto crea 9 de gasto y 3 de ingreso; no duplica', () async {
     const gastos = [
       'Comida',
