@@ -1,6 +1,6 @@
 # 022 — Corrección: notificaciones del presupuesto
 
-**Estado:** PENDIENTE
+**Estado:** APROBADA
 **Tipo:** código
 **Depende de:** 011, 017 (parcial)
 **Referencias:** SPEC P07 / R4 · ARQUITECTURA §3 · tarea 017 (Auditoría, ronda 2)
@@ -64,22 +64,44 @@ Con un presupuesto de categoría **nuevo** (que no haya avisado este mes):
 *(Lo escribe Command Code. No borrar los títulos.)*
 
 **Archivos creados o modificados:**
--
+- `lib/features/movimientos/providers/movimientos_providers.dart` y `.g.dart` regenerado: `MovimientosController` pasa a `@Riverpod(keepAlive: true)`; `catch (_) {}` sustituido por `catch (error, pila)` con `FlutterError.reportError(... library: 'alertas')`.
+- `lib/features/presupuesto/data/notificador.dart`: constante `_icono = 'ic_notificacion'`, usada en `AndroidInitializationSettings` y en `AndroidNotificationDetails(icon: ...)`.
+- `android/app/src/main/res/drawable/ic_notificacion.xml` (nuevo): vector blanco de 24 dp (billetera).
+- `android/app/src/main/res/raw/keep.xml` (nuevo): `tools:keep="@drawable/ic_notificacion"`.
+- `test/features/movimientos/ui/movimiento_form_screen_test.dart`: widget test del paso 1 (con `NotificadorFalso` y `notificadorProvider` sustituido).
+- `test/features/movimientos/providers/movimientos_controller_test.dart`: test del paso 5 (`NotificadorQueFalla`).
 
 **Comandos ejecutados y resultado:**
-- `flutter analyze` →
-- `flutter test` →
+- Widget test del paso 1, **antes de corregir** → **FALLA**. Pasan las comprobaciones de que el gasto se guarda y la pantalla se cierra, y falla `expect(notificador.llamadas, hasLength(1))` (0 llamadas en vez de 1). La causa 1 (controlador destruido a mitad de `guardar`) **sí se reproduce en test**. Tras el fallo el test se quedó colgado hasta el timeout de 10 min, porque `cerrar(tester)` no se ejecutó y la base de datos quedó con un stream abierto; es un efecto del fallo y no ocurre con el test en verde.
+- `dart run build_runner build --delete-conflicting-outputs` → OK; solo cambió `movimientos_providers.g.dart`.
+- `flutter analyze` → No issues found.
+- `flutter test` → All tests passed (161 tests, incluidos los 2 nuevos y los de alertas 80 % / 100 % / una vez por mes sin cambios).
+- `flutter build apk --release --split-per-abi` → OK (armeabi-v7a 19,6 MB, arm64-v8a 21,9 MB, x86_64 23,2 MB).
 
 **Decisiones tomadas / desvíos del brief:**
--
+- Añadí `keep.xml` sin poder comprobar que hiciera falta: el plugin resuelve el ícono por nombre en tiempo de ejecución, que es el caso típico en que el reductor de recursos lo elimina, y el archivo es inocuo. No pude confirmar por nombre que el drawable esté dentro del APK release (los recursos van con rutas acortadas y en este equipo no hay `strings`); queda por comprobar en el teléfono.
+- El ícono es un dibujo propio sencillo (cuerpo, ranura de solapa y botón de cierre con `evenOdd`); no lo vi renderizado. Conviene mirarlo en el teléfono.
+- `NotificadorFalso` se duplica en los dos archivos de test (el brief limita el alcance a esos archivos y no permite crear uno compartido).
 
 **Dudas o problemas pendientes:**
--
+- La prueba en el teléfono del brief (80 % → 1 notificación con ícono blanco, 100 % → otra, un gasto más → ninguna) no se ha hecho.
+- `git status` muestra `.commandcode/taste/taste.md` modificado y `Cookies` sin seguimiento, ya existentes antes de esta tarea; no los toqué.
 
 ---
 
 ## Auditoría
 *(La escribe Claude Code.)*
 
-**Ronda 1 — fecha — resultado:**
--
+**Ronda 1 — 2026-11-20 — APROBADA**
+
+Verificado por mí: `flutter analyze` sin problemas y `flutter test` 161 en verde (2 tests nuevos; los de alertas al 80 %, al 100 % y una vez por mes siguen sin cambios). Con `aapt2 dump resources` comprobé que `drawable/ic_notificacion` está dentro de `app-arm64-v8a-release.apk`, así que el build release no lo elimina.
+
+- El test del formulario falló antes de corregir (0 notificaciones en vez de 1). Eso confirma que la causa era el controlador destruido a mitad de `guardar`, no el ícono. Ahora pasa.
+- `MovimientosController` es `keepAlive` y el `.g.dart` está regenerado (`isAutoDispose: false`).
+- `guardar` ya no silencia el error: lo reporta con `FlutterError.reportError` (`library: 'alertas'`) y sigue devolviendo el id. El test con `NotificadorQueFalla` lo comprueba con un `FlutterError.onError` capturado y restaurado.
+- El ícono es un vector blanco de 24 dp y se usa al inicializar y en cada notificación. `keep.xml` no hace daño.
+- Solo se tocaron archivos del Alcance; no hay `print`s ni dependencias nuevas.
+
+Observación menor, sin cambio pedido: `NotificadorFalso` está duplicado en dos archivos de test porque el Alcance no permitía uno compartido. Se podrá unificar si algún día se toca esa zona.
+
+Falta la prueba en el teléfono dentro de la 017: 80 % → 1 notificación con el ícono blanco, 100 % → 1 más, otro gasto → ninguna.

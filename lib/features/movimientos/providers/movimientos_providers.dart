@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/database/database_provider.dart';
@@ -38,7 +39,7 @@ Stream<TotalesMes> totalesMes(Ref ref, DateTime mes) {
   return ref.watch(movimientosRepositoryProvider).watchTotalesMes(mes);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class MovimientosController extends _$MovimientosController {
   @override
   FutureOr<void> build() {}
@@ -58,7 +59,15 @@ class MovimientosController extends _$MovimientosController {
         await ref
             .read(alertasServiceProvider)
             .revisar(fecha: input.fecha, categoriaId: input.categoriaId);
-      } catch (_) {}
+      } catch (error, pila) {
+        FlutterError.reportError(
+          FlutterErrorDetails(
+            exception: error,
+            stack: pila,
+            library: 'alertas',
+          ),
+        );
+      }
     }
 
     return guardadoId;

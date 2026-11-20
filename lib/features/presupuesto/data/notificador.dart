@@ -10,6 +10,7 @@ class NotificadorLocal implements Notificador {
   NotificadorLocal({required this.textos});
 
   static const _idCanal = 'presupuesto';
+  static const _icono = 'ic_notificacion';
 
   final AppLocalizations Function() textos;
   final FlutterLocalNotificationsPlugin _plugin =
@@ -21,7 +22,7 @@ class NotificadorLocal implements Notificador {
     if (_inicializado) return;
     await _plugin.initialize(
       settings: const InitializationSettings(
-        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        android: AndroidInitializationSettings(_icono),
       ),
     );
     _inicializado = true;
@@ -48,6 +49,7 @@ class NotificadorLocal implements Notificador {
       textos().canalPresupuesto,
       importance: Importance.high,
       priority: Priority.high,
+      icon: _icono,
     );
     await _plugin.show(
       id: _siguienteId++,

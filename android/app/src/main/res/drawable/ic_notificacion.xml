@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Billetera monocroma: cuerpo, ranura de la solapa y botón de cierre -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M3,5 H19 V8 H21 V19 H3 Z M5,10 H19 V11.5 H5 Z M17,13 A1.5,1.5 0 1 0 17,16 A1.5,1.5 0 1 0 17,13 Z" />
+</vector>

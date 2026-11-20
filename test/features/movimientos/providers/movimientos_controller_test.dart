@@ -8,6 +8,7 @@ import 'package:app_gastos/features/movimientos/providers/movimientos_providers.
 import 'package:app_gastos/features/presupuesto/data/notificador.dart';
 import 'package:app_gastos/features/presupuesto/providers/presupuesto_providers.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,16 @@ class NotificadorFalso implements Notificador {
     required String cuerpo,
   }) async {
     llamadas.add((titulo: titulo, cuerpo: cuerpo));
+  }
+}
+
+class NotificadorQueFalla implements Notificador {
+  @override
+  Future<void> mostrar({
+    required String titulo,
+    required String cuerpo,
+  }) async {
+    throw StateError('fallo al mostrar');
   }
 }
 
@@ -158,6 +169,36 @@ void main() {
     expect(notificador.llamadas, hasLength(1));
     final alertas = await db.select(db.alertasEnviadas).get();
     expect(alertas.map((a) => a.mes), contains('2026-12'));
+  });
+
+  test('si el notificador falla, guardar devuelve el id y reporta el error',
+      () async {
+    final prefs = await SharedPreferences.getInstance();
+    final contenedor = ProviderContainer(
+      overrides: [
+        appDatabaseProvider.overrideWithValue(db),
+        sharedPreferencesProvider.overrideWithValue(prefs),
+        notificadorProvider.overrideWithValue(NotificadorQueFalla()),
+      ],
+    );
+    addTearDown(contenedor.dispose);
+    await contenedor.read(presupuestosRepositoryProvider).guardarTotal(100000);
+
+    final reportados = <FlutterErrorDetails>[];
+    final original = FlutterError.onError;
+    FlutterError.onError = reportados.add;
+    addTearDown(() => FlutterError.onError = original);
+
+    final id = await contenedor
+        .read(movimientosControllerProvider.notifier)
+        .guardar(input: entrada(montoCentimos: 85000));
+
+    expect(id, greaterThan(0));
+    final filas = await db.select(db.movimientos).get();
+    expect(filas.single.id, id);
+    expect(reportados, hasLength(1));
+    expect(reportados.single.exception, isA<StateError>());
+    expect(reportados.single.library, 'alertas');
   });
 
   test('eliminar borra el movimiento', () async {

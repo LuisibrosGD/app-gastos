@@ -5,15 +5,31 @@ import 'package:app_gastos/core/l10n/app_localizations.dart';
 import 'package:app_gastos/core/theme/app_theme.dart';
 import 'package:app_gastos/features/ajustes/providers/preferencias_providers.dart';
 import 'package:app_gastos/features/movimientos/ui/movimiento_form_screen.dart';
+import 'package:app_gastos/features/presupuesto/data/notificador.dart';
+import 'package:app_gastos/features/presupuesto/data/presupuestos_repository.dart';
+import 'package:app_gastos/features/presupuesto/providers/presupuesto_providers.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class NotificadorFalso implements Notificador {
+  final llamadas = <({String titulo, String cuerpo})>[];
+
+  @override
+  Future<void> mostrar({
+    required String titulo,
+    required String cuerpo,
+  }) async {
+    llamadas.add((titulo: titulo, cuerpo: cuerpo));
+  }
+}
+
 void main() {
   late AppDatabase db;
   late SharedPreferences prefs;
+  late NotificadorFalso notificador;
   late int catComida;
   late int catSueldo;
 
@@ -21,6 +37,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     prefs = await SharedPreferences.getInstance();
     db = AppDatabase(NativeDatabase.memory());
+    notificador = NotificadorFalso();
     catComida = await db
         .into(db.categorias)
         .insert(
@@ -52,6 +69,7 @@ void main() {
         overrides: [
           sharedPreferencesProvider.overrideWithValue(prefs),
           appDatabaseProvider.overrideWithValue(db),
+          notificadorProvider.overrideWithValue(notificador),
         ],
         child: MaterialApp(
           theme: construirTemaClaro(),
@@ -123,6 +141,26 @@ void main() {
     expect(find.text('abrir'), findsOneWidget);
     await cerrar(tester);
   });
+
+  testWidgets(
+    'guardar desde el formulario un gasto que cruza el 80 % notifica una vez',
+    (tester) async {
+      await preparar();
+      await PresupuestosRepository(db).guardarTotal(10000);
+      await abrirFormulario(tester);
+
+      await tester.enterText(find.byType(TextFormField), '85');
+      await tester.tap(find.text('Comida'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Guardar'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('abrir'), findsOneWidget);
+      expect(await db.select(db.movimientos).get(), hasLength(1));
+      expect(notificador.llamadas, hasLength(1));
+      await cerrar(tester);
+    },
+  );
 
   testWidgets('cambiar a Ingreso muestra solo categorías de ingreso', (
     tester,
