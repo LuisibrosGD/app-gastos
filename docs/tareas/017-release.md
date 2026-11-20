@@ -1,6 +1,6 @@
 # 017 — Build release y prueba en el teléfono
 
-**Estado:** BLOQUEADA
+**Estado:** APROBADA
 **Tipo:** configuración
 **Depende de:** 001–016
 **Referencias:** SPEC §7 (criterios de aceptación de la v1)
@@ -35,7 +35,7 @@ Es una app personal que no se publica en Play Store. El APK se firma con una cla
 - [x] P05: cambiar de mes y filtrar por categoría. **OK (ronda 2):** con el APK nuevo, el botón de categoría abre el selector al primer arranque, filtra y se puede limpiar el filtro.
 - [x] P06: el gráfico circular y las barras muestran los datos.
 - [x] P09: crear una categoría; intentar borrar una con movimientos → se archiva. **OK (ronda 2):** además se pueden ver las archivadas y restaurar una; el gasto sigue en el historial.
-- [ ] P07: presupuesto total pequeño; superar el 80 % → una sola notificación y banner en Inicio. **FALLA (ronda 2):** el banner aparece al momento, pero no llega ninguna notificación, ni siquiera con un presupuesto de categoría nuevo (prueba decisiva). Notificaciones de la app permitidas y canal «Presupuesto» activo. El 80 % no se repite porque ya se envió este mes (correcto); el 100 % era nuevo y tampoco llegó. Causa probable en el reporte.
+- [x] P07: presupuesto total pequeño; superar el 80 % → una sola notificación y banner en Inicio. ~~FALLA (ronda 2): el banner aparece al momento, pero no llega ninguna notificación, ni siquiera con un presupuesto de categoría nuevo (prueba decisiva). Notificaciones de la app permitidas y canal «Presupuesto» activo. El 80 % no se repite porque ya se envió este mes (correcto); el 100 % era nuevo y tampoco llegó. Causa probable en el reporte.~~ **OK (ronda 3, tras la tarea 022):** con un presupuesto de categoría nuevo de S/ 100, un gasto a mano de S/ 85 → 1 notificación al momento; otro de S/ 20 (pasa el 100 %) → 1 más; otro de S/ 5 → ninguna. El ícono pequeño se ve como una billetera blanca.
 - [x] P08: regla con el día de hoy → al reabrir la app aparece una sola vez.
 - [x] P10: cambiar a English → todo traducido; volver a Español.
 - [x] Activar PIN y huella; salir más de 1 minuto → pide desbloqueo; 5 PIN mal → espera de 30 s. **OK (ronda 2):** teclado de 4 dígitos con números desordenados, tecla de huella visible, 5 fallos → espera de 30 s y luego entra.
@@ -144,6 +144,26 @@ Es una app personal que no se publica en Play Store. El APK se firma con una cla
 
 ---
 
+## Reporte – ronda 3 (2026-11-20)
+
+**Motivo:** repetir solo P07 con el APK posterior a la tarea 022 (aprobada y commiteada en `7826746`). No se tocó código.
+
+**APK y comprobaciones:**
+- `flutter build apk --release --split-per-abi` → `app-armeabi-v7a-release.apk` (19.6 MB), `app-arm64-v8a-release.apk` (21.9 MB), `app-x86_64-release.apk` (23.2 MB), sin errores. El build tardó 7 s porque Gradle reutilizó el resultado del build anterior, que tenía el mismo código (el árbol coincide con el commit `7826746`).
+- No volví a ejecutar `flutter analyze` ni `flutter test` en esta ronda: no hay cambios de código desde la 022, que los dejó en verde (analyze sin problemas, 161 tests).
+- `git status --short` antes del build → solo `.commandcode/taste/taste.md` y `Cookies`, que no son de la tarea.
+- APK instalado por el usuario en su teléfono (arm64).
+
+**Resultado informado por el usuario (P07):** presupuesto de categoría nuevo de S/ 100, gastos a mano en esa categoría:
+- S/ 85 (pasa el 80 %) → **OK**: 1 notificación, al momento.
+- S/ 20 (pasa el 100 %) → **OK**: 1 notificación más.
+- S/ 5 → **OK**: ninguna notificación nueva.
+- Ícono pequeño → **OK**: billetera blanca. Con esto queda comprobado en el teléfono que `ic_notificacion` se incluye en el APK release.
+
+**Estado:** todo el checklist manual está en OK y los criterios de aceptación cumplidos. La tarea pasa a `LISTA_PARA_AUDITORIA`.
+
+---
+
 ## Auditoría
 *(La escribe Claude Code.)*
 
@@ -167,3 +187,17 @@ P07 falla y la corrige la tarea 022. Hay dos causas posibles y la 022 cubre las 
 - **Causa más probable (nueva):** `movimiento_form_screen.dart:127-129` llama a `guardar` con `ref.read(movimientosControllerProvider.notifier)` y nadie escucha ese provider. `MovimientosController` es `@riverpod` (se destruye solo cuando nadie lo usa). Tras el `await repositorio.crear(...)`, el `ref` puede estar ya destruido, y entonces `ref.read(alertasServiceProvider)` (`movimientos_providers.dart:58-60`) lanza una excepción que el `catch (_) {}` de la línea 61 oculta. Encaja con lo que se vio: en la ronda 1 sí llegó una notificación, pero desde el generador de recurrentes, que usa providers `keepAlive`. Ningún gasto creado a mano ha notificado nunca.
 - **Causa posible (la del reporte):** usar como ícono pequeño `@mipmap/ic_launcher`, que ahora es adaptativo. Como en la ronda 1 llegó una notificación con ese mismo ícono, es menos probable, pero un drawable monocromo es lo que pide Android y se añade igual.
 - En los dos casos el `catch (_) {}` impidió verlo. La 022 deja de silenciarlo.
+
+**Ronda 3 — 2026-11-20 — APROBADA**
+
+Verificado por mí, sin fiarme del reporte:
+- `flutter analyze` → sin problemas. `flutter test` → 161 en verde.
+- `git status`/`git diff`: lo único que cambió esta ronda es el checklist y el reporte de esta tarea (más `.commandcode/taste/taste.md` y `Cookies`, ajenos). No se tocó código desde el commit `7826746` (tarea 022), así que el APK probado corresponde a ese código.
+- Secretos: `android/key.properties`, `*.jks` y `*.keystore` están ignorados (`git check-ignore`), no existen en el disco y no hay ningún archivo así en `git ls-files`.
+- `build.gradle.kts`: la firma release se lee de `key.properties` y, si falta, se usa la de depuración. Es el comportamiento pedido.
+- Checklist: los 15 puntos están en OK. P07 quedó resuelto por la tarea 022 y confirmado en el teléfono: 80 % → 1 notificación al momento, 100 % → 1 más, un gasto más → ninguna, ícono de billetera blanca.
+- Criterios de aceptación: los 5 se cumplen (build release sin errores, sin secretos en el repo, checklist completo, analyze y test limpios).
+
+Observaciones, no bloquean y no requieren tarea:
+- El APK instalado sigue firmado con la clave de depuración, porque `key.properties` todavía no existe. Cuando generes tu clave propia, Android no dejará instalar encima un APK con otra firma: habrá que desinstalar la app, y se pierden los datos del teléfono. Si ya usas la app a diario, hazlo en un momento en que no te importe empezar de cero, o no lo hagas: para una app personal que no se publica, la firma de depuración funciona igual.
+- El retraso de ~5 minutos que se vio en la ronda 1 no se ha vuelto a ver con gastos a mano (llegan al momento), lo que apoya la explicación de que venía del generador de recurrentes al reabrir la app (R5).

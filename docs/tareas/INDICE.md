@@ -48,7 +48,7 @@
 | 014 | [Recurrentes: pantalla P08 y ciclo de vida](014-recurrentes-ui.md) | código | 010, 013 | APROBADA |
 | 015 | [Resumen P06 con gráficos](015-resumen.md) | código | 010 | APROBADA |
 | 016 | [Seguridad: PIN, huella y bloqueo P01](016-seguridad.md) | código | 014 | APROBADA |
-| 017 | [Build release y prueba en el teléfono](017-release.md) | configuración | 001–016 | BLOQUEADA (falta repetir P07 en el teléfono) |
+| 017 | [Build release y prueba en el teléfono](017-release.md) | configuración | 001–016 | APROBADA |
 | 018 | [Corrección: filtro por categoría de P05](018-fix-filtro-categoria.md) | código | 009 | APROBADA |
 | 019 | [Ver y restaurar categorías archivadas](019-categorias-archivadas.md) | código | 006 | APROBADA |
 | 020 | [Solo vertical, margen inferior y fila de recurrentes](020-vertical-margenes-recurrentes.md) | código | 017 (parcial) | APROBADA |
